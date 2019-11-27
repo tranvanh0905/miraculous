@@ -10,7 +10,7 @@ class Artist extends Model
     protected $table = "artists";
 
     protected $fillable = [
-        'nick_name', 'full_name', 'avatar', 'cover_image', 'about', 'follow', 'birthday', 'status'
+        'nick_name', 'full_name', 'avatar', 'cover_image', 'about', 'follow', 'birthday', 'status', 'date_of_death'
     ];
 
     public function songs(){

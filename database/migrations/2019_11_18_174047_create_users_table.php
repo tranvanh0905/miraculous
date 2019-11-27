@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('full_name')->nullable();
             $table->integer('gender')->default(1);
-            $table->string('avatar')->default('upload/user/user-ava-default.jpg');
+            $table->string('avatar')->default('client/images/user/user-ava-default.jpg');
             $table->date('birthday')->nullable();
             $table->integer('role')->default(100);
             $table->integer('status')->default(1);

@@ -41,6 +41,10 @@
                         @endif
                     </div>
                     <div class="form-group">
+                        <label class=" col-form-label">Ngày mất ( nếu có ) : </label>
+                        <input type="date" value="@if ($model->date_of_death !== null) {{$model->date_of_death}}@endif" name="date_of_death" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label class=" col-form-label">Giới thiệu : </label>
                         <textarea row="10" cols="5" name="about" class="form-control"
                                   placeholder="">{{$model->about}}</textarea>
