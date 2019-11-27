@@ -34,7 +34,7 @@ class UserPlaylistRequest extends FormRequest
         ];
 
         if (!$this->playlistId) {
-            $validate['cover_image'] = 'required|file|mimes:jpeg,png|max:2048';
+            $validate['cover_image'] = 'file|mimes:jpeg,png|max:2048';
         }
 
         return $validate;
@@ -46,7 +46,6 @@ class UserPlaylistRequest extends FormRequest
             'description.required' => 'Không được để trống mô tả !',
             'name.required' => 'Không được để trống tên danh sách phát !',
             'name.max' => 'Tên danh sách phát tối đa 50 kí tự!',
-            'cover_image.required' => "Bạn không được để trống ảnh danh sách phát!",
             'cover_image.mimes' => "Ảnh tải lên phải có định dạng .jpg .jpeg .png",
             'cover_image.max' => 'Ảnh tải lên giới hạn dung lượng không quá 2M',
         ];
