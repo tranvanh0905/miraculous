@@ -54,7 +54,7 @@ $(document).on('click', '.btn-follow', function () {
             } else {
                 divTarget.html('<i class="fas fa-user-plus"></i> Quan tâm').fadeIn();
                 $.notify({
-                    icon: 'fas fa-user-plus',
+                    icon: 'fas fa-user-minus',
                     message: data.msg
                 }, {
                     delay: 1000,

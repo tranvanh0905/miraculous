@@ -31,17 +31,19 @@
               \Illuminate\Support\Facades\Auth::id())->where('album_id', '=', $singleAlbum->id)->exists())
                                 <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album" data-id="{{$singleAlbum->id}}"><i
                                             class="fas fa-heart-broken "></i> Bỏ yêu
-                                    thích album</div>
+                                    thích album
+                                </div>
                             @else
                                 <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album" data-id="{{$singleAlbum->id}}"><i class="fas
-                                 fa-heart"></i> Yêu thích album</div>
+                                 fa-heart"></i> Yêu thích album
+                                </div>
                             @endif
                         @endif
                     </div>
                     <div class="about text-justify">
                         <h4 class="text-center">Mô tả</h4>
                         <p>
-                            {{$singleAlbum->description}}
+                            {!! $singleAlbum->description !!}
                         </p>
                     </div>
 

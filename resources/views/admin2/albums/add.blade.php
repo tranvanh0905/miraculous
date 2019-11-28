@@ -146,14 +146,14 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#imgPreview1').attr('src', e.target.result);
+                    $('#imgPreview').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        $("#fileInput1").change(function () {
+        $("#fileInput").change(function () {
             readURL(this);
         });
         $(document).ready(function () {
