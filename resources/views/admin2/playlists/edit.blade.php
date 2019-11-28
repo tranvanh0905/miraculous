@@ -29,6 +29,7 @@
                             @if ($song !== null)
                                 @foreach ($song as $list)
                                     <option
+                                        @if ($list->song == $playlist->song_id) {{"selected"}} @endif
                                         value="{{$list->id}}">{{$list->name}}</option>
                                 @endforeach
                             @endif
@@ -70,7 +71,8 @@
                         <select name="status" class="form-control">
                             <option value="">Lựa chọn trạng thái</option>
                             <option @if ($playlist->status == 1) {{'selected'}} @endif value="1">Hoạt động</option>
-                            <option @if ($playlist->status == 0) {{'selected'}} @endif  value="0">Không hoạt động</option>
+                            <option @if ($playlist->status == 0) {{'selected'}} @endif  value="0">Không hoạt động
+                            </option>
                         </select>
                         @if($errors->first('status'))
                             <span class="text-danger">{{$errors->first('status')}}</span>
@@ -95,6 +97,9 @@
             </div>
         </div>
     </div>
+
+@endsection
+@section('custom-js')
 
     <script>
         $(document).ready(function () {

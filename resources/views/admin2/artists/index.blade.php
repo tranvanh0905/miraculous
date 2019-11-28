@@ -115,6 +115,8 @@
                         "searchable": true,
                         "orderable": true,
                         'width': '25%',
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [2],
@@ -128,6 +130,8 @@
                         "searchable": true,
                         "orderable": false,
                         'width': '25%',
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [4],
@@ -191,13 +195,13 @@
                     $('body').on('click', '.btn-remove', function () {
                         let id = $(this).data('remove');
                         Swal.fire({
-                            title: 'Bạn có chắc chắn muốn xóa bài hát này',
+                            title: 'Bạn có chắc chắn muốn xóa ca sĩ này',
                             text: "Bạn sẽ không lấy lại được dữ liệu đã xóa!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Có, xóa bài hát!'
+                            confirmButtonText: 'Có, xóa ca sĩ!'
                         }).then((result) => {
                             if (result.value) {
                                 $.ajax({
@@ -206,8 +210,8 @@
                                 }).done((result) => {
                                     if (result) {
                                         Swal.fire(
-                                            'Xóa bài hát!',
-                                            'Bài hát đã bị xóa',
+                                            'Xóa ca sĩ!',
+                                            'Ca sĩ đã bị xóa',
                                             'success'
                                         )
                                     }

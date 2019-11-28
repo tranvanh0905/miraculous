@@ -99,10 +99,7 @@
 @section('custom-js')
     <script>
         $(document).ready(function () {
-            $(function () {
-                // Summernote
-                $('.textarea').summernote()
-            })
+
             $('.js-example-basic-multiple').select2();
         });
 

@@ -9,7 +9,7 @@ class Playlist extends Model
     protected $table = 'playlists';
 
     protected $fillable = [
-        'name', 'description', 'cover_image', 'upload_by_user_id', 'status'
+        'name', 'description', 'cover_image', 'upload_by_user_id', 'status', 'id'
     ];
 
     public function songs()

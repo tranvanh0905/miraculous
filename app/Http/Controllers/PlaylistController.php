@@ -66,9 +66,8 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::find($playlist_id);
         $song_of_playlist = PlaylistDetail::where('playlist_id', $playlist_id)->get();
-        dd($song_of_playlist[0]->song);
         $song = Song::all();
-        return view('admin2.playlists.edit', compact(['song', 'playlist']));
+        return view('admin2.playlists.edit', compact(['song', 'playlist', 'song_of_playlist']));
     }
 
     public function actionUpdate(EditPlaylist $request, $playlist_id) {

@@ -114,18 +114,23 @@
                         "targets": [1],
                         "searchable": true,
                         "orderable": true,
+                        'width' : "20%",
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [2],
                         "searchable": false,
                         "orderable": false,
-                        "width": "8%",
+                        "width": "20%",
                         "class": "text-center"
                     },
                     {
                         "targets": [3],
                         "searchable": true,
                         "orderable": false,
+                        "width" : "10%",
+                        "class" : "text-center",
                     },
                     {
                         "targets": [4],
@@ -187,7 +192,7 @@
                         render: function (data, type, row) {
                             let html = `<a href="songs/update/${data}" data-edit="' + data + '" class="mr-3"><i class="nav-icon fas
                             fa-edit"></i></a><a
-                            href="javascript:;" data-remove="${data}" class="btn-remove text-danger"><i class="fas fa-trash-alt"></i></a>`;
+                            href="users/delete/${data}" data-remove="${data}" class="btn-remove text-danger"><i class="fas fa-trash-alt"></i></a>`;
                             return html;
                         },
                     }
@@ -198,13 +203,13 @@
                     $('body').on('click', '.btn-remove', function () {
                         let id = $(this).data('remove');
                         Swal.fire({
-                            title: 'Bạn có chắc chắn muốn xóa bài hát này',
+                            title: 'Bạn có chắc chắn muốn xóa tài khoản này',
                             text: "Bạn sẽ không lấy lại được dữ liệu đã xóa!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Có, xóa bài hát!'
+                            confirmButtonText: 'Có, xóa tài khoản!'
                         }).then((result) => {
                             if (result.value) {
                                 $.ajax({
@@ -213,8 +218,8 @@
                                 }).done((result) => {
                                     if (result) {
                                         Swal.fire(
-                                            'Xóa bài hát!',
-                                            'Bài hát đã bị xóa',
+                                            'Xóa tài khoản!',
+                                            'Tài khoản đã bị xóa',
                                             'success'
                                         )
                                     }

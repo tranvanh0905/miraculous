@@ -8,7 +8,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex align-items-center">
-                <a href="{{route('songs.add')}}" class="btn btn-primary mr-auto"> <i class="nav-icon fas fa-plus"></i> Thêm bài hát</a>
+                <a href="{{route('songs.add')}}" class="btn btn-primary mr-auto"> <i class="nav-icon fas fa-plus"></i>
+                    Thêm bài hát</a>
                 <form action="">
                     <div class="card-tools ml-auto">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -114,6 +115,9 @@
                         "targets": [1],
                         "searchable": true,
                         "orderable": true,
+                        "width": "20%",
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [2],
@@ -126,6 +130,9 @@
                         "targets": [3],
                         "searchable": true,
                         "orderable": false,
+                        "width": "15%",
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [4],

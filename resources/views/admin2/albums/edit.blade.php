@@ -161,6 +161,9 @@
         $(document).ready(function () {
             bsCustomFileInput.init();
         });
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
     </script>
 @endsection
 

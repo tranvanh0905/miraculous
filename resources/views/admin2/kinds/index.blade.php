@@ -114,18 +114,22 @@
                         "targets": [1],
                         "searchable": true,
                         "orderable": true,
+                        "width" : "30%",
+                        "class": "text-center"
+
                     },
                     {
                         "targets": [2],
                         "searchable": false,
                         "orderable": false,
-                        "width": "8%",
+                        "width": "30%",
                         "class": "text-center"
                     },
                     {
                         "targets": [3],
                         "searchable": true,
                         "orderable": false,
+                        "class" : "text-center",
                     },
                     {
                         "targets": [4],
@@ -178,7 +182,7 @@
                     $('body').on('click', '.btn-remove', function () {
                         let id = $(this).data('remove');
                         Swal.fire({
-                            title: 'Bạn có chắc chắn muốn xóa bài hát này',
+                            title: 'Bạn có chắc chắn muốn xóa thể loại này',
                             text: "Bạn sẽ không lấy lại được dữ liệu đã xóa!",
                             icon: 'warning',
                             showCancelButton: true,
