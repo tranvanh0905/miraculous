@@ -9,7 +9,7 @@
     <div class="container">
         <section>
             <div class="title-box">
-                <h4 class="title h3 text-uppercase">Tất cả thể loại</h4>
+                <h4 class="title h3 text-uppercase">Tất cả thể loại s</h4>
             </div>
             <div class="genres-list row">
                 @foreach($allGenres as $genres)

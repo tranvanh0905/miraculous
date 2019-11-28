@@ -12,14 +12,28 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Trang chủ
+
 Route::get('/', 'ClientController@index')->name('client.home');
 
-//All page
+//Đăng nhập và đăng ký, đăng xuất
+
+Route::get('login', 'Auth\LoginController@loginForm')->name('login');
+
+Route::post('login', 'Auth\LoginController@postLogin');
+
+Route::get('registration', 'Auth\RegisterController@regForm')->name('reg');
+
+Route::post('registration', 'Auth\RegisterController@postReg');
+
+Route::get('logout', 'Auth\LoginController@logOut')->name('logout');
+
+//Các trang tất cả
 
 Route::get('all/{type}', 'ClientController@all')->name('all');
 
 
-//Single page
+//Các trang chi tiết
 
 Route::get('single-album/{albumId}', 'ClientController@singleAlbum')->name('singleAlbum');
 
@@ -31,66 +45,38 @@ Route::get('single-genre/{genresId}', 'ClientController@singleGenres')->name('si
 
 Route::get('single-song/{songId}', 'ClientController@singleSong')->name('singleSong');
 
+//Bảng xếp hạng
 
-//Login and reg
+Route::get('chart', 'ClientController@chart')->name('client.chart');
 
-Route::get('login', 'Auth\LoginController@loginForm')->name('login');
+//Bảng xếp hạng bài hát
 
-Route::post('login', 'Auth\LoginController@postLogin');
+Route::get('chart/song', 'ClientController@chartSong')->name('client.chart-song');
 
-Route::get('registration', 'Auth\RegisterController@regForm')->name('reg');
+//Bảng xếp hạng album
 
-Route::post('registration', 'Auth\RegisterController@postReg');
+Route::get('chart/album', 'ClientController@chartAlbum')->name('client.chart-album');
 
-//Logout
-Route::get('logout', 'Auth\LoginController@logOut')->name('logout');
-
-//Genres page
-
-Route::get('genres','ClientController@genres')->name('client.genres');
-
-//Chart page
-
-Route::get('top-albums', function () {
-    return view('client.top-albums');
-})->name('topAlbums');
-
-Route::get('top-artists', function () {
-    return view('client.top-artists');
-})->name('topArtists');
-
-Route::get('weekly-top-ten', function () {
-    return view('client.weekly-top-ten');
-})->name('weeklyTopTen');
-
-//Brower page
+//Khám phá
 
 Route::get('brower', 'ClientController@brower')->name('client.brower');
 
-//Chart  page
-Route::get('chart', 'ClientController@chart')->name('client.chart');
-
-//Chart song page
-Route::get('chart/song', 'ClientController@chartSong')->name('client.chart-song');
-
-//Chart album page
-Route::get('chart/album', 'ClientController@chartAlbum')->name('client.chart-album');
-
-//Search
+//Tìm kiếm
 Route::get('/search', 'ClientController@search')->name('search');
 
 
 //-------- Player route --------------//
 
-//Play song
+//Phát bài hát
 Route::get('/song/{songId}', 'ClientPlayerController@getSong');
 
-//Play album
+//Phát album
 Route::get('/album/{albumId}', 'ClientPlayerController@getSongOfAlbum');
 
-//Play playlist
+//Phát danh sách phát
 Route::get('/playlist/{playlistId}', 'ClientPlayerController@getSongOfPlaylist');
 
+//Check, like
 Route::group(['middleware' => 'request.check'], function () {
     Route::get('/update-view/{songId}', 'ClientPlayerController@updateView');
 

@@ -2,7 +2,7 @@
 
 @section('title')
     Tất cả @if($type == 'albums') Album @elseif($type == 'songs') Bài hát @elseif($type == 'playlists') Danh sách phát @elseif($type == 'artists')
-        Ca sĩ @endif
+        Ca sĩ @elseif($type == 'genres') Thể loại @endif
 @endsection
 
 @section('content')
@@ -43,6 +43,11 @@
                     @endforeach
 
                 </div>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        {{ $allAlbum->links() }}
+                    </div>
+                </div>
             </main>
             <div class="pt-e-20 pt-e-lg-40"></div>
         </div>
@@ -80,6 +85,11 @@
                         </div>
                     @endforeach
 
+                </div>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        {{ $allPlaylist->links() }}
+                    </div>
                 </div>
             </main>
             <div class="pt-e-20 pt-e-lg-40"></div>
@@ -123,6 +133,11 @@
                     @endforeach
 
                 </div>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        {{ $allSong->links() }}
+                    </div>
+                </div>
             </main>
             <div class="pt-e-20 pt-e-lg-40"></div>
         </div>
@@ -154,8 +169,55 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        {{ $allArtist->links() }}
+                    </div>
+                </div>
             </main>
             <div class="pt-e-20 pt-e-lg-40"></div>
+        </div>
+    @elseif($type == 'genres')
+        <div class="container">
+            <section>
+                <div class="title-box">
+                    <h4 class="title h3 text-uppercase">Tất cả thể loại s</h4>
+                </div>
+                <div class="genres-list row">
+                    @foreach($allGenres as $genres)
+                        <div class="item col-lg-2 mb-3">
+                            <div class="img-box-text-over lg box-rounded-lg">
+                                <img src="{{$genres->image}}"
+                                     data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" class="img-genres">
+                                <div
+                                        class="absolute-info d-flex flex-column justify-content-between">
+                                    <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">Thể Loại
+                                    </div>
+                                    <div>
+                                        <h4 class="fs-7 m-0 text-light text-center"><span
+                                                    class="font-weight-bold">{{$genres->name}}</span>
+                                        </h4>
+                                    </div>
+                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
+                                        <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
+                                           class="color-white">Xem thể loại<span
+                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        version="1.1"><use
+                                                            xlink:href="#icon-see-all-arrow-right"/></svg></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        {{ $allGenres->links() }}
+                    </div>
+                </div>
+            </section>
         </div>
     @endif
 @endsection

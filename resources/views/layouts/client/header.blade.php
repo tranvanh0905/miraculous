@@ -20,7 +20,7 @@
                                 <a class="nav-link" href="{{route('client.brower')}}">Khám phá</a>
                             </li>
                             <li class="menu-item">
-                                <a class="nav-link" href="{{route('client.genres')}}">Thể loại</a>
+                                <a class="nav-link" href="{{route('all', ['type' => 'genres'])}}">Thể loại</a>
                             </li>
                             <li class="menu-item">
                                 <a class="nav-link" href="{{route('client.chart')}}">#MicraChart</a>

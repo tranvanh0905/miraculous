@@ -41,7 +41,7 @@
                             </div>
                             <div class="about">
                                 <h4>Mô tả</h4>
-                                <p>{{$singleSong->description}}</p>
+                                <p>{!! $singleSong->description !!}</p>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@
                                 <hr>
                                 <b><i class="fas fa-music fa-1x mb-3"></i> Lời bài hát</b>
                                 <p style="height:auto;">
-                                    {{$singleSong->lyric}}
+                                    {!! $singleSong->lyric !!}
                                 </p>
                             </div>
                             <hr>
@@ -98,13 +98,15 @@
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="col-12  pt-4 customer-review">
-                                        <h4>Bình luận của người cùng nghe</h4>
-                                        <div class="all-comment scroll-y">
-
-                                        </div>
-                                    </div>
                                 @endif
+                                <div class="col-12  pt-4    customer-review">
+                                    <h4>Bình luận của người cùng nghe</h4>
+                                    <div class="all-comment scroll-y">
+                                        @if(\App\Model_client\Comment::where('song_id', '=', $singleSong->id)->exists())
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="pb-2"></div>
                             </div>
                         </div>
@@ -321,9 +323,7 @@
 @section('script')
     <script>
         $(document).ready(function () {
-
-            $(".btn-submit").click(function (e) {
-                e.preventDefault();
+            $(document).on('click', '.btn-submit', function () {
                 let print_err = $(".print-error-msg");
                 let _token = $("input[name='_token']").val();
                 let content = $("textarea[name='content']").val();

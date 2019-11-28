@@ -19,7 +19,7 @@ class ClientController extends Controller
 {
     //-------------------------------------------//
 
-    //Index page controller
+    //Index
 
     public function index()
     {
@@ -52,7 +52,7 @@ class ClientController extends Controller
         return view('client.index', compact('latestSongs', 'allGenres', 'latestAbums', 'randomSong', 'mostViewAlbum', 'playLists', 'artists'));
     }
 
-    //Brower page
+    //Khám phá
     public function brower()
     {
         $allSong = Song::select('songs.*', 'users.id as user_id', 'users.role')->join('users', 'songs.upload_by_user_id', '=', 'users.id')
@@ -70,21 +70,7 @@ class ClientController extends Controller
         return view('client.brower', compact('allSong', 'allAlbum', 'allPlaylist'));
     }
 
-    //Genres page
-    public function genres()
-    {
-        $allGenres = Genres::latest('id')->paginate(18);
-
-        return view('client.all-genres', compact('allGenres'));
-    }
-
-    //Chart song page
-    public function chart()
-    {
-        return view('client.chart');
-    }
-
-    //Chart song page
+    //Bảng xếp hạng bài hát
     public function chartSong()
     {
 
@@ -97,7 +83,7 @@ class ClientController extends Controller
         return view('client.chart-song', compact('top50song', 'allGenres'));
     }
 
-    //Chart album page
+    //Bảng xếp hạng album
     public function chartAlbum()
     {
 
@@ -108,34 +94,38 @@ class ClientController extends Controller
         return view('client.chart-album', compact('top50album', 'allGenres'));
     }
 
-    //All page
+    //Tất cả bài hát, album, playlist
 
     public function all($type)
     {
         if ($type == 'albums') {
-            $allAlbum = Album::orderBy('release_date', 'desc')->with('artist')->get();
+            $allAlbum = Album::orderBy('release_date', 'desc')->with('artist')->paginate(50);
 
             return view('client.all', compact('allAlbum', 'type'));
         } else if ($type == 'playlists') {
-            $allPlaylist = Playlist::orderBy('id', 'desc')->with('songs')->get();
+            $allPlaylist = Playlist::where('status', '=', 1)->orderBy('id', 'desc')->with('songs')->paginate(50);
 
             return view('client.all', compact('allPlaylist', 'type'));
         } else if ($type == 'songs') {
 
-            $allSong = Song::orderBy('release_date', 'desc')->with('artists')->get();
+            $allSong = Song::where('status', '=', 1)->orderBy('release_date', 'desc')->with('artists')->paginate(50);
 
             return view('client.all', compact('allSong', 'type'));
         } else if ($type == 'artists') {
-            $allArtist = Artist::orderBy('id', 'desc')->with('songs')->get();
+            $allArtist = Artist::where('status', '=', 1)->orderBy('id', 'desc')->with('songs')->paginate(50);
 
             return view('client.all', compact('allArtist', 'type'));
+        } else if ($type == 'genres'){
+            $allGenres = Genres::where('status', '=', 1)->orderBy('id', 'desc')->paginate(50);
+
+            return view('client.all', compact('allGenres', 'type'));
         }
 
         return redirect(route('client.home'));
 
     }
 
-    //Song detail page
+    //Chi tiết bài hát
 
     public function singleSong($songId)
     {
@@ -160,10 +150,11 @@ class ClientController extends Controller
         $mostLikeSong = Song::orderBy('like')->limit(10)->with('artists')->get();
 
 
-        return view('client.single-song', compact('singleSong', 'relatedSong', 'genres', 'artists', 'mostLikeSong', 'relatedSongArtist', 'comment'));
+        return view('client.detail-page.single-song', compact('singleSong', 'relatedSong', 'genres', 'artists', 'mostLikeSong', 'relatedSongArtist',
+            'comment'));
     }
 
-    //Comment song
+    //Bình luận bài hát
 
     public function commentSong(CommentRequest $request)
     {
@@ -176,7 +167,7 @@ class ClientController extends Controller
         return response()->json(['success' => 'Thêm bình luận thành công']);
     }
 
-    //fetch comment
+    //Lấy bình luận bài hát
 
     public function fetchComment(Request $request){
         $allComment = Comment::where('song_id', '=', $request->id)->orderBy('id', 'desc')->get();
@@ -184,7 +175,7 @@ class ClientController extends Controller
         return view('client.fetch-comment', compact('allComment'));
     }
 
-    //Album detail page
+    //Chi tiết album
 
     public function singleAlbum($albumId)
     {
@@ -195,10 +186,10 @@ class ClientController extends Controller
 
         $relateAlbum = Album::where('artist_id', '=', $singleAlbum->artist_id)->where('id', '<>', $singleAlbum->id)->get();
 
-        return view('client.single-album', compact('singleAlbum', 'songOfAlbum', 'relateAlbum'));
+        return view('client.detail-page.single-album', compact('singleAlbum', 'songOfAlbum', 'relateAlbum'));
     }
 
-    //Playlist detail page
+    //Chi tiết danh sách phát
 
     public function singlePlaylist($playlistId)
     {
@@ -209,37 +200,35 @@ class ClientController extends Controller
             $query->where('role', '>', 500);
         })->limit(10)->get();
 
-        return view('client.single-playlist', compact('singlePlaylist', 'relatedPlaylist'));
+        return view('client.detail-page.single-playlist', compact('singlePlaylist', 'relatedPlaylist'));
     }
 
-    //Genres detail page
+    //Chi tiết thể loại
 
     public function singleGenres($genresId)
     {
         $genres = Genres::find($genresId);
 
-        $latestSong = Song::latest('release_date')->where('genres_id', '=', $genresId)->limit(20)->get();
+        $songOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->paginate(42);
 
-        $songOfGenres = Song::where('genres_id', '=', $genresId)->paginate(18);
+        $otherGenres = Genres::limit(6)->where('status', '=', 1)->get();
 
-        $otherGenres = Genres::limit(6)->get();
+        $mostViewOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->orderBy('view', 'desc')->get();
 
-        $mostLikeGenres = Song::where('genres_id', '=', $genresId)->orderBy('like', 'desc')->get();
-
-        return view('client.single-genres', compact('genres', 'latestSong', 'songOfGenres', 'otherGenres', 'mostLikeGenres'));
+        return view('client.detail-page.single-genres', compact('genres', 'songOfGenres', 'otherGenres', 'mostViewOfGenres'));
     }
 
-    //Artist detail page
+    //Chi tiết ca sĩ
 
     public function singleArtist($artistId)
     {
         $singleArtist = Artist::find($artistId)->load('songs.artists', 'albums');
 
 
-        return view('client.single-artist', compact('singleArtist'));
+        return view('client.detail-page.single-artist', compact('singleArtist'));
     }
 
-    //Search page
+    //Trang tìm kiếm
 
     public function search(Request $request)
     {
