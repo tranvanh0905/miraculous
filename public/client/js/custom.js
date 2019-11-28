@@ -19,7 +19,9 @@ $(document).on('keyup', '.search-input', function () {
             'search': value
         },
         success: function (data) {
-            $('#searchsong').html(data);
+            $('#searchsong').html(data.songs);
+            $('#searchalbum').html(data.albums);
+            $('#searchartist').html(data.artists);
         }
     });
 });
@@ -377,7 +379,7 @@ $(document).on('click', '.add-user-playlist', function (e) {
         url: 'add-song-user-playlist/' + songId + '/' + playlistId,
         success: function (data) {
             $.notify({
-                icon: 'glyphicon glyphicon-ok',
+                icon: 'fas fa-check-circle',
                 message: data.msg
             });
         }

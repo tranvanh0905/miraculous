@@ -11,7 +11,6 @@
             <div class="pt-4 pt-lg-5"></div>
 
             <div class="row">
-
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-3 text-center">
@@ -115,7 +114,67 @@
                     <div class="more-items pt-4">
                         <div class="d-flex flex-row">
                             <div class="title-box">
-                                <h2 class="title h3-md">Bài hát cùng thể loại</h2>
+                                <h3 class="title h3-md text-uppercase">Nghe thêm của ca sĩ này</h3>
+                            </div>
+                        </div>
+
+                        <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
+                             data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
+                             data-item-width="260" data-item-max-width="280">
+                            <div class="gutter-30">
+                                <div class="owl-carousel owl-theme-adonis">
+                                    <div class="item hover-bg-item">
+                                        <?php
+                                        $count_loop = 0;
+                                        $html = '</div><div class="item">';
+                                        ?>
+                                        @foreach($relatedSongArtist as $song)
+                                            <?php $count_loop++ ?>
+                                            <div class="music-img-box">
+                                                <div class="img-box box-rounded-sm">
+                                                    <img class="retina"
+                                                         src="{{url($song->cover_image)}}"
+                                                         data-2x="{{url($song->cover_image)}}"
+                                                         alt="">
+                                                    <div class="hover-state">
+                                                        <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="song"
+                                                              data-album-id="{{$song->id}}"><i
+                                                                    class="play-icon"></i></span>
+                                                        </div>
+                                                        <div class="absolute-top-right pr-e-20 pt-e-20">
+                                                        <span class="pointer dropdown-menu-toggle"><span
+                                                                    class="adonis-icon icon-4x"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
+                                                                            xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])
+                                                }}">{{$song->name}}</a></h6>
+                                                <p class="sub-title category mb-4">
+                                                    @foreach($song->artists as $artist)
+                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a>
+                                                    @endforeach
+                                                </p>
+                                            </div>
+                                            @if($count_loop % 1==0)
+                                                {!!$html!!}
+                                            @endif
+                                        @endforeach
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-e-5 pt-e-lg-10"></div>
+                    </div>
+
+                    <div class="more-items ">
+                        <div class="d-flex flex-row">
+                            <div class="title-box">
+                                <h3 class="title h3-md text-uppercase">Bài hát cùng thể loại</h3>
                             </div>
                             <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                                 <a href="{{route('singleGenres', ['genres_id' => $singleSong->genres_id])}}">Xem thêm<span class="adonis-icon pl-1
@@ -179,71 +238,11 @@
 
                         <div class="pt-e-5 pt-e-lg-10"></div>
                     </div>
-
-                    <div class="more-items">
-                        <div class="d-flex flex-row">
-                            <div class="title-box">
-                                <h2 class="title h3-md">Có thể bạn quan tâm</h2>
-                            </div>
-                        </div>
-
-                        <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
-                             data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
-                             data-item-width="260" data-item-max-width="280">
-                            <div class="gutter-30">
-                                <div class="owl-carousel owl-theme-adonis">
-                                    <div class="item hover-bg-item">
-                                        <?php
-                                        $count_loop = 0;
-                                        $html = '</div><div class="item">';
-                                        ?>
-                                        @foreach($relatedSongArtist as $song)
-                                            <?php $count_loop++ ?>
-                                            <div class="music-img-box">
-                                                <div class="img-box box-rounded-sm">
-                                                    <img class="retina"
-                                                         src="{{url($song->cover_image)}}"
-                                                         data-2x="{{url($song->cover_image)}}"
-                                                         alt="">
-                                                    <div class="hover-state">
-                                                        <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="song"
-                                                              data-album-id="{{$song->id}}"><i
-                                                                    class="play-icon"></i></span>
-                                                        </div>
-                                                        <div class="absolute-top-right pr-e-20 pt-e-20">
-                                                        <span class="pointer dropdown-menu-toggle"><span
-                                                                    class="adonis-icon icon-4x"><svg
-                                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                                            xlink:href="#icon-horizontal-dots"></use></svg></span></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])
-                                                }}">{{$song->name}}</a></h6>
-                                                <p class="sub-title category mb-4">
-                                                    @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a>
-                                                    @endforeach
-                                                </p>
-                                            </div>
-                                            @if($count_loop % 1==0)
-                                                {!!$html!!}
-                                            @endif
-                                        @endforeach
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pt-e-5 pt-e-lg-10"></div>
-                    </div>
                 </div>
 
                 <div class="col-md-3 order-md-1 flex-column-sidebar-md sidebar">
                     <div class="widget">
-                        <h3 class="widget-title h3-md">Thể loại</h3>
+                        <h3 class="widget-title h3-md text-uppercase">Thể loại</h3>
                         <div class="tagcloud">
                             @foreach($genres as $genre)
                                 <a href="{{route('singleGenres', ['genresId' => $genre->id])}}">{{$genre->name}}</a>
@@ -252,7 +251,7 @@
                     </div>
                     <div class="widget">
                         <div class="d-flex justify-content-between inactive-colored-links">
-                            <h4 class="widget-title">Nghệ sĩ nổi bật</h4>
+                            <h3 class="widget-title text-uppercase h3-md">Nghệ sĩ nổi bật</h3>
                             <a href="{{route('all', ['type' => 'artists'])}}" class="inactive-color mt-2">Xem tất cả</a>
                         </div>
                         @foreach($artists as $artist)
@@ -277,36 +276,72 @@
                                                         d="M31.286 0.469c-0.363-0.305-0.818-0.469-1.285-0.469-0.115 0-0.232 0.010-0.348 0.031l-17.002 3c-0.956 0.168-1.652 0.998-1.652 1.969v17.17c-1.015-0.736-2.332-1.17-3.794-1.17-0.85 0-1.7 0.141-2.529 0.416-1.898 0.633-3.42 1.902-4.176 3.484-0.584 1.223-0.659 2.553-0.214 3.746 0.761 2.038 2.923 3.354 5.508 3.354 0.85 0 1.7-0.139 2.528-0.416 1.897-0.631 3.419-1.9 4.175-3.48 0.325-0.682 0.477-1.396 0.483-2.104h0.018v-16c0.115 0 0.232-0.010 0.348-0.029l16.655-2.939v12.138c-1.016-0.736-2.332-1.17-3.795-1.17-0.85 0-1.701 0.141-2.529 0.416-1.898 0.633-3.42 1.902-4.174 3.484-0.584 1.223-0.66 2.553-0.215 3.746 0.762 2.038 2.922 3.354 5.508 3.354 0.85 0 1.701-0.139 2.529-0.416 1.896-0.631 3.418-1.9 4.174-3.48 0.326-0.682 0.477-1.396 0.484-2.104h0.018v-21c0-0.59-0.262-1.152-0.715-1.531zM7.688 29.688c-2.396 0.799-4.873 0.018-5.529-1.74-0.658-1.76 0.751-3.834 3.146-4.633 2.396-0.799 4.873-0.020 5.529 1.74 0.659 1.759-0.75 3.834-3.146 4.633zM26.653 26.688c-2.398 0.799-4.875 0.018-5.531-1.74-0.658-1.76 0.752-3.834 3.146-4.633 2.398-0.799 4.875-0.020 5.531 1.74 0.659 1.759-0.749 3.834-3.146 4.633zM29.96 5l-17.002 3v-3l17.002-3v3z"></path></svg>
                                             {{count($artist->songs)}}</span>
                                     </div>
-                                    <div class="float-right"><a class="btn btn-outline btn-sm" href="#">Theo dõi</a></div>
+                                    <div class="float-right">
+                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                            <a href="javascript:;" class="btn btn-primary btn-follow text-light" data-artist-id="{{$artist->id}}">
+
+                                                @if(!\App\Model_client\UserFollowDetail::where('user_id', '=',
+                                                \Illuminate\Support\Facades\Auth::user()->id)
+                                                ->where
+                                                ('artist_id', '=', $artist->id)->exists())
+                                                    <i class="fas fa-user-plus"></i> Quan tâm
+                                                @else
+                                                    <i class="fas fa-user-minus"></i> Bỏ quan tâm
+                                                @endif
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                     <div class="widget">
-                        <div class="d-flex justify-content-between inactive-colored-links mb-3">
-                            <h4>Bài hát được yêu thích nhiều</h4>
+                        <div class="d-flex justify-content-between inactive-colored-links">
+                            <h3 class="text-uppercase widget-title h3-md">Bài hát được yêu thích nhiều</h3>
                         </div>
                         @foreach($mostLikeSong as $song)
-                            <div class="img-box-horizontal music-img-box img-box-horizontal-style-2">
+                            <div class="img-box-horizontal music-img-box img-box-horizontal-style-2 h-g-bg h-d-shadow">
                                 <div class="img-box img-box-sm box-rounded-sm">
-                                    <img src="{{url($song->cover_image)}}" alt="{{$song->name}}">
+                                    <img src="{{$song->cover_image}}" alt="{{$song->name}}">
                                 </div>
                                 <div class="des">
-                                    <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a></h6>
+                                    <h6 class="title fs-2"><a
+                                                href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                    </h6>
                                     <p class="sub-title">
                                         @foreach($song->artists as $artist)
-                                            <a href="#">{{$artist->nick_name}}</a>
+                                            <a href="{{route('singleArtist', ['artistId' => $artist->id])
+                                                            }}">{{$artist->nick_name}}</a>
                                         @endforeach
                                     </p>
                                 </div>
                                 <div class="hover-state d-flex justify-content-between align-items-center">
-                                    <span class="pointer play-btn-dark box-rounded-sm adonis-album-button" data-type="song"
-                                          data-album-id="{{$song->id}}"><i
-                                                class="play-icon"></i></span>
+                                                    <span class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                          data-type="song"
+                                                          data-album-id="{{$song->id}}"><i
+                                                                class="play-icon"></i>
+                                                    </span>
                                     <div class="d-flex align-items-center">
-                                    <span class="adonis-icon color-active pointer mr-2 icon-2x"><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                    xlink:href="#icon-heart-blank"></use></svg></span>
-                                        <span class="pointer dropdown-menu-toggle"><span class="icon-dot-nav-horizontal color-active"></span></span>
+                                                        <span class="adonis-icon text-light pointer mr-2 icon-2x">
+                                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                                                @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
+                                                                    <span class="adonis-icon icon-2x box-like-global">
+                                                                    <i class="far fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                       data-id="{{$song->id}}"
+                                                                    ></i>
+                                                                  </span>
+                                                                @else
+                                                                    <span class="adonis-icon icon-2x box-dis-like-global">
+                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                   data-id="{{$song->id}}"></i>
+                                                                </span>
+                                                                @endif
+                                                                <span class="pointer dropdown-menu-toggle"
+                                                                      data-songid="{{$song->id}}" data-link="123">
+                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                            @endif
+                                                        </span>
                                     </div>
                                 </div>
                             </div>

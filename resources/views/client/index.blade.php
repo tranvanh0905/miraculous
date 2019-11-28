@@ -56,12 +56,17 @@
                                                                         data-type="song" data-album-id="{{$song->id}}"><i
                                                                             class="play-icon"></i></span>
                                                 </div>
-                                                <div class="absolute-top-right pr-e-20 pt-e-20">
-                                            <span class="pointer dropdown-menu-toggle"><span
-                                                        class="adonis-icon icon-4x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                         version="1.1"><use
-                                                                xlink:href="#icon-horizontal-dots"></use></svg></span></span>
-                                                </div>
+                                                @if(\Illuminate\Support\Facades\Auth::check())
+                                                    <div class="absolute-top-right pr-e-20 pt-e-20">
+                                                        <span class="pointer dropdown-menu-toggle">
+                                                            <span class="adonis-icon icon-4x">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                                                    <use xlink:href="#icon-horizontal-dots"></use>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <h6 class="title"><a
@@ -80,9 +85,10 @@
                 </div>
             </section>
 
+
             <section>
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-xl-6">
                         <div class="d-flex flex-row">
                             <div class="title-box">
                                 <h2 class="title h3-md">Bài Hát Mới</h2>
@@ -156,7 +162,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-xl-6">
                         <div class="d-flex">
                             <div class="title-box">
                                 <h2 class="title h3-md">Album Thích Nhiều Nhất</h2>
@@ -466,7 +472,7 @@
                                         h-underline">{{$artist->nick_name}}</a>
                                     </h5>
                                     <p class="sub-title"><span class="count-follow" data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
-                                        người theo dõi</p>
+                                        người quan tâm</p>
                                 </div>
                                 @if(\Illuminate\Support\Facades\Auth::check())
                                     <a href="javascript:;" class="btn btn-primary btn-follow" data-artist-id="{{$artist->id}}">

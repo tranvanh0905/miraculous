@@ -7,7 +7,7 @@
     <div class="search-inner search-inner-up d-flex align-items-center">
         <div class="master-container-fluid d-flex align-items-center">
             <form class="search-form">
-                <input class="search-input" name="search" type="search" placeholder="Start typing..." autocomplete="off"
+                <input class="search-input" name="search" type="search" placeholder="Gõ từ khóa..." autocomplete="off"
                        spellcheck="false">
             </form>
         </div>
@@ -20,22 +20,17 @@
                     <li class="menu-item active">
                         <a class="nav-link active m-item fs-7 pr-3 pl-0" id="search-tab-songs" data-toggle="tab"
                            href="#search-content-songs" role="tab" aria-controls="search-content-songs"
-                           aria-selected="true">Songs</a>
+                           aria-selected="true">Bài hát</a>
                     </li>
                     <li class="menu-item">
                         <a class="nav-link m-item fs-7 pr-3 pl-3" id="search-tab-albums" data-toggle="tab"
                            href="#search-content-albums" role="tab" aria-controls="search-content-albums"
-                           aria-selected="true">Albums</a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="nav-link m-item fs-7 pr-3 pl-3" id="search-tab-playlists" data-toggle="tab"
-                           href="#search-content-playlists" role="tab" aria-controls="search-content-playlists"
-                           aria-selected="true">Playlists</a>
+                           aria-selected="true">Album</a>
                     </li>
                     <li class="menu-item">
                         <a class="nav-link m-item fs-7 pr-3 pl-3" id="search-tab-artists" data-toggle="tab"
                            href="#search-content-artists" role="tab" aria-controls="search-content-artists"
-                           aria-selected="true">Artists</a>
+                           aria-selected="true">Ca sĩ</a>
                     </li>
                 </ul>
                 <hr class="border-hr">
@@ -58,12 +53,6 @@
                     <div class="row auto-cols-row" data-item-width="150" id="searchartist" data-item-max-width="200">
 
                     </div>
-                </div>
-                <div class="tab-pane fade" id="search-content-playlists" role="tabpanel"
-                     aria-labelledby="search-tab-playlists">
-                </div>
-                <div class="row auto-cols-row" data-item-width="150" id="searchplaylist" data-item-max-width="200">
-
                 </div>
             </div>
         </div>

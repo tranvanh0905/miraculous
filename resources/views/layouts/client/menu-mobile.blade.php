@@ -12,84 +12,15 @@
         <ul class="side-nav adonis-animate" data-animation="menuTwo" id="site-side-nav" data-level="1"
             data-animation-item="> li > a">
             <li class="nav-item">
-                <a class="nav-link active" href="home.html">Home</a></li>
+                <a class="nav-link active" href="{{route('client.home')}}">Trang chủ</a></li>
             <li class="nav-item">
-                <a class="nav-link" href="radio.html">Radio</a>
+                <a class="nav-link" href="{{route('client.brower')}}">Khám phá</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="library.html">Library</a>
+                <a class="nav-link" href="{{route('all', ['type' => 'genres'])}}">Thể loại</a>
             </li>
-            <li class="nav-item has-dropdown">
-                <a class="nav-link" href="#" data-level="2">Shop <span class="adonis-icon icon-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" version="1.1" height="10"><use
-                                xlink:href="#arrow-right"/></svg></span></a>
-                <ul class="sub-level">
-                    <li><a href="#" class="go-back" data-level="1">Back</a></li>
-                    <li class=""><a href="store.html">Main Shop</a></li>
-                    <li class=""><a href="genres-shop.html">Shop Genre</a></li>
-                    <li class=""><a href="single-shop-item.html">Single Shop Item</a></li>
-                </ul>
-            </li>
-            <li class="nav-item has-dropdown">
-                <a class="nav-link" href="#" data-level="2">Browse <span class="adonis-icon icon-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" version="1.1" height="10"><use
-                                xlink:href="#arrow-right"/></svg></span></a>
-                <ul class="sub-level">
-                    <li><a href="#" class="go-back" data-level="1">Back</a></li>
-                    <li class=""><a href="new-releases.html">New Releases</a></li>
-                    <li class=""><a href="all-album.html">All Albums</a></li>
-                    <li class=""><a href="featured-playlists.html">Featured Playlists</a></li>
-                    <li class=""><a href="single-album.html">Single Album</a></li>
-                    <li class=""><a href="single-playlist.html">Single Playlist</a></li>
-                    <li class=""><a href="single-artist.html">Single Artist</a></li>
-                </ul>
-            </li>
-            <li class="nav-item has-dropdown">
-                <a class="nav-link" href="#" data-level="2">Genres <span class="adonis-icon icon-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" version="1.1" height="10"><use
-                                xlink:href="#arrow-right"/></svg></span></a>
-                <ul class="sub-level">
-                    <li><a href="#" class="go-back" data-level="1">Back</a></li>
-                    <li class=""><a href="genre-classical.html">Classical</a></li>
-                    <li class=""><a href="genre-classical.html">Pop</a></li>
-                    <li class=""><a href="genre-classical.html">Under Ground</a></li>
-                    <li class=""><a href="genre-classical.html">Metal</a></li>
-                    <li class=""><a href="genre-classical.html">Rock</a></li>
-                    <li class=""><a href="genre-classical.html">Jazz</a></li>
-                    <li class=""><a href="genre-classical.html">Country</a></li>
-                    <li class=""><a href="genre-classical.html">World</a></li>
-                    <li class=""><a href="genre-classical.html">All genres</a></li>
-                </ul>
-            </li>
-            <li class="nav-item has-dropdown">
-                <a class="nav-link" href="#" data-level="2">Charts <span
-                        class="adonis-highlight-active fs-1">hot</span><span class="adonis-icon icon-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" version="1.1" height="10"><use
-                                xlink:href="#arrow-right"/></svg></span></a>
-                <ul class="sub-level">
-                    <li><a href="#" class="go-back" data-level="1">Back</a></li>
-                    <li class=""><a href="top-album.html">Top Albums</a></li>
-                    <li class=""><a href="top-artists.html">Top Artists</a></li>
-                    <li class=""><a href="weekly-top-ten.html">Weekly Top 10</a></li>
-                    <li class=""><a href="weekly-top-ten.html">USA Top 10</a></li>
-                    <li class=""><a href="hot-songs.html">Hot Songs</a></li>
-                    <li class=""><a href="hot-videos.html">Hot Videos</a></li>
-                </ul>
-            </li>
-            <li class="nav-item has-dropdown">
-                <a class="nav-link" href="#" data-level="2">More<span class="adonis-icon icon-sm"><svg
-                            xmlns="http://www.w3.org/2000/svg" version="1.1" height="10"><use
-                                xlink:href="#arrow-right"/></svg></span></a>
-                <ul class="sub-level">
-                    <li><a href="#" class="go-back" data-level="1">Back</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Help &amp; Support</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Terms and Privacy</a></li>
-                    <li><a href="#">Artist Originals</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Advertise</a></li>
-                </ul>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('client.chart')}}">Bảng xếp hạng</a>
             </li>
         </ul>
     </div>

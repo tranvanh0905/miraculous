@@ -181,11 +181,11 @@
         <div class="container">
             <section>
                 <div class="title-box">
-                    <h4 class="title h3 text-uppercase">Tất cả thể loại s</h4>
+                    <h3 class="title h3 text-uppercase">Tất cả thể loại</h3>
                 </div>
                 <div class="genres-list row">
                     @foreach($allGenres as $genres)
-                        <div class="item col-lg-2 mb-3">
+                        <div class="item col-lg-3 mb-3">
                             <div class="img-box-text-over lg box-rounded-lg">
                                 <img src="{{$genres->image}}"
                                      data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" class="img-genres">

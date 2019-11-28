@@ -24,30 +24,30 @@ class ClientController extends Controller
     public function index()
     {
 
-        $randomSong = Song::inRandomOrder()
+        $randomSong = Song::inRandomOrder()->where('status', '=', 1)
             ->limit(10)->with('artists')
             ->get();
 
-        $latestSongs = Song::orderBy('release_date', 'desc')
+        $latestSongs = Song::where('status', '=', 1)->orderBy('release_date', 'desc')
             ->limit(30)->with('artists')
             ->get();
 
-        $mostViewAlbum = Album::orderBy('like', 'desc')->get();
+        $mostViewAlbum = Album::where('status', '=', 1)->orderBy('like', 'desc')->get();
 
-        $allGenres = Genres::latest('id')->limit(10)->get();
+        $allGenres = Genres::latest('id')->where('status', '=', 1)->limit(10)->get();
 
-        $latestAbums = Album::latest('release_date')->limit(10)->get();
+        $latestAbums = Album::latest('release_date')->where('status', '=', 1)->limit(10)->get();
 
         $playLists = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
             ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 400)->orderBy('id', 'desc')->limit(4)
+            ->where('users.role', '>', 400)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(4)
             ->get();
 
         $playLists->each(function ($q) {
             $q->load('getThreeSongs');
         });
 
-        $artists = Artist::orderBy('follow', 'desc')->with('userFollows')->limit(12)->get();
+        $artists = Artist::where('status', '=', 1)->orderBy('follow', 'desc')->with('userFollows')->limit(12)->get();
 
         return view('client.index', compact('latestSongs', 'allGenres', 'latestAbums', 'randomSong', 'mostViewAlbum', 'playLists', 'artists'));
     }
@@ -60,14 +60,13 @@ class ClientController extends Controller
             ->limit(25)->with('artists')
             ->get();
 
-        $allAlbum = Album::limit(25)->get();
-
         $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
             ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
             ->where('users.role', '>', 400)->orderBy('id', 'desc')->limit(20)
             ->get();
 
-        return view('client.brower', compact('allSong', 'allAlbum', 'allPlaylist'));
+        $genres = Genres::where('status', '=', 1)->limit(10)->get();
+        return view('client.brower', compact('allSong', 'allAlbum', 'allPlaylist', 'genres'));
     }
 
     //Bảng xếp hạng bài hát
@@ -115,7 +114,7 @@ class ClientController extends Controller
             $allArtist = Artist::where('status', '=', 1)->orderBy('id', 'desc')->with('songs')->paginate(50);
 
             return view('client.all', compact('allArtist', 'type'));
-        } else if ($type == 'genres'){
+        } else if ($type == 'genres') {
             $allGenres = Genres::where('status', '=', 1)->orderBy('id', 'desc')->paginate(50);
 
             return view('client.all', compact('allGenres', 'type'));
@@ -132,22 +131,22 @@ class ClientController extends Controller
 
         $singleSong = Song::find($songId)->load('artists');
 
-        $comment = Comment::where('song_id', '=', $songId)->with('user')->get();
+        $comment = Comment::where('song_id', '=', $songId)->where('status', '=', 1)->with('user')->get();
 
-        $relatedSong = Song::where('genres_id', '=', $singleSong->genres_id)->limit(20)->get();
+        $relatedSong = Song::where('genres_id', '=', $singleSong->genres_id)->where('status', '=', 1)->limit(20)->get();
 
         $relatedSongArtist = Song::whereHas('artists', function ($query) use ($singleSong) {
             foreach ($singleSong->artists as $artist) {
-                $query->where('artist_id', '=', $artist->id)->where('song_id', '<>', $singleSong->id);
+                $query->where('artist_id', '=', $artist->id)->where('status', '=', 1)->where('song_id', '<>', $singleSong->id);
             }
-        })->get();
+        })->where('status', '=', 1)->get();
 
 
-        $genres = Genres::latest('id')->limit(10)->get();
+        $genres = Genres::latest('id')->where('status', '=', 1)->limit(10)->get();
 
-        $artists = Artist::orderBy('follow')->limit(10)->get();
+        $artists = Artist::where('status', '=', 1)->orderBy('follow', 'desc')->limit(10)->get();
 
-        $mostLikeSong = Song::orderBy('like')->limit(10)->with('artists')->get();
+        $mostLikeSong = Song::where('status', '=', 1)->orderBy('like')->limit(10)->with('artists')->get();
 
 
         return view('client.detail-page.single-song', compact('singleSong', 'relatedSong', 'genres', 'artists', 'mostLikeSong', 'relatedSongArtist',
@@ -169,7 +168,8 @@ class ClientController extends Controller
 
     //Lấy bình luận bài hát
 
-    public function fetchComment(Request $request){
+    public function fetchComment(Request $request)
+    {
         $allComment = Comment::where('song_id', '=', $request->id)->orderBy('id', 'desc')->get();
 
         return view('client.fetch-comment', compact('allComment'));
@@ -233,19 +233,25 @@ class ClientController extends Controller
     public function search(Request $request)
     {
         if ($request->ajax()) {
-            $output = '';
-            $songs = Song::where('name', 'LIKE', '%' . $request->search . '%')->get();
-            if ($songs) {
+            $outputSong = '';
+            $outputAlbum = '';
+            $outputArtist = '';
+
+            $songs = Song::where('name', 'LIKE', '%' . $request->search . '%')->where('status', '=', 1)->get();
+            $albums = Album::where('title', 'LIKE', '%' . $request->search . '%')->where('status', '=', 1)->get();
+            $artists = Artist::where('nick_name', 'LIKE', '%' . $request->search . '%')->where('status', '=', 1)->get();
+
+            if ($songs && $songs != '') {
                 foreach ($songs as $key => $song) {
-                    $output = '<div class="col-auto">
+                    $outputSong .= '<div class="col-auto">
                                 <div class="img-box-horizontal music-img-box h-g-bg">
                                 <div class="img-box img-box-sm box-rounded-sm">
-                                <img src="' . $song->cover_image . '" alt="' . $song->name . '"></div><div class="des">
+                                <img src="' . url($song->cover_image) . '" alt="' . $song->name . '"></div><div class="des">
                                     <h6 class="title"><a href="' . url('singleSong/' . $song->id) . '">' . $song->name . '</a></h6>
                                     <p class="sub-title"><a href="#">Bing Crosby</a></p>
                                 </div>
                                 <div class="hover-state d-flex justify-content-between align-items-center">
-                                    <span class="pointer play-btn-dark box-rounded-sm"><i class="play-icon"></i></span>
+                                    <span class="pointer play-btn-dark box-rounded-sm adonis-album-button"><i class="play-icon"></i></span>
                                     <div class="d-flex align-items-center">
                                         <span class="adonis-icon text-light pointer mr-2 icon-2x"><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><use xlink:href="#icon-heart-blank"></use></svg></span>
                                         <span class="pointer dropdown-menu-toggle"><span class="icon-dot-nav-horizontal text-light"></span></span>
@@ -256,8 +262,66 @@ class ClientController extends Controller
                 }
             }
 
-            return Response($output);
+            if ($albums) {
+                foreach ($albums as $key => $album) {
+                    $outputAlbum .= '<div class="col-auto">
+                                        <div class="music-img-box mb-e-30 mb-e-lg-40">
+                                            <div class="img-box box-rounded-sm">
+                                                <img class="retina" src="' . url($album->cover_image) . '"
+                                                     data-2x="' . url($album->cover_image) . '" alt="' . url($album->title) . '">
+                                                <div class="hover-state">
+                                                    <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album" data-album-id="' . $album->id . '">
+                                                            <i class="play-icon"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h6 class="title"><a href="' . route('singleAlbum', ['albumId' => $album->id]) . '">' . $album->title . '</a></h6>
+                                            <p class="sub-title category"><a href="' . route('singleArtist', ['artistId' => $album->artist_id]) . '">'
+                        . $album->artist->nick_name . '</a></p>
+                                        </div>
+                                    </div>';
+                }
+            }
+
+            if ($artists) {
+                foreach ($artists as $key => $artist) {
+                    $outputArtist .= '<div class="col-auto">
+                            <div class="music-img-box mb-e-30 mb-e-md-40 text-center">
+                                <div class="img-box rounded-circle img-artist-index">
+                                    <img class="retina" src="' . url($artist->avatar) . '"
+                                         data-2x="' . url($artist->avatar) . '" alt="' . $artist->nick_name . '">
+                                </div>
+                                <div class="desc top-sm text-center">
+                                    <h5 class="title fs-3">
+                                        <a href="{{route(\'singleArtist\', [\'artistId\' => $artist->id])}}" class="f-w-500
+                                        h-underline">' . $artist->nick_name . '</a>
+                                    </h5>
+                                    <p class="sub-title"><span class="count-follow" data-artist-id="{{$artist->id}}">' . $artist->follow . '</span>
+                                        người quan tâm</p>
+                                </div>
+                            </div>
+                        </div>';
+                }
+            }
+
+            if ($outputSong == '') {
+                $outputSong = '<div class="col-12 font-weight-bold text-center"> Không có bài hát giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+            }
+
+            if ($outputAlbum == '') {
+                $outputAlbum = '<div class="col-12 font-weight-bold text-center"> Không có album giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+            }
+
+            if ($artists == '') {
+                $outputArtist = '<div class="col-12 font-weight-bold text-center"> Không có ca sĩ giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+            }
+
+            return response(['songs' => $outputSong, 'albums' => $outputAlbum, 'artists' => $outputArtist]);
         }
     }
 
 }
+
+

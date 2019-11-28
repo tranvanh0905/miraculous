@@ -149,11 +149,12 @@ jQuery(document).ready(function ($) {
         }
     });
 
+
     $('.nav-item').on('show.bs.dropdown', function (e) {
         adonisPopup.outside(e);
     });
     // dropdown menu any where
-    var albumMenu = [
+    var songMenu = [
         {
             text: 'Thêm vào danh sách phát',
             icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
@@ -173,7 +174,7 @@ jQuery(document).ready(function ($) {
 
     new adonisPopup({
         selector: '.dropdown-menu-toggle',
-        menu: albumMenu,
+        menu: songMenu,
         parent: '.music-img-box'
     });
 

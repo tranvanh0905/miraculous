@@ -8180,8 +8180,6 @@ select.form-control:focus::-ms-value {
 }
 
 .img-artist-index{
-    width: 190px!important;
-    height: 190px!important;
     overflow: hidden;
 }
 .img-artist-index img{
