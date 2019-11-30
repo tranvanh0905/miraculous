@@ -150,7 +150,7 @@
         _options: { // static object, instanced in constructor
             playlistOptions: {
                 autoPlay: false,
-                loopOnPrevious: false,
+                loopOnPrevious: true,
                 shuffleOnLoop: true,
                 enableRemoveControls: false,
                 displayTime: 'slow',

@@ -19,8 +19,8 @@
                     <div class="no-content-block text-center p-5 rounded">
                         <img src="{{url('client/images/audio_default.png')}}" alt="no-song" class="d-block mx-auto"
                              width="100px" height="auto">
-                        <h3 class="m-3">Không có bài hát trong thư viện cá nhân</h3>
-                        <a href="{{route('all', ['type' => 'songs'])}}">Nhấn để khám phá</a>
+                        <h3 class="m-3">Bạn chưa thích bài hát nào. Hãy yêu thích bài hát nhiều hơn !!! </h3>
+                        <a href="{{route('all', ['type' => 'songs'])}}">Nhấn để khám phá thêm nhiều bài hát</a>
                     </div>
                 </div>
             @else
@@ -54,7 +54,7 @@
                                             <div class="hover-state d-flex justify-content-between align-items-center">
                                                 <span class="pointer play-btn-dark box-rounded-sm adonis-album-button" data-album-id="{{$song->id}}"
                                                       data-type="song">
-                                                    <i class="play-icon"></i>
+                                                    <i class="fas fa-play fs-19 text-light"></i>
                                                 </span>
                                                 <div class="d-flex align-items-center">
                                                     <span class="adonis-icon text-light pointer mr-2 icon-2x">
@@ -108,8 +108,8 @@
                     <div class="no-content-block text-center p-5 rounded">
                         <img src="{{url('client/images/audio_default.png')}}" alt="no-song" class="d-block mx-auto"
                              width="100px" height="auto">
-                        <h3 class="m-3">Không có danh sách phát trong thư viện cá nhân</h3>
-                        <a href="{{route('all', ['type' => 'playlists'])}}">Nhấn để khám phá</a>
+                        <h3 class="m-3">Bạn chưa yêu thích danh sách phát nào !!!</h3>
+                        <a href="{{route('all', ['type' => 'playlists'])}}">Nghe thêm nhiều danh sách phát hơn nào !!!</a>
                     </div>
                 </div>
             </div>
@@ -169,8 +169,8 @@
                     <div class="no-content-block text-center p-5 rounded">
                         <img src="{{url('client/images/album_default.png')}}" alt="no-song" class="d-block mx-auto"
                              width="100px" height="auto">
-                        <h3 class="m-3">Không có album trong thư viện cá nhân</h3>
-                        <a href="{{route('all', ['type' => 'albums'])}}">Nhấn để khám phá</a>
+                        <h3 class="m-3">Bạn chưa yêu thích album nào !!!</h3>
+                        <a href="{{route('all', ['type' => 'albums'])}}">Khám phá thêm các album của các ca sĩ</a>
                     </div>
                 </div>
             </div>
@@ -230,8 +230,8 @@
                     <div class="no-content-block text-center p-5 rounded">
                         <img src="{{url('client/images/audio_default.png')}}" alt="no-song" class="d-block mx-auto"
                              width="100px" height="auto">
-                        <h3 class="m-3">Không có ca sĩ trong thư viện cá nhân</h3>
-                        <a href="{{route('all', ['type' => 'artists'])}}">Nhấn để khám phá</a>
+                        <h3 class="m-3">Bạn chưa quan tâm ca sĩ nào !!!</h3>
+                        <a href="{{route('all', ['type' => 'artists'])}}">Tìm ca sĩ mà bạn thích ngay</a>
                     </div>
                 </div>
             </div>
@@ -241,22 +241,32 @@
                  data-responsive-width="0:100%|300:50%|560:33%|820:25%|980:20%|1240:16.66%|1500:14.2858%">
                 @foreach($followArtist as $artist)
                     <div class="col-auto">
-                        <div class="music-img-box mb-e-30 mb-e-md-40">
-                            <div class="img-box rounded-circle">
+                        <div class="music-img-box mb-e-30 mb-e-md-40 text-center">
+                            <div class="img-box rounded-circle img-artist-index">
                                 <img class="retina" src="{{url($artist->avatar)}}"
-                                     data-2x="{{url($artist->avatar)}}" alt="{{$artist->nick_name}}">
+                                     data-2x="{{url($artist->avatar)}}" alt="{{$artist->name}}">
                             </div>
                             <div class="desc top-sm text-center">
-                                <h5 class="title fs-3"><a href="{{route('singleArtist', ['artistId' => $artist->id])}}" class="f-w-500
-                            h-underline">{{$artist->nick_name}}</a>
+                                <h5 class="title fs-3">
+                                    <a href="{{route('singleArtist', ['artistId' => $artist->id])}}" class="f-w-500
+                                        h-underline">{{$artist->nick_name}}</a>
                                 </h5>
-                                <h6 class="f-w-400"><a href="#">Bỏ theo dõi</a></h6>
-                                <p class="sub-title">{{$artist->follow}} người theo dõi</p>
+                                <p class="sub-title"><span class="count-follow" data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
+                                    người quan tâm</p>
                             </div>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                <a href="javascript:;" class="btn btn-primary btn-follow" data-artist-id="{{$artist->id}}">
+
+                                    @if(!\App\Model_client\UserFollowDetail::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('artist_id', '=', $artist->id)->exists())
+                                        <i class="fas fa-user-plus"></i> Quan tâm
+                                    @else
+                                        <i class="fas fa-user-minus"></i> Bỏ quan tâm
+                                    @endif
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
-
             </div>
         @endif
     </section>

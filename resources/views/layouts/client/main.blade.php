@@ -32,9 +32,6 @@
 <!--Spinner -->
 @include('layouts.client.spinner')
 
-<!-- svg-->
-    @include('layouts.client.svg')
-
 </div><!-- /#wrap -->
 
 <!--search -->

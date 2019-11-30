@@ -45,9 +45,10 @@
                                     </div>
                                     <div class="absolute-top-right pr-e-20 pt-e-20">
                                             <span class="pointer drop-2" data-user-playlist-id="{{$playlist->id}}"><span
-                                                        class="adonis-icon icon-4x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                         version="1.1"><use
-                                                                xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                                        class="adonis-icon icon-4x">
+                                                    <i class="fas fa-ellipsis-h fs-21 text-light"></i>
+                                                </span>
+                                            </span>
                                     </div>
                                 </div>
                             </div>

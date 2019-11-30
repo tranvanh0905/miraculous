@@ -6,9 +6,9 @@
                       width="50px" height="50px" class="rounded">
             </span>
             <span class="hover-show adonis-icon icon-1x adonis-album-button" data-type="song"
-                  data-album-id="{{$song->id}}"><svg
-                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                            xlink:href="#icon-brand-play"></use></svg> </span>
+                  data-album-id="{{$song->id}}">
+                <i class="fas fa-play fs-19"></i>
+            </span>
         </div>
         <a href="{{route('singleSong', ['songId' => $song->id])}}" class="item-title font-weight-bold">{{$song->name}}</a>
         <div class="item-genre"><a href="{{route('singleGenres', ['genresId' => $song->genres->id])}}"

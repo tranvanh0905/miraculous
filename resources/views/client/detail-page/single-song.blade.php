@@ -23,24 +23,23 @@
                                 </div>
                             </div>
                             <div class="pb-4 d-inline-block album-likes ">
-                                <span class="adonis-icon pr-2 icon-2x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                            version="1.1"><use
-                                                xlink:href="#icon-heart-blank"></use></svg></span>
+                                <span class="adonis-icon pr-2 icon-2x">
+                                    <i class="fas fa-heart fs-19"></i>
+                                </span>
                                 <span class="pr-2">{{$singleSong->like}}</span>
-                                <span class="adonis-icon pr-2 icon-1x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                            version="1.1"><use
-                                                xlink:href="#icon-brand-play"></use></svg></span>
+                                <span class="adonis-icon pr-2 icon-1x">
+                                    <i class="fas fa-play-circle fs-19"></i>
+                                </span>
                                 <span>{{$singleSong->view}}</span>
                             </div>
                             <div class="button-save-share pb-4 text-center">
                                 <div class="btn btn-primary mx-auto adonis-album-button" data-type="song"
-                                     data-album-id="{{$singleSong->id}}">Phát
-                                    bài hát
+                                     data-album-id="{{$singleSong->id}}"><i class="fas fa-play fs-14 mr-2"></i> Phát bài hát
                                 </div>
                             </div>
                             <div class="about">
                                 <h4>Mô tả</h4>
-                                <p>{!! $singleSong->description !!}</p>
+                                {!! $singleSong->description !!}
                             </div>
                         </div>
 

@@ -51,7 +51,8 @@ $(document).on('click', '.btn-follow', function () {
                     message: data.msg
                 }, {
                     delay: 1000,
-                    timer: 1000
+                    timer: 1000,
+                    z_index: 1300
                 });
             } else {
                 divTarget.html('<i class="fas fa-user-plus"></i> Quan tâm').fadeIn();
@@ -60,7 +61,8 @@ $(document).on('click', '.btn-follow', function () {
                     message: data.msg
                 }, {
                     delay: 1000,
-                    timer: 1000
+                    timer: 1000,
+                    z_index: 1300
                 });
             }
         }
@@ -108,6 +110,8 @@ $(document).on('click', '.add-to-playlist', function () {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
+            },{
+                z_index: 1300
             });
         }
     });
@@ -138,6 +142,8 @@ $(document).on('click', '.remove-from-playlist', function () {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
+            },{
+                z_index: 1300
             });
         }
     });
@@ -182,8 +188,10 @@ $(document).on('click', '#playerLike', function (e) {
                         ' font-14"></i></span>');
 
                     $.notify({
-                        icon: 'glyphicon glyphicon-ok',
+                        icon: 'fas fa-check-circle',
                         message: "Yêu thích bài hát thành công !"
+                    },{
+                        z_index: 1300
                     });
                 } else {
                     //Thêm nút dislike
@@ -206,8 +214,10 @@ $(document).on('click', '#playerLike', function (e) {
                         ' font-14"></i></span>');
 
                     $.notify({
-                        icon: 'glyphicon glyphicon-ok',
+                        icon: 'fas fa-check-circle',
                         message: "Bỏ yêu thích bài hát !"
+                    },{
+                        z_index: 1300
                     });
                 }
             }
@@ -264,6 +274,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: data.msg
+                    },{
+                        z_index: 1300
                     });
                 } else {
                     button.removeClass('fas');
@@ -289,6 +301,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: data.msg
+                    },{
+                        z_index: 1300
                     });
                 }
             },
@@ -315,6 +329,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-heart',
                         message: data.msg
+                    },{
+                        z_index: 1300
                     });
 
                     button.html('<i class="fas fa-heart-broken"></i> Bỏ yêu thích album');
@@ -323,6 +339,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-heart-broken',
                         message: data.msg
+                    },{
+                        z_index: 1300
                     });
                     button.html('<i class="fas fa-heart"></i> Yêu thích album');
                     countLikeAlbum.html(data.like);
@@ -343,7 +361,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         message: data.msg
                     }, {
                         timer: 1000,
-                        delay: 1000
+                        delay: 1000,
+                        z_index: 1300
                     });
                     button.html('<i class="fas fa-heart-broken"></i> Bỏ yêu thích danh sách phát');
                     countLikePlaylist.html(data.like);
@@ -353,7 +372,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         message: data.msg
                     }, {
                         timer: 1000,
-                        delay: 1000
+                        delay: 1000,
+                        z_index: 1300
                     });
                     button.html('<i class="fas fa-heart"></i> Yêu thích');
                     countLikePlaylist.html(data.like);
@@ -381,6 +401,8 @@ $(document).on('click', '.add-user-playlist', function (e) {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
+            },{
+                z_index: 1300
             });
         }
     });
@@ -409,6 +431,8 @@ $(document).on('click', '.delete-user-playlist', function (e) {
             $.notify({
                 icon: 'glyphicon glyphicon-ok',
                 message: data.msg
+            },{
+                z_index: 1300
             });
         }
     });

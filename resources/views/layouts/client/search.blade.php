@@ -1,7 +1,6 @@
 <div id="search-box-4">
     <button id="btn-search-close" class="btn btn-blank btn--search-close" aria-label="Close search form">
-        <span class="adonis-icon color-active"><svg id="icon-cross" viewBox="0 0 24 24" width="5vmin"> <path
-                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path> </svg></span>
+        <i class="fas fa-times fs-21"></i>
     </button>
 
     <div class="search-inner search-inner-up d-flex align-items-center">

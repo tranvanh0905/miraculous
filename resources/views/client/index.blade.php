@@ -52,17 +52,17 @@
                                             <div class="hover-state">
                                                 <div class="absolute-bottom-left pl-e-15 pb-e-15">
                                                                 <span
-                                                                        class="pointer play-btn-dark round-btn adonis-album-button"
-                                                                        data-type="song" data-album-id="{{$song->id}}"><i
-                                                                            class="play-icon"></i></span>
+                                                                    class="pointer play-btn-dark round-btn adonis-album-button"
+                                                                    data-type="song" data-album-id="{{$song->id}}">
+                                                                    <i class="fas fa-play fs-21 play-index text-light"></i>
+                                                                </span>
                                                 </div>
                                                 @if(\Illuminate\Support\Facades\Auth::check())
                                                     <div class="absolute-top-right pr-e-20 pt-e-20">
-                                                        <span class="pointer dropdown-menu-toggle">
+                                                        <span class="pointer dropdown-menu-toggle"
+                                                              data-songid="{{$song->id}}">
                                                             <span class="adonis-icon icon-4x">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                                                                    <use xlink:href="#icon-horizontal-dots"></use>
-                                                                </svg>
+                                                                <span class="icon-dot-nav-horizontal text-light"></span>
                                                             </span>
                                                         </span>
                                                     </div>
@@ -70,7 +70,7 @@
                                             </div>
                                         </div>
                                         <h6 class="title"><a
-                                                    href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                                href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
                                         </h6>
                                         <p class="sub-title category"><a href="#">
                                                 @foreach($song->artists as $artist)
@@ -113,7 +113,7 @@
                                                 </div>
                                                 <div class="des">
                                                     <h6 class="title fs-2"><a
-                                                                href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                                            href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
                                                     </h6>
                                                     <p class="sub-title">
                                                         @foreach($song->artists as $artist)
@@ -122,30 +122,36 @@
                                                         @endforeach
                                                     </p>
                                                 </div>
-                                                <div class="hover-state d-flex justify-content-between align-items-center">
-                                                    <span class="pointer play-btn-dark box-rounded-sm adonis-album-button"
-                                                          data-type="song"
-                                                          data-album-id="{{$song->id}}"><i
-                                                                class="play-icon"></i>
+                                                <div
+                                                    class="hover-state d-flex justify-content-between align-items-center">
+                                                    <span
+                                                        class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                        data-type="song"
+                                                        data-album-id="{{$song->id}}">
+                                                         <i class="fas fa-play fs-19 text-light"></i>
                                                     </span>
                                                     <div class="d-flex align-items-center">
                                                         <span class="adonis-icon text-light pointer mr-2 icon-2x">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
                                                                 @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
                                                                     <span class="adonis-icon icon-2x box-like-global">
-                                                                    <i class="far fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                    <i class="far fa-heart fa-2x font-14"
+                                                                       id="likeGlobal" data-type="song"
                                                                        data-id="{{$song->id}}"
                                                                     ></i>
                                                                   </span>
                                                                 @else
-                                                                    <span class="adonis-icon icon-2x box-dis-like-global">
-                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                    <span
+                                                                        class="adonis-icon icon-2x box-dis-like-global">
+                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal"
+                                                                   data-type="song"
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
                                                                 @endif
                                                                 <span class="pointer dropdown-menu-toggle"
                                                                       data-songid="{{$song->id}}" data-link="123">
-                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
                                                                 </span>
                                                             @endif
                                                         </span>
@@ -168,7 +174,8 @@
                                 <h2 class="title h3-md">Album Thích Nhiều Nhất</h2>
                             </div>
                         </div>
-                        <div class="adonis-carousel" data-auto-width="yes" data-loop="no" data-dots="yes" data-responsive-width="0:85%|400:345px">
+                        <div class="adonis-carousel" data-auto-width="yes" data-loop="no" data-dots="yes"
+                             data-responsive-width="0:85%|400:345px">
                             <div class="gutter-10">
                                 <div class="owl-carousel owl-theme-adonis owl-loaded owl-drag">
                                     @foreach($mostViewAlbum as $album)
@@ -179,13 +186,16 @@
                                                          data-2x="{{$album->cover_image}}" alt="{{$album->name}}">
                                                     <div class="hover-state">
                                                         <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                            <span class="pointer play-btn-dark round-btn"><i class="play-icon"></i></span>
+                                                            <span class="pointer play-btn-dark round-btn">
+                                                                 <i class="fas fa-play fs-21 play-index text-light"></i>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h5 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->name}}</a>
+                                                <h5 class="title"><a
+                                                        href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
                                                 </h5>
-                                                <p class="sub-title category"><a href="#">Adonis Music Pop</a></p>
+                                                <p class="sub-title category"><a href="{{route('singleArtist', ['albumId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a></p>
                                             </div>
                                         </div>
                                     @endforeach()
@@ -216,10 +226,12 @@
                                 </div>
                                 <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
                                     <a href="{{route('client.chart-song')}}" class="text-light"><i
-                                                class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng<span class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                                            class="icon-arrow-right2"></i>
+                                        Xem bảng xếp hạng
+                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right fs-19"></i>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -234,10 +246,12 @@
                                 </div>
                                 <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
                                     <a href="{{route('client.chart-album')}}" class="text-light"><i
-                                                class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng<span class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                                            class="icon-arrow-right2"></i>
+                                        Xem bảng xếp hạng
+                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right fs-19"></i>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -245,17 +259,20 @@
                     <div class="col-md-4">
                         <div class="img-box-text-over lg  box-rounded-lg mb-4  overlay-index">
                             <img src="{{url('client/images/this-week/popular-artists-week.jpg')}}"
-                                 data-2x="{{url('client/images/this-week/popular-artists-week@2x.jpg')}}" alt="bxh-artist">
+                                 data-2x="{{url('client/images/this-week/popular-artists-week@2x.jpg')}}"
+                                 alt="bxh-artist">
                             <div class="hover-state show">
                                 <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
                                     <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 CA SĨ</h6>
                                 </div>
                                 <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
                                     <a href="" class="text-light"><i
-                                                class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng<span class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                                            class="icon-arrow-right2"></i>
+                                        Xem bảng xếp hạng
+                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right fs-19"></i>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -269,10 +286,10 @@
                         <h2 class="title h3-md">Thể Loại</h2>
                     </div>
                     <div class="button-right ml-auto ml-auto d-flex align-items-end">
-                        <a href="{{route('all', ['type' => 'genres'])}}" class="mb-4">Xem tất cả<span
-                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                            xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                        <a href="{{route('all', ['type' => 'genres'])}}" class="mb-4">Xem tất cả
+                            <span class="adonis-icon pl-1 icon-arrow icon-1x"><i
+                                    class="fas fa-arrow-right fs-19"></i></span>
+                        </a>
                     </div>
                 </div>
                 <div class="adonis-carousel viewport-animate" data-animation="slideUp"
@@ -284,23 +301,23 @@
                                 <div class="item">
                                     <div class="img-box-text-over lg box-rounded-lg index-genres">
                                         <img src="{{url($genres->image)}}"
-                                             data-2x="{{url($genres->image)}}" alt="{{$genres->name}}" class="img-genres">
+                                             data-2x="{{url($genres->image)}}" alt="{{$genres->name}}"
+                                             class="img-genres">
                                         <div
-                                                class="absolute-info d-flex flex-column justify-content-between">
+                                            class="absolute-info d-flex flex-column justify-content-between">
                                             <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">Thể Loại
                                             </div>
                                             <div>
                                                 <h4 class="fs-7 m-0 text-light text-center"><span
-                                                            class="font-weight-bold">{{$genres->name}}</span>
+                                                        class="font-weight-bold">{{$genres->name}}</span>
                                                 </h4>
                                             </div>
                                             <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
                                                 <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
-                                                   class="color-white">Xem thể loại<span
-                                                            class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                version="1.1"><use
-                                                                    xlink:href="#icon-see-all-arrow-right"/></svg></span>
+                                                   class="color-white">Xem thể loại
+                                                    <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                                        <i class="fas fa-arrow-right fs-19"></i>
+                                                    </span>
                                                 </a>
                                             </div>
                                         </div>
@@ -318,10 +335,11 @@
                         <h2 class="title h3-md">Album Mới</h2>
                     </div>
                     <div class="button-right ml-auto ml-auto d-flex align-items-end">
-                        <a href="{{route('all', ['type' => 'albums'])}}" class="mb-4">Xem tất cả<span
-                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                            xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                        <a href="{{route('all', ['type' => 'albums'])}}" class="mb-4">Xem tất cả
+                            <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                            <i class="fas fa-arrow-right fs-19"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="adonis-carousel viewport-animate" data-animation="slideUp"
@@ -339,15 +357,16 @@
                                                  alt="{{$album->title}}">
                                             <div class="hover-state">
                                                 <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                                <span
-                                                                        class="pointer play-btn-dark round-btn adonis-album-button"
-                                                                        data-album-id="{{$album->id}}" data-type="album"><i
-                                                                            class="play-icon"></i></span>
+                                                    <span
+                                                        class="pointer play-btn-dark round-btn adonis-album-button"
+                                                        data-album-id="{{$album->id}}" data-type="album">
+                                                         <i class="fas fa-play fs-21 text-light play-index"></i>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <h6 class="title"><a
-                                                    href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
+                                                href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
                                         </h6>
                                         <p class="sub-title category"><a href="">{{$album->artist->nick_name}}</a></p>
                                     </div>
@@ -364,9 +383,11 @@
                         <h2 class="title h3-md">Danh sách phát mới</h2>
                     </div>
                     <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
-                        <a href="{{route('all', ['type' => 'playlists'])}}">Xem tất cả <span class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                            xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                        <a href="{{route('all', ['type' => 'playlists'])}}">Xem tất cả
+                            <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                <i class="fas fa-arrow-right fs-19"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -377,12 +398,13 @@
                                     <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
                                         <a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">
                                             <div class="image lazyload-img loaded"><img
-                                                        src="{{url($playlist->cover_image)}}">
+                                                    src="{{url($playlist->cover_image)}}">
                                             </div>
                                             <div class="opac"></div>
                                         </a>
                                     </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
                                         <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])
                                     }}">{{$playlist->name}}</a></h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
@@ -394,7 +416,8 @@
                                                         <img src="{{url($song->cover_image)}}" alt="{{$song->name}}">
                                                     </div>
                                                     <div class="des">
-                                                        <h6 class="title fs-2"><a href="{{route('singleSong', ['song_id' => $song->id])}}">{{$song->name}}</a>
+                                                        <h6 class="title fs-2"><a
+                                                                href="{{route('singleSong', ['song_id' => $song->id])}}">{{$song->name}}</a>
                                                         </h6>
                                                         <p class="sub-title">
                                                             @foreach($song->artists as $artist)
@@ -404,28 +427,36 @@
                                                             @endforeach
                                                         </p>
                                                     </div>
-                                                    <div class="hover-state d-flex justify-content-between align-items-center">
-                                                        <span class="pointer play-btn-dark box-rounded-sm adonis-album-button"
-                                                              data-type="song" data-album-id="{{$song->id}}">
-                                                            <i class="play-icon play-song" data-song-id="1"></i></span>
+                                                    <div
+                                                        class="hover-state d-flex justify-content-between align-items-center">
+                                                        <span
+                                                            class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                            data-type="song" data-album-id="{{$song->id}}">
+                                                            <i class="fas fa-play fs-19 text-light"></i>
+                                                        </span>
                                                         <div class="d-flex align-items-center">
                                                              <span class="adonis-icon text-light pointer mr-2 icon-2x">
                                                                 @if(\Illuminate\Support\Facades\Auth::check())
                                                                      @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
-                                                                         <span class="adonis-icon icon-2x box-like-global">
-                                                                    <i class="far fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                         <span
+                                                                             class="adonis-icon icon-2x box-like-global">
+                                                                    <i class="far fa-heart fa-2x font-14"
+                                                                       id="likeGlobal" data-type="song"
                                                                        data-id="{{$song->id}}"
                                                                     ></i>
                                                                   </span>
                                                                      @else
-                                                                         <span class="adonis-icon icon-2x box-dis-like-global">
-                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                         <span
+                                                                             class="adonis-icon icon-2x box-dis-like-global">
+                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal"
+                                                                   data-type="song"
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
                                                                      @endif
                                                                      <span class="pointer dropdown-menu-toggle"
                                                                            data-songid="{{$song->id}}" data-link="123">
-                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
                                                                 </span>
                                                                  @endif
                                                         </span>
@@ -449,9 +480,11 @@
                         <h2 class="title h3-md">Ca Sĩ Nổi Bật</h2>
                     </div>
                     <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
-                        <a href="#">Xem tất cả<span class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                        xmln s="http://www.w3.org/2000/svg" version="1.1"><use
-                                            xlink:href="#icon-see-all-arrow-right"/></svg></span></a>
+                        <a href="#">Xem tất cả
+                            <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                               <i class="fas fa-arrow-right fs-19"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
 
@@ -471,11 +504,13 @@
                                         <a href="{{route('singleArtist', ['artistId' => $artist->id])}}" class="f-w-500
                                         h-underline">{{$artist->nick_name}}</a>
                                     </h5>
-                                    <p class="sub-title"><span class="count-follow" data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
+                                    <p class="sub-title"><span class="count-follow"
+                                                               data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
                                         người quan tâm</p>
                                 </div>
                                 @if(\Illuminate\Support\Facades\Auth::check())
-                                    <a href="javascript:;" class="btn btn-primary btn-follow" data-artist-id="{{$artist->id}}">
+                                    <a href="javascript:;" class="btn btn-primary btn-follow"
+                                       data-artist-id="{{$artist->id}}">
 
                                         @if(!\App\Model_client\UserFollowDetail::where('user_id', '=',
                                         \Illuminate\Support\Facades\Auth::user()->id)
