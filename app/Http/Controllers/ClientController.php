@@ -318,15 +318,15 @@ class ClientController extends Controller
             }
 
             if ($outputSong == '') {
-                $outputSong = '<div class="col-12 font-weight-bold text-center"> Không có bài hát giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+                $outputSong = '<div class="col-12 w-100 font-weight-bold text-center"> Không có bài hát giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
             }
 
             if ($outputAlbum == '') {
-                $outputAlbum = '<div class="col-12 font-weight-bold text-center"> Không có album giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+                $outputAlbum = '<div class="col-12 w-100 font-weight-bold text-center"> Không có album giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
             }
 
-            if ($artists == '') {
-                $outputArtist = '<div class="col-12 font-weight-bold text-center"> Không có ca sĩ giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
+            if ($outputArtist == '') {
+                $outputArtist = '<div class="col-12 w-100 font-weight-bold text-center"> Không có ca sĩ giống với từ khóa bạn tìm kiếm ! Vui lòng hãy thử lại</div>';
             }
 
             return response(['songs' => $outputSong, 'albums' => $outputAlbum, 'artists' => $outputArtist]);

@@ -392,6 +392,7 @@ jQuery(document).ready(function ($) {
                                     ' font-14"></i></span>');
                             } else {
                                 //Nếu đã like thêm nút dislike vào player
+                                console.log('123');
                                 $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
                                 $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
                                 $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');

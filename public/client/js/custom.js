@@ -161,7 +161,7 @@ $(document).on('click', '#playerLike', function (e) {
             type: 'POST',
             url: 'like/song/' + id,
             success: function (data) {
-                if (data.msg === 'liked') {
+                if (data.action === 'liked') {
                     //Thêm nút likeglobal
                     likeGlobal.removeClass('far');
                     likeGlobal.addClass('fas');

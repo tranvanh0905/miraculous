@@ -28,7 +28,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-3 col-lg-5 col-md-12">
-                            <div class="height-100 pl-md-4 pr-md-4 flex-column-sidebar-md sidebar d-xl-block  d-lg-block  d-sm-none d-md-none">
+                            <div class="height-100 pl-md-4 pr-md-4 flex-column-sidebar-md sidebar d-xl-block d-lg-block  d-sm-none d-md-none">
                                 <div class="sidebar-bg">
                                     <img src="{{url('client/images/sidebar-bg-1.jpg')}}" alt="sidebar">
                                 </div>
