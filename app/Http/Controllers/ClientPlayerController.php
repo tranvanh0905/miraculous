@@ -11,6 +11,7 @@ use App\Model_client\Song;
 use App\Model_client\UserLikedAlbum;
 use App\Model_client\UserLikedPlaylist;
 use App\Model_client\UserLikedSong;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ClientPlayerController extends Controller
@@ -59,18 +60,13 @@ class ClientPlayerController extends Controller
         }
     }
 
-    public function updateView($songId)
+    public function updateView(Request $request)
     {
         $modelSong = new Song();
-        $song = $modelSong->find($songId);
 
-        if ($song == null) {
-            return response()->json(array('msg' => 'Khong co bai hat'), 404);
-        } else {
-            $modelSong->where('id', $songId)->increment('view', 1);
+        $modelSong->where('id', $request->songId)->increment('view', 1);
 
-            return response()->json(array('msg' => '+1 view'), 200);
-        }
+        return response()->json(['msg' => '+1 view']);
     }
 
     //-----------------------------------///
