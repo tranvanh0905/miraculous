@@ -74,41 +74,64 @@
                                 ?>
                                 @foreach($singleArtist->songs  as $song)
                                     <?php $count_loop++ ?>
-                                    <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
-                                        <div class="img-box img-box-sm box-rounded-sm">
-                                            <img src="{{url($song->cover_image)}}" alt="{{$song->name}}">
-                                        </div>
-                                        <div class="des">
-                                            <h6 class="title"><a
-                                                    href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
-                                            </h6>
-                                            <p class="sub-title">
-                                                @foreach($song->artists as $artist)
-                                                    {{$artist->nick_name}}
-                                                @endforeach
-                                            </p>
-                                        </div>
-                                        <div class="hover-state d-flex justify-content-between align-items-center">
-                                        <span class="pointer play-btn-dark box-rounded-sm"><i
-                                                class="play-icon"></i></span>
-                                            <div class="d-flex align-items-center">
-                                                <span class="adonis-icon text-light pointer mr-2 icon-2x"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                            xlink:href="#icon-heart-blank"></use></svg></span>
-                                                <span class="pointer dropdown-menu-toggle"><span
-                                                        class="icon-dot-nav-horizontal text-light"></span></span>
+                                        <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
+                                            <div class="img-box img-box-sm box-rounded-sm">
+                                                <img src="{{$song->cover_image}}" alt="{{$song->name}}">
+                                            </div>
+                                            <div class="des">
+                                                <h6 class="title fs-2"><a
+                                                        href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                                </h6>
+                                                <p class="sub-title">
+                                                    @foreach($song->artists as $artist)
+                                                        <a href="{{route('singleArtist', ['artistId' => $artist->id])
+                                                            }}">{{$artist->nick_name}}</a>
+                                                    @endforeach
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="hover-state d-flex justify-content-between align-items-center">
+                                                    <span
+                                                        class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                        data-type="song"
+                                                        data-album-id="{{$song->id}}">
+                                                         <i class="fas fa-play fs-19 text-light"></i>
+                                                    </span>
+                                                <div class="d-flex align-items-center">
+                                                        <span class="adonis-icon text-light pointer mr-2 icon-2x">
+                                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                                                @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
+                                                                    <span class="adonis-icon icon-2x box-like-global">
+                                                                    <i class="far fa-heart fa-2x font-14"
+                                                                       id="likeGlobal" data-type="song"
+                                                                       data-id="{{$song->id}}"
+                                                                    ></i>
+                                                                  </span>
+                                                                @else
+                                                                    <span
+                                                                        class="adonis-icon icon-2x box-dis-like-global">
+                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal"
+                                                                   data-type="song"
+                                                                   data-id="{{$song->id}}"></i>
+                                                                </span>
+                                                                @endif
+                                                                <span class="pointer dropdown-menu-toggle"
+                                                                      data-songid="{{$song->id}}" data-link="123">
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                            @endif
+                                                        </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    @if($count_loop % 5==0)
+                                    @if($count_loop % 2==0)
                                         {!!$html!!}
                                     @endif
                                 @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="pt-e-20 pt-e-lg-40"></div>
                 </div>
             @endif
         </section>
@@ -145,7 +168,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h6 class="title"><a href="{{route('singleAlbum', ['album_id' => $album->id])}}">{{$album->title}}</a></h6>
+                                        <h5 class="title"><a href="{{route('singleAlbum', ['album_id' => $album->id])}}">{{$album->title}}</a></h5>
                                     </div>
                                 </div>
                             @endforeach

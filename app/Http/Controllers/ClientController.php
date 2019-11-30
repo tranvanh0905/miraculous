@@ -218,7 +218,7 @@ class ClientController extends Controller
 
         $otherGenres = Genres::limit(6)->where('status', '=', 1)->get();
 
-        $mostViewOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->orderBy('view', 'desc')->get();
+        $mostViewOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->orderBy('view', 'desc')->limit(10)->get();
 
         return view('client.detail-page.single-genres', compact('genres', 'songOfGenres', 'otherGenres', 'mostViewOfGenres'));
     }

@@ -558,7 +558,6 @@ jQuery(document).ready(function ($) {
     });
 
     player.bind($.jPlayer.event.ended, function (event) {
-        console.log(countSeek);
         if (countSeek === 0) {
             let id = $(this).data("jPlayer").status.media.id;
             $.ajaxSetup({
