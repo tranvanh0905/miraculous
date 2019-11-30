@@ -5,9 +5,7 @@ let adonisPlayer = {},
     adonisPlaylist,
     currentPlaylistId,
     currentSongId,
-    countseek = 0,
     currentAlbumId;
-
 jQuery(document).ready(function ($) {
     "use strict";
 
@@ -58,8 +56,8 @@ jQuery(document).ready(function ($) {
         /**
          * event play
          */
-        $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
 
+        $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
             // poster
             let poster = $(this).data("jPlayer").status.media.poster;
             $('#' + adonisPlayerContainer).find('.adonis-player .song-poster img').attr('src', poster);
@@ -123,7 +121,7 @@ jQuery(document).ready(function ($) {
             if (Match != null) {
                 let Link = Match[1].replace('}', '');
             }
-            return { link: Link, name: strRe };
+            return {link: Link, name: strRe};
         }
 
         /* Modern Seeking */
@@ -136,7 +134,6 @@ jQuery(document).ready(function ($) {
             $(this).addClass('dragActive');
 
             updatebar(percentage);
-            countseek++;
         });
 
         $(document).mouseup(function (e) {
@@ -149,7 +146,6 @@ jQuery(document).ready(function ($) {
                     updatebar(percentage);
                 }
             }
-            countseek++;
         });
 
 
@@ -295,6 +291,7 @@ jQuery(document).ready(function ($) {
                 $.ajax({
                     type: 'GET',
                     url: '/song/check_like/' + albumId,
+                    async: false,
                     success: function (data) {
                         if (data.msg === 'dontLike') {
                             //Nếu chưa sẽ thêm nút like vào player
@@ -328,6 +325,7 @@ jQuery(document).ready(function ($) {
                 $.ajax({
                     type: 'GET',
                     url: '/song/' + albumId,
+                    async: false,
                     success: function (data) {
 
                         adonisAllPlaylists[albumId] = data["data"];
@@ -371,6 +369,7 @@ jQuery(document).ready(function ($) {
                     $.ajax({
                         type: 'GET',
                         url: '/song/check_like/' + songId,
+                        async: false,
                         success: function (data) {
                             if (data.msg === 'dontLike') {
                                 //Nếu chưa sẽ thêm nút like vào player
@@ -406,6 +405,7 @@ jQuery(document).ready(function ($) {
                 $.ajax({
                     type: 'GET',
                     url: '/album/' + albumId,
+                    async: false,
                     success: function (data) {
                         adonisAllPlaylists[albumId] = data["data"];
 
@@ -449,6 +449,7 @@ jQuery(document).ready(function ($) {
                     $.ajax({
                         type: 'GET',
                         url: '/song/check_like/' + songId,
+                        async: false,
                         success: function (data) {
                             if (data.msg === 'dontLike') {
                                 //Nếu chưa sẽ thêm nút like vào player
@@ -483,6 +484,7 @@ jQuery(document).ready(function ($) {
                 $.ajax({
                     type: 'GET',
                     url: '/playlist/' + albumId,
+                    async: false,
                     success: function (data) {
                         adonisAllPlaylists[albumId] = data["data"];
 
@@ -541,8 +543,36 @@ jQuery(document).ready(function ($) {
         iconClass: 'mdi mdi-fw mdi-upload'
     });
 
-    // $("#" + adonisPlayerID).bind($.jPlayer.event.timeupdate, function (event) {
-    //     let check = $(this).data("jPlayer").status.currentPercentRelative;
-    //     console.log(check);
-    // });
+    let player = $("#" + adonisPlayerID);
+    let countSeek = 0;
+
+    //Tăng view cho bài hát, không tua và nghe hết bài hát
+    player.bind($.jPlayer.event.play, function (event) {
+        countSeek = 0;
+
+    });
+
+    player.bind($.jPlayer.event.seeking, function (event) {
+        countSeek = 1;
+    });
+
+    player.bind($.jPlayer.event.ended, function (event) {
+        console.log(countSeek);
+        if (countSeek === 0) {
+            let id = $(this).data("jPlayer").status.media.id;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/update-view',
+                data: {songId: id},
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    });
 });

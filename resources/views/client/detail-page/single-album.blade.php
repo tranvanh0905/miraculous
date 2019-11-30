@@ -52,8 +52,7 @@
                     <div class="album-top-box text-center text-md-left">
                         <h6 class="inactive-color">ALBUM</h6>
                         <h1 class="album-title"> {{$singleAlbum->title}}</h1>
-                        <p class="mb-2">Trình bày: <a href="{{route('singleArtist', ['artistId' => $singleAlbum->artist_id])}}">Danielle
-                                Bradberry</a></p>
+                        <p class="mb-2">Trình bày: <a href="{{route('singleArtist', ['artistId' => $singleAlbum->artist_id])}}">{{$singleAlbum->artist->nick_name}}</a></p>
                         <div class="separator mb-4 mt-4">
                             <span class="separator-md"></span>
                         </div>
@@ -129,7 +128,7 @@
             <div class="more-items">
                 <div class="pt-e-20 pt-e-lg-40"></div>
                 <div class="title-box">
-                    <h2 class="title h3-md">Xem thêm album của Danielle Bradbery</h2>
+                    <h3 class="title h3-md">Xem thêm album của {{$singleAlbum->artist->nick_name}}</h3>
                 </div>
                 <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
                      data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
@@ -159,7 +158,47 @@
                                             </div>
                                         </div>
                                         <h6 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a></h6>
-                                        <p class="sub-title category"><a href="#">Adonis Music Pop</a></p>
+                                        <p class="sub-title category"><a href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a></p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more-items">
+                <div class="title-box">
+                    <h3 class="title h3-md">Album khác</h3>
+                </div>
+                <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
+                     data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
+                     data-item-width="260" data-item-max-width="280">
+                    <div class="gutter-30">
+                        <div class="owl-carousel owl-theme-adonis">
+                            @foreach($otherAlbum as $album)
+                                <div class="item hover-bg-item">
+                                    <div class="music-img-box">
+                                        <div class="img-box box-rounded-sm">
+                                            <img class="retina"
+                                                 src="{{$album->cover_image}}"
+                                                 data-2x="{{$album->cover_image}}"
+                                                 alt="">
+                                            <div class="hover-state">
+                                                <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album"
+                                                              data-album-id="{{$album->id}}"><i
+                                                                class="play-icon"></i></span>
+                                                </div>
+                                                <div class="absolute-top-right pr-e-20 pt-e-20">
+                                                        <span class="pointer dropdown-menu-toggle"><span
+                                                                class="adonis-icon icon-4x"><svg
+                                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
+                                                                        xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h6 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a></h6>
+                                        <p class="sub-title category"><a href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a></p>
                                     </div>
                                 </div>
                             @endforeach

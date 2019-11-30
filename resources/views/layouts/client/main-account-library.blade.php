@@ -24,37 +24,83 @@
     <div id="site-content">
         <div id="site-content-inner">
             <main id="main">
-                <div class="pt-4 pt-lg-5"></div>
+                <div class="pt-4"></div>
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="menu-library">
-                                <ul class="wrap-menu-library">
-                                    <li><a href="{{route('user-library')}}" class="@if (\Request::is('user/library')) menu-library-active @endif">Thư viện</a>
-                                    </li>
-                                    <li><a href="{{route('user-library-song')}}" class="@if (\Request::is('user/library/song')) menu-library-active
-@endif">Bài hát</a></li>
-                                    <li><a href="{{route('user-library-playlist')}}" class="@if (\Request::is('user/library/playlist'))
-                                                menu-library-active
-@endif">Danh sách phát</a></li>
-                                    <li><a href="{{route('user-library-album')}}" class="@if (\Request::is('user/library/album')) menu-library-active
-@endif">Album</a></li>
-                                    <li><a href="{{route('user-library-artist')}}" class="@if (\Request::is('user/library/artist'))
-                                                menu-library-active
-@endif">Ca sĩ đã quan tâm</a></li>
-                                    <li><a href="{{route('user-library-personal-playlist')}}" class="@if (\Request::is('user/library/user-playlist'))
-                                                menu-library-active
-@endif">Danh sách phát cá nhân</a></li>
-                                    <li><a href="#">Đã phát gần đây</a></li>
-                                </ul>
+                        <div class="col-xl-3 col-lg-5 col-md-12">
+                            <div class="height-100 pl-md-4 pr-md-4 flex-column-sidebar-md sidebar d-xl-block  d-lg-block  d-sm-none d-md-none">
+                                <div class="sidebar-bg">
+                                    <img src="{{url('client/images/sidebar-bg-1.jpg')}}" alt="sidebar">
+                                </div>
+                                <div class="d-flex flex-column height-100">
+                                    <div class="sidenav-scroll scroll-y height-100 pt-5 ps">
+                                        <div class="pb-3">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <a href="{{route('user-library')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library'))  btn-primary @else btn-transparent @endif">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-photo-video fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Thư viện của bạn</p>
+                                                </a>
+                                                <a href="{{route('user-library-song')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/song'))  btn-primary @else btn-transparent @endif">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-music fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Bài hát đã thích</p>
+                                                </a>
+                                                <a href="{{route('user-library-album')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/album'))  btn-primary @else btn-transparent @endif">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-compact-disc fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Album đã thích</p>
+                                                </a>
+                                                <a href="{{route('user-library-playlist')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/playlist'))  btn-primary @else btn-transparent @endif">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-play-circle fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Danh sách phát đã thích</p>
+                                                </a>
+                                                <a href="{{route('user-library-artist')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/artist'))  btn-primary @else btn-transparent @endif">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-user-plus fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Ca sĩ đã quan tâm</p>
+                                                </a>
+                                                <a href="{{route('user-library-personal-playlist')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/user-playlist'))  btn-primary @else btn-transparent @endif ">
+                                                        <span class="adonis-icon pb-2">
+                                                            <i class="fas fa-user-astronaut fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Danh sách phát cá nhân</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-mobile d-xl-none d-lg-none  d-sm-block d-md-block">
+                                <select name="forma" onchange="location = this.value;" class="form-control">
+                                    <option value="#">Chọn menu</option>
+                                    <option value="{{route('user-library')}}">Thư viện của bạn</option>
+                                    <option value="{{route('user-library-song')}}">Bài hát đã thích</option>
+                                    <option value="{{route('user-library-album')}}">Album đã thích</option>
+                                    <option value="{{route('user-library-playlist')}}">Danh sách phát đã thích</option>
+                                    <option value="{{route('user-library-artist')}}">Ca sĩ đã quan tâm</option>
+                                    <option value="{{route('user-library-personal-playlist')}}">Danh sách phát cá nhân</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-lg-9 pl-4">
+                        <div class="col-xl-9 pl-5 col-lg-7 col-md-12">
                             @yield('content')
                         </div>
                     </div>
                 </div>
-
+            </main>
         </div><!--/#site-content-inner-->
     </div>
 

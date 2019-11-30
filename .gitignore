@@ -12,4 +12,3 @@ yarn-error.log
 .idea/*
 .idea/project-big.iml
 .idea/workspace.xml
-/public/upload/

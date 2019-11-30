@@ -371,10 +371,10 @@
                 </div>
                 <div class="row">
                     @foreach($playLists as $playlist)
-                        <div class="col-xl-6 col-lg-12 col-md-12 ">
+                        <div class="col-xl-6 col-lg-6 col-md-12 ">
                             <div class="playlist-item-wrapper mb-3">
                                 <div class="row">
-                                    <div class="col-xl-4">
+                                    <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
                                         <a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">
                                             <div class="image lazyload-img loaded"><img
                                                         src="{{url($playlist->cover_image)}}">
@@ -382,11 +382,11 @@
                                             <div class="opac"></div>
                                         </a>
                                     </div>
-                                    <div class="col-xl-3 p-xl-0 text-xl-left text-center p-2">
-                                        <div class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])
-                                    }}">{{$playlist->name}}</a></div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
+                                        <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])
+                                    }}">{{$playlist->name}}</a></h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
-                                    <div class="col-xl-5 pl-xl-0">
+                                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-sm-3 pl-xl-0">
                                         <div class="list-trend">
                                             @foreach($playlist->getThreeSongs as $song)
                                                 <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
@@ -394,11 +394,11 @@
                                                         <img src="{{url($song->cover_image)}}" alt="{{$song->name}}">
                                                     </div>
                                                     <div class="des">
-                                                        <h6 class="title fs-2"><a href="#">{{$song->name}}</a>
+                                                        <h6 class="title fs-2"><a href="{{route('singleSong', ['song_id' => $song->id])}}">{{$song->name}}</a>
                                                         </h6>
                                                         <p class="sub-title">
                                                             @foreach($song->artists as $artist)
-                                                                <a href="#">
+                                                                <a href="{{route('singleArtist', ['artist_id' => $artist->id])}}">
                                                                     {{$artist->nick_name}}
                                                                 </a>
                                                             @endforeach

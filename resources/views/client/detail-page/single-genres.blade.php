@@ -91,42 +91,46 @@
                         <h3>Nghe nhiều nhất của {{$genres->name}}</h3>
                     </div>
                     @foreach($mostViewOfGenres as $song)
-                        <div class="img-box-horizontal music-img-box img-box-horizontal-style-2">
+                        <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
                             <div class="img-box img-box-sm box-rounded-sm">
-                                <img src="{{url($song->cover_image)}}" alt="{{$song->name}}">
+                                <img src="{{$song->cover_image}}" alt="{{$song->name}}">
                             </div>
+
                             <div class="des">
                                 <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a></h6>
                                 <p class="sub-title">
                                     @foreach($song->artists as $artist)
-                                        <a href="{{route('singleArtist', ['artist_id' => $artist->id])}}">{{$artist->nick_name}}</a>
+                                        <a href="{{route('singleArtist', ['artistId' => $artist->id])}}">{{$artist->nick_name}}</a>
                                     @endforeach
                                 </p>
                             </div>
+
                             <div class="hover-state d-flex justify-content-between align-items-center">
-                                    <span class="pointer play-btn-dark box-rounded-sm adonis-album-button" data-type="song"
-                                          data-album-id="{{$song->id}}"><i
-                                                class="play-icon"></i></span>
+                                                 <span class="pointer play-btn-dark adonis-album-button"
+                                                       data-album-id="{{$song->id}}" data-type="song"><i
+                                                         class="play-icon"></i>
+                                                </span>
+
                                 <div class="d-flex align-items-center">
-                                    <span class="adonis-icon text-light pointer mr-2 icon-2x">
-                                        @if(\Illuminate\Support\Facades\Auth::check())
-                                            @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
-                                                <span class="adonis-icon icon-2x box-like-global">
+                                                    <span class="adonis-icon text-light pointer mr-2 icon-2x">
+                                                    @if(\Illuminate\Support\Facades\Auth::check())
+                                                            @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
+                                                                <span class="adonis-icon icon-2x box-like-global">
                                                                     <i class="far fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
                                                                        data-id="{{$song->id}}"></i>
                                                                   </span>
-                                            @else
-                                                <span class="adonis-icon icon-2x box-dis-like-global">
+                                                            @else
+                                                                <span class="adonis-icon icon-2x box-dis-like-global">
                                                                 <i class="fas fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
-                                            @endif
-                                            <span class="pointer dropdown-menu-toggle"
-                                                  data-songid="{{$song->id}}" data-link="123">
-                                                <span class="icon-dot-nav-horizontal text-light"></span>
-                                            </span>
-                                        @endif
-                                    </span>
+                                                            @endif
+                                                            <span class="pointer dropdown-menu-toggle"
+                                                                  data-songid="{{$song->id}}" data-link="123">
+                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                        @endif
+                                                    </span>
                                 </div>
                             </div>
                         </div>

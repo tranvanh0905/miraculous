@@ -49,7 +49,7 @@ class ClientUserController extends Controller
         })->get();
 
 
-        return view('client.library', compact('likedSong', 'likedPlaylist', 'likedAlbum', 'followArtist'));
+        return view('client.library.index', compact('likedSong', 'likedPlaylist', 'likedAlbum', 'followArtist'));
     }
 
     public function librarySong()
@@ -58,7 +58,7 @@ class ClientUserController extends Controller
             $query->where('users.id', '=', Auth::user()->id);
         })->paginate(30);
 
-        return view('client.library-song', compact('songLiked'));
+        return view('client.library.library-song', compact('songLiked'));
     }
 
     public function libraryAlbum()
@@ -67,7 +67,7 @@ class ClientUserController extends Controller
             $query->where('users.id', '=', Auth::user()->id);
         })->with('artist')->paginate(30);
 
-        return view('client.library-album', compact('likedAlbum'));
+        return view('client.library.library-album', compact('likedAlbum'));
     }
 
     public function libraryPlaylist()
@@ -76,12 +76,16 @@ class ClientUserController extends Controller
             $query->where('users.id', '=', Auth::user()->id);
         })->with('songs')->paginate(30);
 
-        return view('client.library-playlist', compact('likedPlaylist'));
+        return view('client.library.library-playlist', compact('likedPlaylist'));
     }
 
     public function libraryArtist()
     {
-        return view('client.library-artist');
+        $artistFollow = Artist::whereHas('userFollows', function ($query) {
+            $query->where('users.id', '=', Auth::user()->id);
+        })->paginate(30);
+
+        return view('client.library.library-artist', compact('artistFollow'));
     }
 
     //User playlist

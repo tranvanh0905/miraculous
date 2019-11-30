@@ -11,7 +11,7 @@
             <div class="pt-4 pt-lg-5"></div>
 
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-xl-8 col-lg-7 col-md-12 col-md-9">
                     <div class="row">
                         <div class="col-md-3 text-center">
                             <div class="album-image">
@@ -239,9 +239,8 @@
                         <div class="pt-e-5 pt-e-lg-10"></div>
                     </div>
                 </div>
-
-                <div class="col-md-3 order-md-1 flex-column-sidebar-md sidebar">
-                    <div class="widget">
+                <div class="col-xl-4 col-lg-5 col-md-12 flex-column-sidebar-xl">
+                    <div class="widget mb-3">
                         <h3 class="widget-title h3-md text-uppercase">Thể loại</h3>
                         <div class="tagcloud">
                             @foreach($genres as $genre)
@@ -249,7 +248,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="widget">
+                    <div class="widget mb-3">
                         <div class="d-flex justify-content-between inactive-colored-links">
                             <h3 class="widget-title text-uppercase h3-md">Nghệ sĩ nổi bật</h3>
                             <a href="{{route('all', ['type' => 'artists'])}}" class="inactive-color mt-2">Xem tất cả</a>
@@ -297,7 +296,7 @@
                     </div>
                     <div class="widget">
                         <div class="d-flex justify-content-between inactive-colored-links">
-                            <h3 class="text-uppercase widget-title h3-md">Bài hát được yêu thích nhiều</h3>
+                            <h3 class="text-uppercase widget-title h3-md">Yêu thích nhiều nhất</h3>
                         </div>
                         @foreach($mostLikeSong as $song)
                             <div class="img-box-horizontal music-img-box img-box-horizontal-style-2 h-g-bg h-d-shadow">
@@ -348,7 +347,6 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
 
         </div>

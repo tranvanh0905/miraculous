@@ -78,10 +78,9 @@ Route::get('/playlist/{playlistId}', 'ClientPlayerController@getSongOfPlaylist')
 
 //Check, like
 Route::group(['middleware' => 'request.check'], function () {
-    Route::get('/update-view/{songId}', 'ClientPlayerController@updateView');
 
     //+ 1 view song
-    Route::post('/update-view/{songId}', 'ClientPlayerController@updateView');
+    Route::post('/update-view', 'ClientPlayerController@updateView');
 
     //user like song
     Route::post('like/song/{id}', 'ClientPlayerController@likeSong');

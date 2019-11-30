@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use function foo\func;
 
 
 class ClientController extends Controller
@@ -182,11 +183,13 @@ class ClientController extends Controller
 
         $singleAlbum = Album::find($albumId);
 
-        $songOfAlbum = Song::where('album_id', '=', $albumId)->get();
+        $songOfAlbum = Song::where('album_id', '=', $albumId)->where('status', '=', 1)->get();
 
-        $relateAlbum = Album::where('artist_id', '=', $singleAlbum->artist_id)->where('id', '<>', $singleAlbum->id)->get();
+        $relateAlbum = Album::where('artist_id', '=', $singleAlbum->artist_id)->where('id', '<>', $singleAlbum->id)->where('status', '=', 1)->get();
 
-        return view('client.detail-page.single-album', compact('singleAlbum', 'songOfAlbum', 'relateAlbum'));
+        $otherAlbum = Album::where('status', '=', 1)->where('artist_id', '<>', $singleAlbum->artist_id)->inRandomOrder()->get();
+
+        return view('client.detail-page.single-album', compact('singleAlbum', 'songOfAlbum', 'relateAlbum', 'otherAlbum'));
     }
 
     //Chi tiết danh sách phát
@@ -194,11 +197,13 @@ class ClientController extends Controller
     public function singlePlaylist($playlistId)
     {
 
-        $singlePlaylist = Playlist::find($playlistId)->load('songs');
+        $singlePlaylist = Playlist::find($playlistId)->load(['songs' => function($query){
+            $query->where('status', '=', 1);
+        }]);
 
         $relatedPlaylist = Playlist::whereHas('user', function ($query) {
             $query->where('role', '>', 500);
-        })->limit(10)->get();
+        })->where('status', '=', 1)->limit(10)->get();
 
         return view('client.detail-page.single-playlist', compact('singlePlaylist', 'relatedPlaylist'));
     }
@@ -222,10 +227,16 @@ class ClientController extends Controller
 
     public function singleArtist($artistId)
     {
-        $singleArtist = Artist::find($artistId)->load('songs.artists', 'albums');
+        $singleArtist = Artist::where('id', '=', $artistId)->with(['songs' => function ($query) {
+            $query->where('status', '=', 1);
+        }, 'albums' => function ($query) {
+            $query->where('status', '=', 1);
+        }])->first();
+
+        $otherArtist = Artist::where('status', '=', 1)->limit(12)->get();
 
 
-        return view('client.detail-page.single-artist', compact('singleArtist'));
+        return view('client.detail-page.single-artist', compact('singleArtist', 'otherArtist'));
     }
 
     //Trang tìm kiếm

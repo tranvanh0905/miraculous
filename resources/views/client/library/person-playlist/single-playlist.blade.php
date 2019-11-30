@@ -16,20 +16,6 @@
                                 <img class="retina box-rounded-md text-center" src="{{url($singlePlaylist->cover_image)}}"
                                      data-2x="{{url($singlePlaylist->cover_image)}}" alt="{{$singlePlaylist->name}}">
                             </div>
-                            <div class="absolute-info">
-                                <a class="btn btn-60-60 btn-primary absolute-center adonis-album-button round-btn text-light"
-                                   data-album-id="{{$singlePlaylist->id}}" data-type="playList" role="button" tabindex="0">
-                                            <span class="adonis-icon icon-play icon-2x"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                            xlink:href="#icon-brand-play"></use></svg></span>
-                                    <span class="adonis-icon icon-pause icon-2x"><svg version="1.1"
-                                                                                      xmlns="http://www.w3.org/2000/svg"
-                                                                                      height="20"
-                                                                                      viewBox="0 0 29 32"><path
-                                                    d="M19.2 0h8c0.884 0 1.6 0.716 1.6 1.6v28.8c0 0.884-0.716 1.6-1.6 1.6h-8c-0.884 0-1.6-0.716-1.6-1.6v-28.8c0-0.884 0.716-1.6 1.6-1.6z"></path><path
-                                                    d="M1.6 0h8c0.884 0 1.6 0.716 1.6 1.6v28.8c0 0.884-0.716 1.6-1.6 1.6h-8c-0.884 0-1.6-0.716-1.6-1.6v-28.8c0-0.884 0.716-1.6 1.6-1.6z"></path></svg></span>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="about">
