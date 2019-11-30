@@ -63,12 +63,15 @@ Route::get('kind/delete/{id}', 'GenresController@actionDelete')->name('kinds.del
 Route::get('advertises', 'AdvertisesController@index')->name('advertises.home');
 //Comment route
 Route::get('comment', 'CommentsController@index')->name('comments.home');
+Route::get('comment/get-data','CommentsController@getData')->name('comments.getData');
+Route::get('comment/delete/{id}', 'CommentsController@actionDelete')->name('comments.delete');
 //Users route
 Route::get('users', 'UsersController@index')->name('users.home');
 Route::any('users/get-data', 'UsersController@getData')->name('users.getData');
 Route::post('users/add', 'UsersController@actionAdd')->name('users.add');
 Route::get('users/add', 'UsersController@add')->name('users.add');
-Route::get('users/update', 'UsersController@update')->name('users.update');
+Route::get('users/update/{id}', 'UsersController@update')->name('users.update');
+Route::post('users/update/{id}', 'UsersController@actionUpdate')->name('users.update');
 Route::get('users/delete/{id}', 'UsersController@actionDelete')->name('users.delete');
 //Ajax route
 Route::get('ajax/artist_song/{artist_id}', 'AjaxController@actionGetSongArtist')->name('albums.song_artist');

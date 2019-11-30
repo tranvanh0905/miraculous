@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Genres;
 use App\Http\Requests\AddUserForm;
+use App\Http\Requests\UpdateUserForm;
 use App\Playlist;
 use App\PlaylistDetail;
 use App\User;
+use Illuminate\Support\Facades\Input;
 
 class UsersController extends Controller
 {
@@ -80,12 +82,18 @@ class UsersController extends Controller
 
     }
 
-    public function update()
+    public function update($user_id)
     {
-        return view('admin2.users.edit');
+        $model = User::find($user_id);
+        return view('admin2.users.edit', compact('model'));
+    }
+
+    public function actionUpdate(UpdateUserForm $request, $user_id)
+    {
+        $model = User::find($user_id);
+        $current_password = $model->password;
         $model->fill($request->all());
         if ($request->hasFile('avatar')) {
-            // lấy tên gốc của ảnh
             $filename = $request->avatar->getClientOriginalName();
             // thay thế ký tự khoảng trắng bằng ký tự '-'
             $filename = str_replace(' ', '-', $filename);
@@ -96,12 +104,21 @@ class UsersController extends Controller
             $request->file('avatar')->move('upload/image', $filename);
             $model->avatar = "$path";
         }
+
+        if ($request->password !== null) {
+            $model->password = password_hash($request->password, PASSWORD_DEFAULT);
+        } else {
+            $model->password = $current_password;
+        }
+        $model->save();
+        return redirect()->route('users.home')->with('status', 'Cập nhật tài khoản thành công');
     }
 
-    public function actionDelete($user_id) {
+    public function actionDelete($user_id)
+    {
         $model = User::find($user_id);
         $playlist = Playlist::where("upload_by_user_id", $user_id)->get();
-        if ($playlist !== null && count($playlist) > 0 ) {
+        if ($playlist !== null && count($playlist) > 0) {
             $playlist_detail = PlaylistDetail::where('playlist_id', $playlist->id);
             $playlist_detail->delete();
         }
