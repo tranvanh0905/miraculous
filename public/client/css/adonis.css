@@ -2574,9 +2574,10 @@ tr.border-bottom-0 td, tr.border-bottom-0 th {
     background: #000000;
     color: #ffffff;
     border-radius: .2rem;
-    padding: 0 3px;
+    padding: 5px;
     vertical-align: super;
-    font-weight: normal
+    font-weight: normal;
+    text-transform: uppercase;
 }
 
 .adonis-highlight-active {
@@ -5553,10 +5554,6 @@ select.form-control:focus::-ms-value {
     text-align: center
 }
 
-.customer-review img {
-    max-width: 35px
-}
-
 .shop-attributes th {
     width: 20%;
     min-width: 10rem
@@ -8119,9 +8116,6 @@ select.form-control:focus::-ms-value {
     font-size: 12px;
 }
 
-.all-comment {
-    max-height: 500px;
-}
 
 .img-genres {
     width: 100%;
@@ -8205,21 +8199,181 @@ select.form-control:focus::-ms-value {
     width: 100%;
     height: 100%;
 }
-.fs-14{
+
+.fs-14 {
     font-size: 14px;
 }
-.fs-19{
+
+.fs-19 {
     font-size: 19px;
 }
-.fs-21{
+
+.fs-21 {
     font-size: 21px;
 }
-.fs-29{
+
+.fs-29 {
     font-size: 29px;
 }
 
-.play-index{
+.play-index {
     z-index: 999;
     margin-right: -4px;
+}
+
+.trend-song {
+    height: 271px;
+}
+
+.widget .panel-body {
+    padding: 0px;
+}
+
+.widget .list-group {
+    margin-bottom: 0;
+}
+
+.widget .panel-title {
+    display: inline
+}
+
+.widget .label-info {
+    float: right;
+}
+
+.widget li.list-group-item {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.widget li.list-group-item:hover {
+    background-color: rgba(86, 61, 124, .1);
+}
+
+.widget .mic-info {
+    color: #666666;
+}
+
+.widget .action {
+    margin-top: 5px;
+}
+
+.widget .comment-text {
+}
+
+#notfound {
+    position: relative;
+    height: 100vh;
+}
+
+#notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notfound {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    padding: 0px 15px;
+}
+
+.notfound .notfound-404 {
+    position: relative;
+    height: 150px;
+    line-height: 150px;
+    margin-bottom: 25px;
+}
+
+.notfound .notfound-404 h1 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 186px;
+    font-weight: 900;
+    margin: 0px;
+    text-transform: uppercase;
+    background: url('../images/text.png');
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: cover;
+    background-position: center;
+}
+
+.notfound h2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.notfound p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+}
+
+.notfound a {
+    font-family: 'Titillium Web', sans-serif;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    background: #5c91fe;
+    padding: 10px 40px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 1px;
+    margin-top: 15px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.notfound a:hover {
+    opacity: 0.8;
+}
+
+@media only screen and (max-width: 767px) {
+    .notfound .notfound-404 {
+        height: 110px;
+        line-height: 110px;
+    }
+    .notfound .notfound-404 h1 {
+        font-size: 120px;
+    }
+}
+
+.genres-brower{
+    height: 130px;
+}
+.banner-reg{
+    background: #12c2e9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.btn-reg{
+    padding: 10px 30px;
+    border-radius: 40px!important;
+    background: #0a6aa1;
+    color: white;
+    margin-top: 10px;
+    display: inline-block;
+}
+.btn-reg{
+    padding: 10px 30px;
+    border-radius: 40px!important;
+    color: black;
+    margin-top: 10px;
+    display: inline-block;
+    background: white;
+    font-weight: bold;
+
 }
 

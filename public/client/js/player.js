@@ -283,170 +283,14 @@ jQuery(document).ready(function ($) {
         $(document).on('click', '.adonis-album-button', function (e) {
             let type = $(this).attr('data-type');
             let albumId = parseInt($(this).attr('data-album-id'));
+            let userId = $("input[name='id']").val();
 
-            //Nếu là bài hát
-            if (type === "song") {
+            if (userId !== undefined) {
+                $("#" + adonisPlayerID).unbind($.jPlayer.event.loadedmetadata);
 
-                //Kiểm tra bài hát đã được like chưa
-                $.ajax({
-                    type: 'GET',
-                    url: '/song/check_like/' + albumId,
-                    async: false,
-                    success: function (data) {
-                        if (data.msg === 'dontLike') {
-                            //Nếu chưa sẽ thêm nút like vào player
-                            $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i' +
-                                ' class="far' +
-                                ' fa-heart' +
-                                ' fa-2x' +
-                                ' font-14"></i></span>');
-
-                            $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i' +
-                                ' class="far' +
-                                ' fa-heart' +
-                                ' fa-2x' +
-                                ' font-14"></i></span>');
-
-                            $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i' +
-                                ' class="far' +
-                                ' fa-heart' +
-                                ' fa-2x' +
-                                ' font-14"></i></span>');
-                        } else {
-                            //Nếu đã like thêm nút dislike vào player
-                            $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                            $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                            $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + albumId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                        }
-                    }
-                });
-
-                //Lấy data bài hát và truyền vào player
-                $.ajax({
-                    type: 'GET',
-                    url: '/song/' + albumId,
-                    async: false,
-                    success: function (data) {
-
-                        adonisAllPlaylists[albumId] = data["data"];
-
-                        // set play list if not set yet
-                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
-                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                            currentSongId = albumId;
-
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
-                            } else {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
-                            }
-                        } else {
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play();
-                                }, 700);
-                            } else {
-                                adonisPlaylist.pause();
-                            }
-                        }
-                    }
-                });
-            }
-
-            //Nếu là album
-            if (type === "album") {
-                //Kiểm tra bài hát trong album đã được like chưa
-
-                $("#" + adonisPlayerID).bind($.jPlayer.event.loadeddata, function (event) {
+                //Thêm vào lịch sử nghe nhạc
+                $("#" + adonisPlayerID).bind($.jPlayer.event.loadedmetadata, function (event) {
                     let songId = $(this).data("jPlayer").status.media.id;
-
-                    $.ajax({
-                        type: 'GET',
-                        url: '/song/check_like/' + songId,
-                        async: false,
-                        success: function (data) {
-                            if (data.msg === 'dontLike') {
-                                //Nếu chưa sẽ thêm nút like vào player
-                                $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-
-                                $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-
-                                $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-                            } else {
-                                //Nếu đã like thêm nút dislike vào player
-                                console.log('123');
-                                $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                                $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                                $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                            }
-                        }
-                    });
-
-                });
-
-                //Truyền data album vào player
-                $.ajax({
-                    type: 'GET',
-                    url: '/album/' + albumId,
-                    async: false,
-                    success: function (data) {
-                        adonisAllPlaylists[albumId] = data["data"];
-
-                        // set play list if not set yet
-                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
-                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                            currentAlbumId = albumId;
-
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
-                            } else {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
-                            }
-                        } else {
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play();
-                                }, 700);
-                            } else {
-                                adonisPlaylist.pause();
-                            }
-                        }
-
-                    }
-                });
-            }
-
-            //Nếu là playlist
-            if (type === "playList") {
-                //Kiểm tra bài hát trong playlist đã được like chưa
-
-                $("#" + adonisPlayerID).bind($.jPlayer.event.loadeddata, function (event) {
-                    let songId = $(this).data("jPlayer").status.media.id;
-
                     $.ajax({
                         type: 'GET',
                         url: '/song/check_like/' + songId,
@@ -480,43 +324,253 @@ jQuery(document).ready(function ($) {
                         }
                     });
 
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: "user/add-history",
+                        type: 'POST',
+                        async: false,
+                        data: {
+                            song_id: songId,
+                        }
+                    });
                 });
 
-                $.ajax({
-                    type: 'GET',
-                    url: '/playlist/' + albumId,
-                    async: false,
-                    success: function (data) {
-                        adonisAllPlaylists[albumId] = data["data"];
+                //Nếu là bài hát
+                if (type === "song") {
+                    //Lấy data bài hát và truyền vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/song/' + albumId,
+                        async: false,
+                        success: function (data) {
 
-                        // set play list if not set yet
-                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
-                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                            currentPlaylistId = albumId;
+                            adonisAllPlaylists[albumId] = data["data"];
 
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentSongId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
                             } else {
-                                setTimeout(function () {
-                                    adonisPlaylist.play(0);
-                                }, 700);
-                            }
-                        } else {
-                            // play or pause
-                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                setTimeout(function () {
-                                    adonisPlaylist.play();
-                                }, 700);
-                            } else {
-                                adonisPlaylist.pause();
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
                             }
                         }
+                    });
 
-                    }
-                });
+                } else if (type === "album") {
+                    //Truyền data album vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/album/' + albumId,
+                        async: false,
+                        success: function (data) {
+                            adonisAllPlaylists[albumId] = data["data"];
+
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentAlbumId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
+                            } else {
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
+                            }
+
+                        }
+                    });
+
+                } else if (type === "playList") {
+                    //Truyền data playlist vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/playlist/' + albumId,
+                        async: false,
+                        success: function (data) {
+                            adonisAllPlaylists[albumId] = data["data"];
+
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentPlaylistId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
+                            } else {
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }else {
+                //Nếu là bài hát
+                if (type === "song") {
+                    //Lấy data bài hát và truyền vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/song/' + albumId,
+                        async: false,
+                        success: function (data) {
+
+                            adonisAllPlaylists[albumId] = data["data"];
+
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentSongId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
+                            } else {
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
+                            }
+                        }
+                    });
+
+                } else if (type === "album") {
+                    //Truyền data album vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/album/' + albumId,
+                        async: false,
+                        success: function (data) {
+                            adonisAllPlaylists[albumId] = data["data"];
+
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentAlbumId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
+                            } else {
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
+                            }
+
+                        }
+                    });
+
+                } else if (type === "playList") {
+                    //Truyền data playlist vào player
+                    $.ajax({
+                        type: 'GET',
+                        url: '/playlist/' + albumId,
+                        async: false,
+                        success: function (data) {
+                            adonisAllPlaylists[albumId] = data["data"];
+
+                            // set play list if not set yet
+                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
+                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                                currentPlaylistId = albumId;
+
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                } else {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play(0);
+                                    }, 700);
+                                }
+                            } else {
+                                // play or pause
+                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                    setTimeout(function () {
+                                        adonisPlaylist.play();
+                                    }, 700);
+                                } else {
+                                    adonisPlaylist.pause();
+                                }
+                            }
+
+                        }
+                    });
+                }
             }
         });
 
@@ -550,7 +604,6 @@ jQuery(document).ready(function ($) {
     //Tăng view cho bài hát, không tua và nghe hết bài hát
     player.bind($.jPlayer.event.play, function (event) {
         countSeek = 0;
-
     });
 
     player.bind($.jPlayer.event.seeking, function (event) {
@@ -568,6 +621,15 @@ jQuery(document).ready(function ($) {
             $.ajax({
                 type: 'POST',
                 url: '/update-view',
+                data: {songId: id},
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/update-view-daily',
                 data: {songId: id},
                 success: function (data) {
                     console.log(data);

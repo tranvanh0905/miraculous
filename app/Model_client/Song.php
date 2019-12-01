@@ -42,5 +42,14 @@ class Song extends Model
         return $this->belongsTo('App\Album', 'album_id', 'id');
     }
 
+    public function userHistorys()
+    {
+        return $this->belongsToMany('App\User', 'history');
+    }
+
+    public function dailyView()
+    {
+        return $this->hasMany('App\Model_client\DailyViewSong');
+    }
 
 }

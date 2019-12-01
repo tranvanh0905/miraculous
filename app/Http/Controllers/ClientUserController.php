@@ -7,6 +7,7 @@ use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\UserPlaylistRequest;
 use App\Model_client\Album;
 use App\Model_client\Artist;
+use App\Model_client\History;
 use App\Model_client\Playlist;
 use App\Model_client\PlaylistDetail;
 use App\Model_client\Song;
@@ -86,6 +87,15 @@ class ClientUserController extends Controller
         })->paginate(30);
 
         return view('client.library.library-artist', compact('artistFollow'));
+    }
+
+    public function historySong()
+    {
+        $historySong = Song::whereHas('userHistorys', function ($query){
+            $query->where('history.user_id', '=', Auth::user()->id);
+        })->paginate(10);
+
+        return view('client.library.library-history', compact('historySong'));
     }
 
     //User playlist

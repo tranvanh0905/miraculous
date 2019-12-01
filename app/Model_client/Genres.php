@@ -13,4 +13,9 @@ class Genres extends Model
         'name', 'description', 'image', 'status'
     ];
 
+    public function songs()
+    {
+        return $this->hasMany('App\Model_Client\Song');
+    }
+
 }

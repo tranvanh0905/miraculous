@@ -32,8 +32,61 @@
                     </div>
                     <div class="col-md-6 col-xl-4">
                         <div class="widget">
-                            <h5 class="widget-title text-uppercase">Bài hát nổi bật</h5>
+                            <h5 class="widget-title text-uppercase">Bài hát ngẫu nhiên</h5>
                             <div class="footer-album-list music-img-box-cont-sm">
+                                @foreach(get3songBottom() as $song)
+                                    <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
+                                        <div class="img-box img-box-sm box-rounded-sm">
+                                            <img src="{{$song->cover_image}}" alt="{{$song->name}}">
+                                        </div>
+                                        <div class="des">
+                                            <h6 class="title fs-2"><a
+                                                    href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                            </h6>
+                                            <p class="sub-title">
+                                                @foreach($song->artists as $artist)
+                                                    <a href="{{route('singleArtist', ['artistId' => $artist->id])
+                                                            }}">{{$artist->nick_name}}</a>
+                                                @endforeach
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="hover-state d-flex justify-content-between align-items-center">
+                                                    <span
+                                                        class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                        data-type="song"
+                                                        data-album-id="{{$song->id}}">
+                                                         <i class="fas fa-play fs-19 text-light"></i>
+                                                    </span>
+                                            <div class="d-flex align-items-center">
+                                                        <span class="adonis-icon text-light pointer mr-2 icon-2x">
+                                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                                                @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
+                                                                    <span class="adonis-icon icon-2x box-like-global">
+                                                                    <i class="far fa-heart fa-2x font-14"
+                                                                       id="likeGlobal" data-type="song"
+                                                                       data-id="{{$song->id}}"
+                                                                    ></i>
+                                                                  </span>
+                                                                @else
+                                                                    <span
+                                                                        class="adonis-icon icon-2x box-dis-like-global">
+                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal"
+                                                                   data-type="song"
+                                                                   data-id="{{$song->id}}"></i>
+                                                                </span>
+                                                                @endif
+                                                                <span class="pointer dropdown-menu-toggle"
+                                                                      data-songid="{{$song->id}}" data-link="123">
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                            @endif
+                                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -72,5 +125,10 @@
             </div>
         </div>
     </div>
+    @if(\Illuminate\Support\Facades\Auth::check())
+        <input type="hidden" name="id" value="{{url(\Illuminate\Support\Facades\Auth::user()->id)}}">
+        <input type="hidden" name="user-image" value="{{url(\Illuminate\Support\Facades\Auth::user()->avatar)}}">
+        <input type="hidden" name="user-name" value="{{\Illuminate\Support\Facades\Auth::user()->username}}">
+    @endif
 </footer>
 

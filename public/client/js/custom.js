@@ -30,6 +30,7 @@ $(document).on('keyup', '.search-input', function () {
 $(document).on('click', '.btn-follow', function () {
     let artistId = $(this).attr('data-artist-id');
     let divTarget = $(this);
+    let likeIcon = $('.like-icon');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -110,7 +111,7 @@ $(document).on('click', '.add-to-playlist', function () {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
-            },{
+            }, {
                 z_index: 1300
             });
         }
@@ -142,7 +143,7 @@ $(document).on('click', '.remove-from-playlist', function () {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
-            },{
+            }, {
                 z_index: 1300
             });
         }
@@ -190,7 +191,7 @@ $(document).on('click', '#playerLike', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: "Yêu thích bài hát thành công !"
-                    },{
+                    }, {
                         z_index: 1300
                     });
                 } else {
@@ -216,7 +217,7 @@ $(document).on('click', '#playerLike', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: "Bỏ yêu thích bài hát !"
-                    },{
+                    }, {
                         z_index: 1300
                     });
                 }
@@ -237,6 +238,7 @@ $(document).on('click', '#likeGlobal', function (e) {
     let likeBox2 = $('#like2');
     let likeBox3 = $('#like3');
     let likeSongId = $('#likeSong' + id);
+    let likeIcon = $('.like-icon');
 
     $.ajaxSetup({
         headers: {
@@ -253,6 +255,9 @@ $(document).on('click', '#likeGlobal', function (e) {
                 if (data.action === 'liked') {
                     button.removeClass('far');
                     button.addClass('fas');
+
+                    likeIcon.removeClass('far');
+                    likeIcon.addClass('fas');
 
                     if (id === playerLike) {
                         likeBox.html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + id + '"><i class="fas' +
@@ -274,7 +279,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: data.msg
-                    },{
+                    }, {
                         z_index: 1300
                     });
                 } else {
@@ -301,7 +306,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-check-circle',
                         message: data.msg
-                    },{
+                    }, {
                         z_index: 1300
                     });
                 }
@@ -312,7 +317,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     url: 'song/' + id,
                     success: function (data) {
                         let getLike = data["data"][0].like;
-                        likeSongId.text(getLike);
+                        likeSongId.html(getLike + ' <i class="fas fa-heart fa-1x"></i>');
                     }
                 })
             }
@@ -329,7 +334,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-heart',
                         message: data.msg
-                    },{
+                    }, {
                         z_index: 1300
                     });
 
@@ -339,7 +344,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     $.notify({
                         icon: 'fas fa-heart-broken',
                         message: data.msg
-                    },{
+                    }, {
                         z_index: 1300
                     });
                     button.html('<i class="fas fa-heart"></i> Yêu thích album');
@@ -401,7 +406,7 @@ $(document).on('click', '.add-user-playlist', function (e) {
             $.notify({
                 icon: 'fas fa-check-circle',
                 message: data.msg
-            },{
+            }, {
                 z_index: 1300
             });
         }
@@ -431,7 +436,7 @@ $(document).on('click', '.delete-user-playlist', function (e) {
             $.notify({
                 icon: 'glyphicon glyphicon-ok',
                 message: data.msg
-            },{
+            }, {
                 z_index: 1300
             });
         }
@@ -443,4 +448,59 @@ $(document).on('click', '.like-library', function () {
     let songId = $(this).attr('data-id');
     $('.song-in-library[data-song-id="' + songId + '"]').remove().fadeOut();
 });
+
+//Bình luận bài hát
+$(document).on('click', '.btn-submit', function () {
+    let print_err = $(".print-error-msg");
+    let _token = $("input[name='_token']").val();
+    let content = $("textarea[name='content']").val();
+
+    let username = $("input[name='user-name']").val();
+    let useravatar = $("input[name='user-image']").val();
+
+    let songId = $(this).attr('data-songid');
+
+    $.ajax({
+        url: "user/comment/song",
+        type: 'POST',
+        data: {
+            _token: _token,
+            content: content,
+            song_id: songId,
+        },
+        success: function (data) {
+            print_err.find('p').remove();
+            let html = '<li class="list-group-item">' +
+                '<div class="row">' +
+                '<div class="col-xs-2 col-md-2">' +
+                '<img src="' + useravatar + '" class="rounded-circle img-responsive" alt="' + username + '"/>' +
+                '</div>' +
+                '<div class="col-xs-10 col-md-10">' +
+                '<div>' +
+                '<div class="mic-info font-weight-bold">Đăng bởi: ' + username + ' - vừa xong </div>' +
+                '</div>' +
+                '<div class="comment-text">' + content + '</div>' +
+                '</div>' +
+                '</div>' +
+                '</li>';
+            $(html).insertBefore('.all-comment');
+            $('.no-comment').remove();
+        },
+        error: function (request, status, error) {
+            printErrorMsg(request.responseJSON.errors.content[0]);
+        }
+    });
+
+    $('#comment_form')[0].reset();
+});
+
+function printErrorMsg(msg) {
+    let print_err = $(".print-error-msg");
+    print_err.find('p').remove();
+    print_err.css('display', 'block');
+    print_err.append('<p class="alert alert-danger">' + msg + '</p>');
+}
+
+
+
 

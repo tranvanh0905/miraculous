@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Song as SongResource;
 use App\Http\Resources\UserPlaylist;
 use App\Model_client\Album;
+use App\Model_client\DailyViewSong;
 use App\Model_client\Playlist;
 use App\Model_client\PlaylistDetail;
 use App\Model_client\Song;
@@ -62,11 +63,31 @@ class ClientPlayerController extends Controller
 
     public function updateView(Request $request)
     {
-        $modelSong = new Song();
+        $view = new Song();
 
-        $modelSong->where('id', $request->songId)->increment('view', 1);
+        $view->where('id', $request->songId)->increment('view', 1);
 
         return response()->json(['msg' => '+1 view']);
+    }
+
+    public function updateViewDaily(Request $request)
+    {
+        $dailyView = new DailyViewSong();
+
+        $check = DailyViewSong::where('song_id', '=', $request->songId)->exists();
+
+        if ($check){
+            $dailyView->where('song_id', $request->songId)->increment('total_view', 1);
+            $dailyView->date = now();
+            return response()->json(['msg' => '+1 view daily for current song']);
+        }else{
+            $dailyView->song_id = $request->songId;
+            $dailyView->total_view = 1;
+            $dailyView->date = now();
+            $dailyView->save();
+            return response()->json(['msg' => '+1 view daily for new song']);
+        }
+
     }
 
     //-----------------------------------///

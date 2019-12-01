@@ -6,12 +6,15 @@ use App\Http\Requests\CommentRequest;
 use App\Model_client\Album;
 use App\Model_client\Artist;
 use App\Model_client\Comment;
+use App\Model_client\DailyViewSong;
 use App\Model_client\Genres;
+use App\Model_client\History;
 use App\Model_client\Playlist;
 use App\Model_client\Song;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use function foo\func;
 
@@ -24,16 +27,19 @@ class ClientController extends Controller
 
     public function index()
     {
-
-        $randomSong = Song::inRandomOrder()->where('status', '=', 1)
-            ->limit(10)->with('artists')
+        //Trending song
+        $trendSong = DailyViewSong::join('songs', 'daily_views.song_id', '=', 'songs.id')
+            ->orderBy('total_view', 'desc')
+            ->where('date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 24 HOUR)'))
+            ->limit(10)
             ->get();
+
 
         $latestSongs = Song::where('status', '=', 1)->orderBy('release_date', 'desc')
             ->limit(30)->with('artists')
             ->get();
 
-        $mostViewAlbum = Album::where('status', '=', 1)->orderBy('like', 'desc')->get();
+        $mostViewAlbum = Album::where('status', '=', 1)->orderBy('like', 'desc')->limit(6)->get();
 
         $allGenres = Genres::latest('id')->where('status', '=', 1)->limit(10)->get();
 
@@ -50,26 +56,52 @@ class ClientController extends Controller
 
         $artists = Artist::where('status', '=', 1)->orderBy('follow', 'desc')->with('userFollows')->limit(12)->get();
 
-        return view('client.index', compact('latestSongs', 'allGenres', 'latestAbums', 'randomSong', 'mostViewAlbum', 'playLists', 'artists'));
+        return view('client.index', compact('latestSongs', 'allGenres', 'latestAbums', 'mostViewAlbum', 'playLists', 'artists', 'trendSong'));
     }
 
     //Khám phá
     public function brower()
     {
-        $allSong = Song::select('songs.*', 'users.id as user_id', 'users.role')->join('users', 'songs.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 400)
-            ->limit(25)->with('artists')
-            ->get();
+        $allSongId = [];
+        $allUser = [];
+        $allSuggestSong = [];
 
-        $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
-            ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 400)->orderBy('id', 'desc')->limit(20)
-            ->get();
+        $userId = Auth::id();
 
-        $genres = Genres::where('status', '=', 1)->limit(10)->get();
-        return view('client.brower', compact('allSong', 'allAlbum', 'allPlaylist', 'genres'));
+        $mostView12 = Song::whereHas('dailyView', function ($query) {
+            $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'));
+        })->get();
+
+        $historySelf = History::where('user_id', '=', $userId)->get();
+
+        foreach ($historySelf as $song) {
+            array_push($allSongId, $song->song_id);
+        }
+
+        $findUser = History::whereIn('song_id', $allSongId)->where('user_id', '<>', $userId)->get();
+
+        foreach ($findUser as $user) {
+            array_push($allUser, $user->user_id);
+        }
+
+        $findSong = History::whereIn('user_id', $allUser)->where('user_id', '<>', $userId)->whereNOTIn('song_id', $allSongId)->get();
+
+        foreach ($findSong as $song) {
+            array_push($allSuggestSong, $song->song_id);
+        }
+
+        $suggestSong = Song::whereIn('id', $allSuggestSong)->get();
+
+        $mostlike = Song::orderBy('like', 'desc')->limit(35)->get();
+
+        $genres = Genres::where('status', '=', 1)->limit(5)->get();
+
+        return view('client.brower', compact('genres', 'mostView12', 'mostlike','suggestSong'));
     }
-
+    //Tất cả bảng xếp hạng
+    public function chart(){
+        return view('client.chart');
+    }
     //Bảng xếp hạng bài hát
     public function chartSong()
     {
@@ -92,6 +124,10 @@ class ClientController extends Controller
         $allGenres = Genres::inRandomOrder('id')->limit(10)->get();
 
         return view('client.chart-album', compact('top50album', 'allGenres'));
+    }
+
+    public function chartArtist(){
+        return view('client.chart-artist');
     }
 
     //Tất cả bài hát, album, playlist
@@ -130,9 +166,9 @@ class ClientController extends Controller
     public function singleSong($songId)
     {
 
-        $singleSong = Song::find($songId)->load('artists');
+        $singleSong = Song::findOrFail($songId)->load('artists');
 
-        $comment = Comment::where('song_id', '=', $songId)->where('status', '=', 1)->with('user')->get();
+        $comment = Comment::where('song_id', '=', $songId)->where('status', '=', 1)->with('user')->orderBy('id', 'desc')->paginate(6);
 
         $relatedSong = Song::where('genres_id', '=', $singleSong->genres_id)->where('status', '=', 1)->limit(20)->get();
 
@@ -140,14 +176,14 @@ class ClientController extends Controller
             foreach ($singleSong->artists as $artist) {
                 $query->where('artist_id', '=', $artist->id)->where('status', '=', 1)->where('song_id', '<>', $singleSong->id);
             }
-        })->where('status', '=', 1)->get();
+        })->where('status', '=', 1)->limit(10)->get();
 
 
         $genres = Genres::latest('id')->where('status', '=', 1)->limit(10)->get();
 
         $artists = Artist::where('status', '=', 1)->orderBy('follow', 'desc')->limit(10)->get();
 
-        $mostLikeSong = Song::where('status', '=', 1)->orderBy('like')->limit(10)->with('artists')->get();
+        $mostLikeSong = Song::where('status', '=', 1)->orderBy('like', 'desc')->limit(10)->with('artists')->get();
 
 
         return view('client.detail-page.single-song', compact('singleSong', 'relatedSong', 'genres', 'artists', 'mostLikeSong', 'relatedSongArtist',
@@ -167,21 +203,12 @@ class ClientController extends Controller
         return response()->json(['success' => 'Thêm bình luận thành công']);
     }
 
-    //Lấy bình luận bài hát
-
-    public function fetchComment(Request $request)
-    {
-        $allComment = Comment::where('song_id', '=', $request->id)->orderBy('id', 'desc')->get();
-
-        return view('client.fetch-comment', compact('allComment'));
-    }
-
     //Chi tiết album
 
     public function singleAlbum($albumId)
     {
 
-        $singleAlbum = Album::find($albumId);
+        $singleAlbum = Album::findOrFail($albumId);
 
         $songOfAlbum = Song::where('album_id', '=', $albumId)->where('status', '=', 1)->get();
 
@@ -197,7 +224,7 @@ class ClientController extends Controller
     public function singlePlaylist($playlistId)
     {
 
-        $singlePlaylist = Playlist::find($playlistId)->load(['songs' => function($query){
+        $singlePlaylist = Playlist::findOrFail($playlistId)->load(['songs' => function ($query) {
             $query->where('status', '=', 1);
         }]);
 
@@ -212,7 +239,7 @@ class ClientController extends Controller
 
     public function singleGenres($genresId)
     {
-        $genres = Genres::find($genresId);
+        $genres = Genres::findOrFail($genresId);
 
         $songOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->paginate(42);
 
@@ -227,11 +254,11 @@ class ClientController extends Controller
 
     public function singleArtist($artistId)
     {
-        $singleArtist = Artist::where('id', '=', $artistId)->with(['songs' => function ($query) {
+        $singleArtist = Artist::findOrFail($artistId)->load(['songs' => function ($query) {
             $query->where('status', '=', 1);
         }, 'albums' => function ($query) {
             $query->where('status', '=', 1);
-        }])->first();
+        }]);
 
         $otherArtist = Artist::where('status', '=', 1)->limit(12)->get();
 
@@ -330,6 +357,21 @@ class ClientController extends Controller
             }
 
             return response(['songs' => $outputSong, 'albums' => $outputAlbum, 'artists' => $outputArtist]);
+        }
+    }
+
+    //Thêm lịch sử bài hát
+
+    public function addHistory(Request $request)
+    {
+        $check = History::where('user_id', '=', Auth::user()->id)->where('song_id', '=', $request->song_id)->exists();
+        if (!$check) {
+            $history = new History();
+            $history->user_id = Auth::user()->id;
+            $history->song_id = $request->song_id;
+            $history->save();
+
+            return response()->json(['msg' => 'Thêm lịch sử thành công']);
         }
     }
 

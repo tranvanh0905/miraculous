@@ -20,11 +20,7 @@
                         </div>
                     </div>
                     <div class="pb-2 album-likes text-center">
-                        <span class="adonis-icon pr-2 icon-2x"><svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                version="1.1">
-                                <use xlink:href="#icon-heart-blank"></use>
-                            </svg>
+                        <span class="adonis-icon pr-2 icon-2x"><i class="fas fa-heart fs-19"></i>
                         </span>
                         <span class="pr-2 count-like-playlist">{{$singlePlaylist->like}}</span>
                     </div>
@@ -64,9 +60,7 @@
                             <h3 class="font-weight-bold">Danh sách bài hát</h3>
 
                             <a class="btn text-white btn-primary adonis-album-button" data-type="playList"
-                               data-album-id="{{$singlePlaylist->id}}"> <span class="hover-show adonis-icon icon-1x"><svg
-                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                            xlink:href="#icon-brand-play"></use></svg> </span> Phát tất cả</a>
+                               data-album-id="{{$singlePlaylist->id}}"> <span class="hover-show adonis-icon icon-1x"><i class="fas fa-play fs-14 mr-1"></i></span> Phát tất cả</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="single-songs" role="tabpanel"
@@ -82,9 +76,7 @@
                                                     </span>
                                                     <span class="hover-show adonis-icon icon-1x adonis-album-button"
                                                           data-type="song"
-                                                          data-album-id="{{$song->id}}"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                                xlink:href="#icon-brand-play"></use></svg> </span>
+                                                          data-album-id="{{$song->id}}"><i class="fas fa-play fs-19"></i></span>
                                                 </div>
                                                 <a href="{{route('singleSong', ['songId' => $song->id])}}"
                                                    class="item-title">{{$song->name}}</a>
@@ -93,8 +85,7 @@
                                                         class="hover-hide hover-lg-show">{{$song->genres->name}}</a>
                                                 </div>
                                                 <div class="item-tools">
-                                                    <span class="hover-hide">{{$song->view}} <i
-                                                            class="fas fa-headphones-alt fa-1x"></i></span>
+                                                    <span class="hover-hide" id="likeSong{{$song->id}}">{{$song->like}} <i class="fas fa-heart fa-1x"></i></span>
                                                     <div class="hover-show d-flex flex-nowrap hover-tools">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
                                                             @if(count(\App\Model_client\UserLikedSong::where
@@ -151,14 +142,7 @@
                                                         <span
                                                             class="pointer play-btn-dark round-btn adonis-album-button"
                                                             data-type="playList"
-                                                            data-album-id=""{{$playlist->id}}><i
-                                                                class="play-icon"></i></span>
-                                                </div>
-                                                <div class="absolute-top-right pr-e-20 pt-e-20">
-                                                        <span class="pointer dropdown-menu-toggle"><span
-                                                                class="adonis-icon icon-4x"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                                        xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                                            data-album-id=""{{$playlist->id}}><i class="fas fa-play fs-21 text-light play-index"></i></span>
                                                 </div>
                                             </div>
                                         </div>

@@ -201,10 +201,8 @@
                                     <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
                                         <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
                                            class="color-white">Xem thể loại<span
-                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        version="1.1"><use
-                                                            xlink:href="#icon-see-all-arrow-right"/></svg></span>
+                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><i
+                                                    class="fas fa-arrow-right fs-19"></i></span>
                                         </a>
                                     </div>
                                 </div>

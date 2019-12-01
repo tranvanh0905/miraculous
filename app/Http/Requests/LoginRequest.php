@@ -32,6 +32,7 @@ class LoginRequest extends FormRequest
                 'exists:users,email',
             ],
             'password' => [
+                'required',
                 new MatchPassword($this->get('email'))
             ],
         ];

@@ -57,6 +57,10 @@ Route::get('chart/song', 'ClientController@chartSong')->name('client.chart-song'
 
 Route::get('chart/album', 'ClientController@chartAlbum')->name('client.chart-album');
 
+//Bảng xếp hạng ca sĩ
+
+Route::get('chart/artist', 'ClientController@chartAritst')->name('client.chart-artist');
+
 //Khám phá
 
 Route::get('brower', 'ClientController@brower')->name('client.brower');
@@ -81,6 +85,9 @@ Route::group(['middleware' => 'request.check'], function () {
 
     //+ 1 view song
     Route::post('/update-view', 'ClientPlayerController@updateView');
+
+    //+ 1 view song daily
+    Route::post('/update-view-daily', 'ClientPlayerController@updateViewDaily');
 
     //user like song
     Route::post('like/song/{id}', 'ClientPlayerController@likeSong');

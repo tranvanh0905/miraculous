@@ -63,7 +63,7 @@
                             <a class="jp-repeat inactive-color ml-4 d-none d-md-block" role="button"
                                tabindex="0">
                                 <span class="adonis-icon icon-3x">
-                                    <i class="fas fa-redo fs-14"></i>
+                                    <i class="fas fa-sync-alt fs-14"></i>
                                 </span>
                             </a>
                         </div>

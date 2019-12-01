@@ -9,22 +9,7 @@
     <div class="container">
         <section>
             <div class="row">
-                <div class="col-12">
-                    <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="no">
-                        <div class="owl-carousel owl-theme-adonis">
-                            <img src="https://photo-zmp3.zadn.vn/banner/e/1/8/1/e181d0a10cd0e354d6c60723e8c0d374.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/5/9/3/c/593c1fdb62e63c32e1b9da240ba663e4.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/b/e/0/8/be08de5a9a48c60ae7d58a897a75eecf.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-lg-8">
                    <div class="row">
                        <div class="col-lg-6">
@@ -32,6 +17,12 @@
                                <h4 class="title h3 text-uppercase d-inline-block">Bảng xếp hạng Top 50 album</h4>
                            </div>
                        </div>
+{{--                       <div class="col-lg-6 text-right">--}}
+{{--                           <a class="btn text-white btn-primary adonis-album-button d-inline-block" data-type="album"--}}
+{{--                              data-album-id="{{}}"> <span class="hover-show adonis-icon icon-1x"><svg--}}
+{{--                                       xmlns="http://www.w3.org/2000/svg" version="1.1"><use--}}
+{{--                                           xlink:href="#icon-brand-play"></use></svg> </span> Phát tất cả</a>--}}
+{{--                       </div>--}}
                    </div>
                     <?php
                     $count = 1;
@@ -41,26 +32,30 @@
                             <h2 class="number-rank"><?php echo $count; $count++;?></h2>
                             <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
                                 <div class="img-box img-box-sm box-rounded-sm">
-                                    <img src="{{$album->cover_image}}" alt="{{$album->title}}">
+                                    <img src="{{url($album->cover_image)}}" alt="{{$album->title}}">
                                 </div>
                                 <div class="des">
                                     <h6 class="title fs-2"><a
                                             href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
                                     </h6>
-                                    <p class="sub-title">
-                                            <a href="{{route('singleArtist', ['artistId' => $album->artist->id])
-                                                            }}">{{$album->artist->nick_name}}</a>
-                                    </p>
+                                    <p class="sub-title"><a href="#">{{$album->artist->nickname}}</a></p>
                                 </div>
-                                <span style="line-height: 50px;">{{$album->like}} <i class="fas fa-grin-hearts fs-19"></i></span>
                                 <div
                                     class="hover-state d-flex justify-content-between align-items-center">
-                                                    <span
-                                                        class="pointer play-btn-dark box-rounded-sm adonis-album-button"
-                                                        data-type="album"
-                                                        data-album-id="{{$album->id}}">
-                                                         <i class="fas fa-play fs-19 text-light"></i>
-                                                    </span>
+                                                                <span
+                                                                    class="pointer play-btn-dark box-rounded-sm adonis-album-button"
+                                                                    data-type="album"
+                                                                    data-album-id="{{$album->id}}"><i
+                                                                        class="play-icon"></i></span>
+                                    <div class="d-flex align-items-center">
+                                                                    <span
+                                                                        class="adonis-icon text-light pointer mr-2 icon-2x "><svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            version="1.1"><use
+                                                                                xlink:href="#icon-heart-blank"/></svg></span>
+                                        <span class="pointer dropdown-menu-toggle"><span
+                                                class="icon-dot-nav-horizontal text-light"></span></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

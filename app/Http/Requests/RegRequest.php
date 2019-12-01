@@ -32,6 +32,8 @@ class RegRequest extends FormRequest
             ],
             'full_name' => [
                 'required',
+                'alpha_spaces',
+                'min: 4'
             ],
             'email' => [
                 'required',
@@ -54,7 +56,9 @@ class RegRequest extends FormRequest
             'username.unique' => 'Tên tài khoản đã có người đặt, hãy thử đặt tên khác !',
             'username.min' => 'Tên tài khoản tối thiểu phải 4 kí tự!',
             'username.max' => 'Tên tài khoản tối đa phải 20 kí tự!',
-            'full_name.required' => 'Bạn không được để trống họ và tên',
+            'full_name.required' => 'Bạn không được để trống họ và tên !',
+            'full_name.alpha_spaces' => 'Tên bắt buộc là chữ cái, không bao gồm số !',
+            'full_name.min' => 'Họ tên bạn quá ngắn, hãy kiểm tra lại !',
             'email.required' => 'Bạn phải nhập email !',
             'email.unique' => 'Email đã có người đăng ký, hãy thử email khác !',
             'email.regex' => 'Định dạng email chưa chính xác !',

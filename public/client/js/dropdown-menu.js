@@ -34,8 +34,6 @@
                     html += '<li class="item-playlist"><a href="/user/library/user-playlist/add-playlist" class="dropdown-item"><i class="fas' +
                         ' fa-plus mr-2"></i> Tạo danh sách phát mới</a></li>';
                     html += '</ul>';
-                } else if (typeof element.withlink != 'undefined') {
-                    html += '<li><a class="dropdown-item' + Class + '" href="javascript:">' + element.icon + element.text + '</a>';
                 } else {
                     html += '<li><a class="dropdown-item' + Class + '" href="javascript:">' + element.icon + element.text + '</a>';
                 }
@@ -60,6 +58,9 @@
             $('.edit-user-playlist').attr('href', '/user/library/user-playlist/edit-playlist/' + userPlaylistId);
 
             $('.delete-user-playlist').attr('data-playlist-id', userPlaylistId);
+
+
+            $('.menu-like').attr('data-id', songid);
         });
 
         function clickEvent(el) {
@@ -149,27 +150,25 @@ jQuery(document).ready(function ($) {
         }
     });
 
-
     $('.nav-item').on('show.bs.dropdown', function (e) {
         adonisPopup.outside(e);
     });
     // dropdown menu any where
-    var songMenu = [
-        {
-            text: 'Thêm vào danh sách phát',
-            icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
-            linkShare: '',
-            submenu: dataUserPlaylist
-        },
-        {
-            text: 'Thêm vào tiếp theo',
-            icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>'
-        },
-        {
-            text: 'Chia sẻ',
-            icon: '<i class="fas fa-share-square fa-1x mr-2"></i>'
-        },
-    ];
+        var songMenu = [
+            {
+                text: 'Thêm vào danh sách phát',
+                icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
+                submenu: dataUserPlaylist
+            },
+            {
+                text: 'Thêm vào tiếp theo',
+                icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>'
+            },
+            {
+                text: 'Chia sẻ',
+                icon: '<i class="fas fa-share-square fa-1x mr-2"></i>'
+            },
+        ];
 
 
     new adonisPopup({

@@ -55,7 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('comment/song', 'ClientController@commentSong')->name('comment.song');
 
-    Route::post('comment/fetch-comment', 'ClientController@fetchComment')->name('comment.fetchComment');
+    Route::post('add-history', 'ClientController@addHistory');
 
+    Route::get('library/history', 'ClientUserController@historySong')->name('user.history');
 });
 

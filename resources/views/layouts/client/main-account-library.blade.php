@@ -78,6 +78,13 @@
                                                         </span>
                                                     <p class="m-0">Danh sách phát cá nhân</p>
                                                 </a>
+                                                <a href="{{route('user.history')}}"
+                                                   class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/history'))  btn-primary @else btn-transparent @endif ">
+                                                        <span class="adonis-icon pb-2">
+                                                           <i class="fas fa-history fa-2x"></i>
+                                                        </span>
+                                                    <p class="m-0">Lịch sử nghe nhạc</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

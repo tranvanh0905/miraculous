@@ -27,11 +27,12 @@
                                             <em><span class="font-weight-light">Bài hát nghe nhiều nhất</span> </em>
                                         </h4>
                                     </div>
-                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a href="{{route('client.chart-song')}}"
-                                                                                      class="color-white">Xem bảng xếp hạng<span
-                                                class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"></use></svg></span></a>
+                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a
+                                            href="{{route('client.chart-song')}}"
+                                            class="color-white">Xem bảng xếp hạng<span
+                                                class="adonis-icon pl-1 icon-arrow icon-1x">
+                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                            </span></a>
                                     </div>
                                 </div>
                             </div>
@@ -50,11 +51,13 @@
                                             <em><span class="font-weight-light">Album nghe nhiều nhất</span>
                                             </em></h4>
                                     </div>
-                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a href="{{route('client.chart-album')}}"
-                                                                                      class="color-white">Xem bảng xếp hạng<span
-                                                class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"></use></svg></span></a>
+                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a
+                                            href="{{route('client.chart-album')}}"
+                                            class="color-white">Xem bảng xếp hạng<span
+                                                class="adonis-icon pl-1 icon-arrow icon-1x">
+                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -74,12 +77,12 @@
                                                     class="font-weight-light text-light">Top Ca Sĩ Quan Tâm Nhiều Nhất</span>
                                             </em></h4>
                                     </div>
-                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a href="{{route('topArtists')}}"
-                                                                                      class="color-white">Xem tất
-                                            cả<span
-                                                class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                        xlink:href="#icon-see-all-arrow-right"></use></svg></span></a>
+                                    <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a
+                                            href="{{route('client.chart-artist')}}"
+                                            class="color-white">Xem tất cả<span
+                                                class="adonis-icon pl-1 icon-arrow icon-1x">
+                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                            </span></a>
                                     </div>
                                 </div>
                             </div>
