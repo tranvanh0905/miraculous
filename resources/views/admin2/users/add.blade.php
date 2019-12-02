@@ -26,7 +26,7 @@
                         @endif
                         <div class="form-group">
                             <label class="col-form-label">Mật khẩu : </label>
-                            <input name="password" type="text" value="{{old('password')}}" class="form-control">
+                            <input name="password" type="password" value="{{old('password')}}" class="form-control">
                             @if($errors->first('password'))
                                 <span class="text-danger">{{$errors->first('password')}}</span>
                             @endif

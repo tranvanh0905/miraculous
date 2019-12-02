@@ -16,6 +16,7 @@
 
 <!-- AdminLTE App -->
 <script src="{{url('/adminLte3/dist/js/adminlte.min.js')}}"></script>
+<script src="{{url('/adminLte3/dist/js/jquery-ui.js')}}"></script>
 <script src="{{url('/adminLte3/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{url('vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
 <script src="{{url('vendor/unisharp/laravel-ckeditor/adapters/jquery.js')}}"></script>

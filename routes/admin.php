@@ -78,3 +78,6 @@ Route::get('ajax/artist_song/{artist_id}', 'AjaxController@actionGetSongArtist')
 //Websetting route
 Route::get('web-setting', 'WebSettingController@actionIndex')->name('websetting.home');
 Route::post('web-setting', 'WebSettingController@actionUpdate')->name('websetting.update');
+//Slider route
+Route::get('slider', 'SliderController@index')->name('slider.home');
+Route::post('slider', 'SliderController@actionUpdate')->name('slider.update');

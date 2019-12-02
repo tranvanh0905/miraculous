@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="col-md-12">
+    <div class="col-md-8">
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
@@ -87,6 +87,35 @@
                         class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
                         Xác nhận
                     </button>
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-4">
+        <!-- general form elements disabled -->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Thông tin website</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">Logo</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input id="fileInput" type="file" name="logo" class="custom-file-input">
+                            <label class="custom-file-label" for="exampleInputFile">Chọn tập tin</label>
+                        </div>
+                    </div>
+                    @if($errors->first('logo'))
+                        <span class="text-danger">{{$errors->first('logo')}}</span>
+                    @endif
+                    <div class="mt-3 text-center w-100">
+                        <img id="imgPreview" alt="" class="img-thumbnail">
+                    </div>
+                </div>
                 </form>
             </div>
             <!-- /.card-body -->

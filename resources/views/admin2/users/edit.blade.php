@@ -26,7 +26,7 @@
                         @endif
                         <div class="form-group">
                             <label class="col-form-label">Mật khẩu : </label>
-                            <input name="password" type="text" class="form-control">
+                            <input name="password" type="password" class="form-control">
                             @if($errors->first('password'))
                                 <span class="text-danger">{{$errors->first('password')}}</span>
                             @endif
@@ -99,9 +99,10 @@
                     <label class="col-form-label">Phân quyền : </label>
                     <select name="role" class="form-control">
                         <option value="">Lựa chọn trạng thái</option>
-                        <option @if ($model->role == 600) {{"selecetd"}} @endif value="600">Cộng tác viên</option>
+                        <option @if ($model->role == 900) {{"selected"}} @endif value="900">Admin</option>
+                        <option @if ($model->role == 600) {{"selected"}} @endif value="600">Cộng tác viên</option>
                         <option @if ($model->role == 400) {{"selected"}} @endif value="400">Thành viên VIP</option>
-                        <option @if ($model->role == 100) {{"selecetd"}} @endif value="100" selected>Thành viên</option>
+                        <option @if ($model->role == 100) {{"selected"}} @endif value="100">Thành viên</option>
                     </select>
                     @if($errors->first('role'))
                         <span class="text-danger">{{$errors->first('role')}}</span>
