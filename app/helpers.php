@@ -45,3 +45,19 @@ function time_elapsed_string($datetime, $full = false) {
     if (!$full) $string = array_slice($string, 0, 1);
     return $string ? implode(', ', $string) . ' trước' : 'vừa xong';
 }
+
+function getToken($length = 12)
+{
+    $token = '';
+    $codeAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $codeAlphabet .= time();
+    $codeAlphabet .= 'abcdefghijklmnopqrstuvwxyz';
+    $codeAlphabet .= '0123456789';
+    $max = strlen($codeAlphabet); // edited
+
+    for ($i = 0; $i < $length; ++$i) {
+        $token .= $codeAlphabet[random_int(0, $max - 1)];
+    }
+
+    return $token;
+}

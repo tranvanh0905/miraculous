@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ClientController@index')->name('client.home');
 
-//Đăng nhập và đăng ký, đăng xuất
+//Đăng nhập và đăng ký, đăng xuất, quên mật khẩu
 
 Route::get('login', 'Auth\LoginController@loginForm')->name('login');
 
@@ -27,6 +27,17 @@ Route::get('registration', 'Auth\RegisterController@regForm')->name('reg');
 Route::post('registration', 'Auth\RegisterController@postReg');
 
 Route::get('logout', 'Auth\LoginController@logOut')->name('logout');
+
+//quên mật khẩu
+Route::get('forgot-password', 'ForgetPasswordController@showForgetPasswordForm')->name('forgotPassword');
+
+Route::post('forgot-password', 'ForgetPasswordController@postForgetPassword')->name('forgotPassword');
+
+Route::get('forgot-password/change-password', 'ForgetPasswordController@changePassword')->name('changePassword');
+
+Route::post('forgot-password/change-password/saveChangePassword', 'ForgetPasswordController@saveChangePassword')->name('saveChangePassword');
+
+
 
 //Các trang tất cả
 

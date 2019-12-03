@@ -27,7 +27,11 @@ class LoginController extends Controller
 
     public function loginForm()
     {
-        return view('client.login-reg.login');
+        if (Auth::check()){
+            return redirect(route('client.home'));
+        }else{
+            return view('client.login-reg.login');
+        }
     }
 
     public function adminLoginForm()

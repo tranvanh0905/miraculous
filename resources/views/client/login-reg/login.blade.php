@@ -43,6 +43,7 @@
                                 <p class="text-center">Bạn chưa có tài khoản ? <a href="{{route('reg')}}" id="signup">Đăng
                                         ký ở đây</a>
                                 </p>
+                                <p class="text-center"><a href="{{route('forgotPassword')}}" id="signup">Quên mật khẩu ?</a></p>
                             </div>
                         </form>
 

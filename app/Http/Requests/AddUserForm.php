@@ -25,7 +25,7 @@ class AddUserForm extends FormRequest
     {
         return [
             'username' => 'required|max:20|unique:users',
-            'password' =>                 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
+            'password' =>  'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
             'email' => 'required|unique:users,email',
             'role' => 'required',
             'birthday' => 'required',
