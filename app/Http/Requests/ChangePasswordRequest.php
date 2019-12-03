@@ -31,9 +31,7 @@ class ChangePasswordRequest extends FormRequest
             ],
             'new_password' => [
                 'required',
-                'min:5',
-                'max:20',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
+                'min:6'
             ],
             're_new_password' => [
                 'required',
@@ -50,9 +48,7 @@ class ChangePasswordRequest extends FormRequest
             'current_password.required' => 'Không được để trống mật khẩu hiện tại !',
 
             'new_password.required' => 'Không được để trống mật khẩu mới !',
-            'new_password.min' => 'Mật khẩu mới tối thiểu phải có 5 kí tự !',
-            'new_password.max' => 'Mật khẩu mới tối đa 20 kí tự !',
-            'new_password.regex' => "Mật khẩu tối thiểu 8 ký tự có một kí tự đặc biệt và một chữ hoa",
+            'new_password.min' => 'Mật khẩu mới tối thiểu phải có 6 kí tự !',
 
             're_new_password.required' => 'Không được để trống nhập lại mật khẩu mới !',
             're_new_password.same' => 'Mật khẩu không trùng khớp với mật khẩu mới !',

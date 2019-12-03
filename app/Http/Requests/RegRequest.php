@@ -42,7 +42,7 @@ class RegRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
+                'min:6'
             ]
         ];
 
@@ -63,7 +63,7 @@ class RegRequest extends FormRequest
             'email.unique' => 'Email đã có người đăng ký, hãy thử email khác !',
             'email.regex' => 'Định dạng email chưa chính xác !',
             'password.required' => 'Bạn phải nhập mật khẩu !',
-            'password.regex' => 'Mật khẩu phải có ít nhất 8 kí tự, một chữ in hoa, một chữ số và một kí tự đặc biệt !',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 kí tự!',
         ];
     }
 }

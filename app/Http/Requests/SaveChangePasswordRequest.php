@@ -26,7 +26,7 @@ class SaveChangePasswordRequest extends FormRequest
         $validate = [
             'password' => [
                 'required',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
+                'min:6'
             ],
             'cf_password' => [
                 'required',
@@ -41,7 +41,7 @@ class SaveChangePasswordRequest extends FormRequest
     {
         return [
             'password.required' => 'Bạn phải nhập mật khẩu mới !',
-            'password.regex' => 'Mật khẩu mới phải có 8 ký tự, chứa một chữ in hoa và một ký tự đặc biệt !',
+            'password.min' => 'Mật khẩu mới phải có 6 ký tự!',
             'cf_password.required' => 'Bạn không được để trống nhập lại mật khẩu!',
             'cf_password.same' => 'Mật khẩu bạn nhập không trùng khớp mật khẩu mới !',
         ];

@@ -2,7 +2,7 @@
 $(document).on('click', '#logout', function () {
     $.ajax({
         type: 'get',
-        url: '/logout',
+        url: 'logout',
         success: function () {
             location.reload();
         }
