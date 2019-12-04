@@ -15,6 +15,7 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->username}}</a>
+                <a href="{{route('admin.logout')}}">Đăng xuất</a>
             </div>
         </div>
 

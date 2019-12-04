@@ -13,7 +13,7 @@
 Route::get('/', 'AdminController@index')->middleware('checkAdminLogin')->name('admin.home');
 Route::get('/login', 'AdminController@login')->name('admin.login');
 Route::post('/login', 'AdminController@actionLogin')->name('admin.login');
-Route::get('/logout', 'AdminController@actionLogout')->name('admin.logout');
+Route::get('/logout', 'AdminController@actionLogOut')->name('admin.logout');
 
 //Album route
 Route::get('albums', 'AlbumsController@index')->middleware('checkAdminLogin')->name('albums.home');
@@ -82,4 +82,5 @@ Route::post('slider', 'SliderController@actionUpdate')->middleware('checkAdminLo
 Route::get('slider/add', 'SliderController@add')->middleware('checkAdminLogin')->name('slider.add');
 Route::post('slider/add', 'SliderController@actionAdd')->middleware('checkAdminLogin')->name('slider.add');
 Route::get('slider/update/{id}', 'SliderController@update')->middleware('checkAdminLogin')->name('slider.updateform');
+Route::post('slider/update/{id}', 'SliderController@updateForm')->middleware('checkAdminLogin')->name('slider.updateform');
 
