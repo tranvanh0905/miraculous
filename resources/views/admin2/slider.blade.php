@@ -9,8 +9,9 @@
     <div class="col-md-12">
         <!-- general form elements disabled -->
         <div class="card card-secondary">
-            <div class="card-header">
-                <h3 class="card-title">Slider</h3>
+            <div class="card-header" style="background-color: #fff;">
+                <a href="{{route('slider.add')}}" class="btn btn-primary mr-auto"> <i class="nav-icon fas fa-plus"></i>
+                    Thêm slider</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

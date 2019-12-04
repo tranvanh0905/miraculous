@@ -192,7 +192,7 @@
                         render: function (data, type, row) {
                             let html = `<a href="users/update/${data}" data-edit="' + data + '" class="mr-3"><i class="nav-icon fas
                             fa-edit"></i></a><a
-                            href="users/delete/${data}" data-remove="${data}" class="btn-remove text-danger"><i class="fas fa-trash-alt"></i></a>`;
+                            data-remove="${data}" class="btn-remove text-danger"><i class="fas fa-trash-alt"></i></a>`;
                             return html;
                         },
                     }

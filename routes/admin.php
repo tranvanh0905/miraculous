@@ -13,11 +13,8 @@
 Route::get('/', 'AdminController@index')->middleware('checkAdminLogin')->name('admin.home');
 Route::get('/login', 'AdminController@login')->name('admin.login');
 Route::post('/login', 'AdminController@actionLogin')->name('admin.login');
-Route::get('/logout', 'AdminController@actionLogout')-name('')
+Route::get('/logout', 'AdminController@actionLogout')->name('admin.logout');
 
-//Countries route
-Route::get('countries', 'CountriesController@index')->middleware('checkAdminLogin')->name('countries.home');
-Route::get('countries/add', 'CountriesController@add')->middleware('checkAdminLogin')->name('countries.add');
 //Album route
 Route::get('albums', 'AlbumsController@index')->middleware('checkAdminLogin')->name('albums.home');
 Route::get('albums/add', 'AlbumsController@add')->middleware('checkAdminLogin')->name('albums.add');
@@ -82,3 +79,7 @@ Route::post('web-setting', 'WebSettingController@actionUpdate')->middleware('che
 //Slider route
 Route::get('slider', 'SliderController@index')->middleware('checkAdminLogin')->name('slider.home');
 Route::post('slider', 'SliderController@actionUpdate')->middleware('checkAdminLogin')->name('slider.update');
+Route::get('slider/add', 'SliderController@add')->middleware('checkAdminLogin')->name('slider.add');
+Route::post('slider/add', 'SliderController@actionAdd')->middleware('checkAdminLogin')->name('slider.add');
+Route::get('slider/update/{id}', 'SliderController@update')->middleware('checkAdminLogin')->name('slider.updateform');
+
