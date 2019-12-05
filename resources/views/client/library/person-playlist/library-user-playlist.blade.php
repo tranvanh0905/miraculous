@@ -40,8 +40,7 @@
                                 <div class="hover-state">
                                     <div class="absolute-bottom-left pl-e-20 pb-e-20">
                                             <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="playList"
-                                                  data-album-id="{{$playlist->id}}"><i
-                                                        class="play-icon"></i></span>
+                                                  data-album-id="{{$playlist->id}}"><i class="fas fa-play fs-19 text-light play-index"></i></span>
                                     </div>
                                     <div class="absolute-top-right pr-e-20 pt-e-20">
                                             <span class="pointer drop-2" data-user-playlist-id="{{$playlist->id}}"><span
@@ -54,7 +53,7 @@
                             </div>
                             <h6 class="title"><a href="{{route('user-library-personal-playlist-detail', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a></h6>
                             <p class="sub-title category">
-                                <p>Đăng bởi {{$playlist->user->username}}</p>
+                                Đăng bởi {{$playlist->user->username}}
                             </p>
                         </div>
                     </div>

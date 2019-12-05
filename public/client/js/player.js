@@ -20,6 +20,7 @@ jQuery(document).ready(function ($) {
                 {
                     title: "",
                     artist: "",
+                    artist_id: "",
                     mp3: "",
                     poster: "",
                     id: ""
@@ -66,14 +67,15 @@ jQuery(document).ready(function ($) {
             $('#' + adonisPlayerContainer).find('.blurred-bg').css('background-image', 'url(' + poster + ')');
 
 
-            // astist
+            // astist_name
             let artist = $(this).data("jPlayer").status.media.artist;
 
-            if (artist.name) {
-                $('#' + adonisPlayerContainer + ' .artist-name').html('<a href="' + artist.link + '">' + artist.name + '</a>');
-            } else {
-                $('#' + adonisPlayerContainer + ' .artist-name').html(artist.name);
-            }
+            // astist_id
+            let artistId = $(this).data("jPlayer").status.media.artist_id;
+
+            let artists_html = '<a href="/single-artist/' + artistId + '">' + artist + '</a>';
+
+            $('#' + adonisPlayerContainer + ' .artist-name').html(artists_html);
 
             // activate album
             if (typeof currentPlaylistId !== 'undefined') {
@@ -108,22 +110,6 @@ jQuery(document).ready(function ($) {
             }
         });
 
-        /**
-         * extract artist link from artist string
-         * @param str e.g. "Artist name{http://artist.com}"
-         * @return return object containing two key link and name
-         */
-        function adonisExtractArtistLink(str) {
-            let re = /{(.*?\})/,
-                strRe = str.replace(re, ''),
-                Match = str.match(re, '')
-                , Link;
-            if (Match != null) {
-                let Link = Match[1].replace('}', '');
-            }
-            return {link: Link, name: strRe};
-        }
-
         /* Modern Seeking */
 
         let timeDrag = false; /* Drag status */
@@ -147,7 +133,6 @@ jQuery(document).ready(function ($) {
                 }
             }
         });
-
 
         $(document).mousemove(function (e) {
             if (timeDrag) {
@@ -230,7 +215,6 @@ jQuery(document).ready(function ($) {
             adonisPlaylist.remove(adonisPlaylist.current);
         });
 
-
         /**
          * Function to add track. add track if id not found and return index. If found it return the index
          * @param track track id
@@ -286,15 +270,26 @@ jQuery(document).ready(function ($) {
             let userId = $("input[name='id']").val();
 
             if (userId !== undefined) {
-                $("#" + adonisPlayerID).unbind($.jPlayer.event.loadedmetadata);
+                $("#" + adonisPlayerID).unbind($.jPlayer.event.play);
 
                 //Thêm vào lịch sử nghe nhạc
-                $("#" + adonisPlayerID).bind($.jPlayer.event.loadedmetadata, function (event) {
+                $("#" + adonisPlayerID).bind($.jPlayer.event.play, function (event) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    //Lấy id bài hát chạy ở player
                     let songId = $(this).data("jPlayer").status.media.id;
+
+                    //Kiểm tra bài hát đã được like chưa
                     $.ajax({
-                        type: 'GET',
-                        url: '/song/check_like/' + songId,
-                        async: false,
+                        type: 'POST',
+                        url: '/song/check_like',
+                        data: {
+                            songId: songId
+                        },
                         success: function (data) {
                             if (data.msg === 'dontLike') {
                                 //Nếu chưa sẽ thêm nút like vào player
@@ -324,253 +319,180 @@ jQuery(document).ready(function ($) {
                         }
                     });
 
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
+                    //Thêm bài hát vào lịch sử nghe của user
                     $.ajax({
-                        url: "user/add-history",
                         type: 'POST',
-                        async: false,
+                        url: "user/add-history",
                         data: {
                             song_id: songId,
                         }
                     });
                 });
+            }
 
-                //Nếu là bài hát
-                if (type === "song") {
-                    //Lấy data bài hát và truyền vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/song/' + albumId,
-                        async: false,
-                        success: function (data) {
+            //Nếu là bài hát
+            if (type === "song") {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                //Lấy data bài hát và truyền vào player
+                $.ajax({
+                    type: 'POST',
+                    url: '/player/song',
+                    data: {
+                        songId: albumId
+                    },
+                    success: function (data) {
+                        if (data.msgErrors !== undefined) {
+                            $.notify({
+                                icon: 'fas fa-exclamation-circle',
+                                message: data.msgErrors
+                            }, {
+                                z_index: 1300
+                            });
+                        }
 
-                            adonisAllPlaylists[albumId] = data["data"];
+                        adonisAllPlaylists[albumId] = data["data"];
 
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentSongId = albumId;
+                        // set play list if not set yet
+                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
+                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                            currentSongId = albumId;
 
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
                             } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
+                            }
+                        } else {
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play();
+                                }, 700);
+                            } else {
+                                adonisPlaylist.pause();
                             }
                         }
-                    });
+                    }
+                });
 
-                } else if (type === "album") {
-                    //Truyền data album vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/album/' + albumId,
-                        async: false,
-                        success: function (data) {
-                            adonisAllPlaylists[albumId] = data["data"];
-
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentAlbumId = albumId;
-
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
-                            } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
-                            }
-
+            }
+            else if (type === "album") {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                //Truyền data album vào player
+                $.ajax({
+                    type: 'POST',
+                    url: '/player/album',
+                    data: {
+                        albumId: albumId
+                    },
+                    success: function (data) {
+                        if (data.msgErrors !== undefined) {
+                            $.notify({
+                                icon: 'fas fa-exclamation-circle',
+                                message: data.msgErrors
+                            }, {
+                                z_index: 1300
+                            });
                         }
-                    });
 
-                } else if (type === "playList") {
-                    //Truyền data playlist vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/playlist/' + albumId,
-                        async: false,
-                        success: function (data) {
-                            adonisAllPlaylists[albumId] = data["data"];
+                        adonisAllPlaylists[albumId] = data["data"];
 
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentPlaylistId = albumId;
+                        // set play list if not set yet
+                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
+                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                            currentAlbumId = albumId;
 
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
                             } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
                             }
-
-                        }
-                    });
-                }
-            }else {
-                //Nếu là bài hát
-                if (type === "song") {
-                    //Lấy data bài hát và truyền vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/song/' + albumId,
-                        async: false,
-                        success: function (data) {
-
-                            adonisAllPlaylists[albumId] = data["data"];
-
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentSongId = albumId;
-
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
+                        } else {
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play();
+                                }, 700);
                             } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
+                                adonisPlaylist.pause();
                             }
                         }
-                    });
 
-                } else if (type === "album") {
-                    //Truyền data album vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/album/' + albumId,
-                        async: false,
-                        success: function (data) {
-                            adonisAllPlaylists[albumId] = data["data"];
+                    }
+                });
+            }
+            else if (type === "playList") {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentAlbumId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentAlbumId = albumId;
-
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
-                            } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
-                            }
-
+                //Truyền data playlist vào player
+                $.ajax({
+                    type: 'POST',
+                    url: '/player/playlist',
+                    data: {
+                        playlistId: albumId
+                    },
+                    success: function (data) {
+                        if (data.msgErrors !== undefined) {
+                            $.notify({
+                                icon: 'fas fa-exclamation-circle',
+                                message: data.msgErrors
+                            }, {
+                                z_index: 1300
+                            });
                         }
-                    });
 
-                } else if (type === "playList") {
-                    //Truyền data playlist vào player
-                    $.ajax({
-                        type: 'GET',
-                        url: '/playlist/' + albumId,
-                        async: false,
-                        success: function (data) {
-                            adonisAllPlaylists[albumId] = data["data"];
+                        adonisAllPlaylists[albumId] = data["data"];
 
-                            // set play list if not set yet
-                            if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
-                                adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
-                                currentPlaylistId = albumId;
+                        // set play list if not set yet
+                        if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentPlaylistId !== albumId) {
+                            adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
+                            currentPlaylistId = albumId;
 
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                } else {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play(0);
-                                    }, 700);
-                                }
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
                             } else {
-                                // play or pause
-                                if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
-                                    setTimeout(function () {
-                                        adonisPlaylist.play();
-                                    }, 700);
-                                } else {
-                                    adonisPlaylist.pause();
-                                }
+                                setTimeout(function () {
+                                    adonisPlaylist.play(0);
+                                }, 700);
                             }
-
+                        } else {
+                            // play or pause
+                            if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
+                                setTimeout(function () {
+                                    adonisPlaylist.play();
+                                }, 700);
+                            } else {
+                                adonisPlaylist.pause();
+                            }
                         }
-                    });
-                }
+
+                    }
+                });
             }
         });
 

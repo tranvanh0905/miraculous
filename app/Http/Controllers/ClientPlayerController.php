@@ -21,13 +21,13 @@ class ClientPlayerController extends Controller
 
     //Player controller
 
-    public function getSong($songId)
+    public function getSong(Request $request)
     {
         $modelSong = new Song();
-        $song = $modelSong->where('id', '=', $songId)->get();
+        $song = $modelSong->where('id', '=', $request->songId)->with('artists')->get();
 
-        if ($song == null) {
-            return response()->json(array('msg' => 'Khong co bai hat'), 404);
+        if ($song->isEmpty()) {
+            return response()->json(['msgErrors' => 'Bài hát hiện tại bị lỗi, vui lòng thử lại !']);
         } else {
             $data = $song;
             return SongResource::collection($data);
@@ -35,29 +35,30 @@ class ClientPlayerController extends Controller
 
     }
 
-    public function getSongOfAlbum($albumId)
+    public function getSongOfAlbum(Request $request)
     {
         $modelSong = new Song();
-        $songs = $modelSong->where('album_id', '=', $albumId)->get();
+        $songs = $modelSong->where('album_id', '=', $request->albumId)->get();
 
-        if ($songs == null) {
-            return response()->json(array('msg' => 'Khong co bai hat'), 404);
+        if ($songs->isEmpty()) {
+            return response()->json(['msgErrors' => 'Album hiện tại bị lỗi, vui lòng thử lại !']);
         } else {
             $data = $songs;
             return SongResource::collection($data);
         }
     }
 
-    public function getSongOfPlaylist($playlistId)
+    public function getSongOfPlaylist(Request $request)
     {
-        $songs = Playlist::find($playlistId)->load('songs');
+        $check_playlist_already = Playlist::where('id', '=', $request->playlistId)->exists();
 
+        if ($check_playlist_already) {
+            $songs = Playlist::find($request->playlistId)->load('songs');
 
-        if ($songs == null) {
-            return response()->json(array('msg' => 'Khong co bai hat'), 404);
-        } else {
             $data = $songs->songs;
             return SongResource::collection($data);
+        } else {
+            return response()->json(['msgErrors' => 'Danh sách phát hiện tại bị lỗi, vui lòng thử lại !']);
         }
     }
 
@@ -76,11 +77,11 @@ class ClientPlayerController extends Controller
 
         $check = DailyViewSong::where('song_id', '=', $request->songId)->exists();
 
-        if ($check){
+        if ($check) {
             $dailyView->where('song_id', $request->songId)->increment('total_view', 1);
             $dailyView->date = now();
             return response()->json(['msg' => '+1 view daily for current song']);
-        }else{
+        } else {
             $dailyView->song_id = $request->songId;
             $dailyView->total_view = 1;
             $dailyView->date = now();
@@ -93,9 +94,9 @@ class ClientPlayerController extends Controller
     //-----------------------------------///
     //Check like song
 
-    public function checkLikeSong($songId)
+    public function checkLikeSong(Request $request)
     {
-        $song = UserLikedSong::where('user_id', '=', Auth::id())->where('song_id', '=', $songId)->exists();
+        $song = UserLikedSong::where('user_id', '=', Auth::id())->where('song_id', '=', $request->songId)->exists();
 
         if (!$song) {
             return response()->json(array('msg' => 'dontLike'));
@@ -106,22 +107,22 @@ class ClientPlayerController extends Controller
 
     //Like song
 
-    public function likeSong($id)
+    public function likeSong(Request $request)
     {
         $likeSong = new UserLikedSong();
 
-        $checkSongLiked = UserLikedSong::where('song_id', '=', $id)->where('user_id', '=', Auth::user()->id)->get();
+        $checkSongLiked = UserLikedSong::where('song_id', '=', $request->songId)->where('user_id', '=', Auth::user()->id)->get();
 
         if (count($checkSongLiked) != 1) {
-            Song::where('id', '=', $id)->increment('like');
+            Song::where('id', '=', $request->songId)->increment('like');
             $likeSong->user_id = Auth::user()->id;
-            $likeSong->song_id = $id;
+            $likeSong->song_id = $request->songId;
             $likeSong->save();
 
             return response()->json(['msg' => 'Yêu thích bài hát thành công', 'action' => 'liked']);
         } else {
-            Song::where('id', '=', $id)->decrement('like');
-            UserLikedSong::where('song_id', '=', $id)->where('user_id', '=', Auth::user()->id)->delete();
+            Song::where('id', '=', $request->songId)->decrement('like');
+            UserLikedSong::where('song_id', '=', $request->songId)->where('user_id', '=', Auth::user()->id)->delete();
 
             return response()->json(['msg' => 'Bỏ yêu thích bài hát thành công', 'action' => 'dislike']);
         }
@@ -129,50 +130,50 @@ class ClientPlayerController extends Controller
 
     //Like album
 
-    public function likeALbum($id)
+    public function likeALbum(Request $request)
     {
         $likeAlbum = new UserLikedAlbum();
 
-        $checkAlbumLiked = UserLikedAlbum::where('album_id', '=', $id)->where('user_id', '=', Auth::user()->id)->exists();
+        $checkAlbumLiked = UserLikedAlbum::where('album_id', '=', $request->albumId)->where('user_id', '=', Auth::user()->id)->exists();
 
         if (!$checkAlbumLiked) {
-            Album::where('id', '=', $id)->increment('like');;
+            Album::where('id', '=', $request->albumId)->increment('like');;
             $likeAlbum->user_id = Auth::user()->id;
-            $likeAlbum->album_id = $id;
+            $likeAlbum->album_id = $request->albumId;
             $likeAlbum->save();
 
-            $album = Album::find($id);
+            $album = Album::find($request->albumId);
 
             return response()->json(['msg' => 'Yêu thích album thành công', 'like' => $album->like, 'action' => 'liked']);
         } else {
-            Album::where('id', '=', $id)->decrement('like');
-            UserLikedAlbum::where('album_id', '=', $id)->where('user_id', '=', Auth::user()->id)->delete();
+            Album::where('id', '=', $request->albumId)->decrement('like');
+            UserLikedAlbum::where('album_id', '=', $request->albumId)->where('user_id', '=', Auth::user()->id)->delete();
 
-            $album = Album::find($id);
+            $album = Album::find($request->albumId);
             return response()->json(['msg' => 'Bỏ yêu thích album thành công', 'like' => $album->like, 'action' => 'unliked']);
         }
     }
 
     //Like playlist
 
-    public function likePlaylist($id)
+    public function likePlaylist(Request $request)
     {
         $likePlaylist = new UserLikedPlaylist();
 
-        $checkPlaylistLiked = UserLikedPlaylist::where('playlist_id', '=', $id)->where('user_id', '=', Auth::user()->id)->exists();
+        $checkPlaylistLiked = UserLikedPlaylist::where('playlist_id', '=', $request->playlistId)->where('user_id', '=', Auth::user()->id)->exists();
 
         if (!$checkPlaylistLiked) {
-            Playlist::where('id', '=', $id)->increment('like');
+            Playlist::where('id', '=', $request->playlistId)->increment('like');
             $likePlaylist->user_id = Auth::user()->id;
-            $likePlaylist->playlist_id = $id;
+            $likePlaylist->playlist_id = $request->playlistId;
             $likePlaylist->save();
-            $playlist = Playlist::find($id);
+            $playlist = Playlist::find($request->playlistId);
 
             return response()->json(['msg' => 'Yêu thích danh sách phát thành công', 'like' => $playlist->like, 'action' => 'liked']);
         } else {
-            Playlist::where('id', '=', $id)->decrement('like');
-            UserLikedPlaylist::where('playlist_id', '=', $id)->where('user_id', '=', Auth::user()->id)->delete();
-            $playlist = Playlist::find($id);
+            Playlist::where('id', '=', $request->playlistId)->decrement('like');
+            UserLikedPlaylist::where('playlist_id', '=', $request->playlistId)->where('user_id', '=', Auth::user()->id)->delete();
+            $playlist = Playlist::find($request->playlistId);
             return response()->json(['msg' => 'Bỏ yêu thích danh sách phát thành công', 'like' => $playlist->like, 'action' => 'unliked']);
         }
     }

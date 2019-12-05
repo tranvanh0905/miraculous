@@ -386,17 +386,27 @@
                             <div class="playlist-item-wrapper mb-3">
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
-                                        <a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">
-                                            <div class="image lazyload-img loaded"><img
-                                                    src="{{url($playlist->cover_image)}}">
+                                        <div class="music-img-box">
+                                            <div class="img-box box-rounded-md img-album-new">
+                                                <img class="retina"
+                                                     src="{{url($playlist->cover_image)}}"
+                                                     data-2x="{{url($playlist->cover_image)}}"
+                                                     alt="{{url($playlist->name)}}">
+                                                <div class="hover-state">
+                                                    <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                                                    <span
+                                                        class="pointer play-btn-dark round-btn adonis-album-button"
+                                                        data-album-id="{{$playlist->id}}" data-type="playList">
+                                                         <i class="fas fa-play fs-21 text-light play-index"></i>
+                                                    </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="opac"></div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <div
                                         class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
-                                        <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])
-                                    }}">{{$playlist->name}}</a></h4>
+                                        <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a></h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
                                     <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-sm-3 pl-xl-0">
                                         <div class="list-trend">

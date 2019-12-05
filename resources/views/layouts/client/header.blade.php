@@ -53,28 +53,6 @@
                         <a href="{{route('login')}}" class="nav-link w-nowrap pr-0">Đăng nhập</a>
                     </div>
                 @else
-                    <div class="nav-item d-none d-md-block">
-                        <a class="nav-link notification-toggle has-notification" href="#" id="dropdownUsernotifications"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="adonis-icon notification icon-4x">
-                                <i class="far fa-bell icon-search-index fs-21"></i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right p-4 notifications clearfix" role="menu">
-                            <h5>Thông báo</h5>
-                            <div class="media notification">
-                                <div class="user-thumb mr-3 rounded-thumb">
-                                    <img src="client/images/browse/browse-overview-6.jpg" alt="">
-                                </div>
-                                <div class="notification-desc">
-                                    <p>New Album from <a href="#" class="active-color">Brenda Lee</a></p>
-                                    <p><a href="#">Catch Me Outside</a></p>
-                                    <em class="inactive-color">2 Hours ago</em>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="nav-item position-relative">
 
                         <a class="nav-link dropdown-toggle w-nowrap pr-0" href="#" id="dropdownUserSettings"

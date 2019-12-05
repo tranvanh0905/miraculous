@@ -92,11 +92,17 @@ class ClientController extends Controller
 
         $suggestSong = Song::whereIn('id', $allSuggestSong)->get();
 
-        $mostlike = Song::orderBy('like', 'desc')->limit(35)->get();
-
         $genres = Genres::where('status', '=', 1)->limit(5)->get();
 
-        return view('client.brower', compact('genres', 'mostView12', 'mostlike','suggestSong'));
+        $allSong = Song::orderBy('release_date', 'desc')->limit(30)->get();
+
+        $allAlbum = Album::orderBy('release_date', 'desc')->limit(30)->get();
+
+        $allPlaylist = Playlist::orderBy('id', 'desc')->limit(30)->with('songs')->get();
+
+        $allArtitst = Artist::orderBy('id', 'desc')->limit(30)->get();
+
+        return view('client.brower', compact('genres', 'mostView12','suggestSong', 'allSong', 'allAlbum', 'allPlaylist', 'allArtitst'));
     }
     //Tất cả bảng xếp hạng
     public function chart(){

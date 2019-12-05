@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapUserRoutes();
 
+        $this->mapPlayerRoutes();
         //
     }
 
@@ -105,5 +106,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/user.php'));
+    }
+
+    /**
+     * Define the "player" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     * @author huynhthuan
+     */
+    protected function mapPlayerRoutes()
+    {
+        Route::prefix('player')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/player.php'));
     }
 }

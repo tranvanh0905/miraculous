@@ -139,36 +139,40 @@
 })(jQuery);
 
 jQuery(document).ready(function ($) {
-    let dataUserPlaylist = []
+    let dataUserPlaylist = [];
+    let userId = $("input[name='id']").val();
+
     //Lấy danh sách phát cá nhân
-    $.ajax({
-        type: 'GET',
-        url: '/get-user-playlist/',
-        async: false,
-        success: function (data) {
-            dataUserPlaylist = data['data'];
-        }
-    });
+    if (userId !== undefined) {
+        $.ajax({
+            type: 'GET',
+            url: '/get-user-playlist/',
+            async: false,
+            success: function (data) {
+                dataUserPlaylist = data['data'];
+            }
+        });
+    }
 
     $('.nav-item').on('show.bs.dropdown', function (e) {
         adonisPopup.outside(e);
     });
     // dropdown menu any where
-        var songMenu = [
-            {
-                text: 'Thêm vào danh sách phát',
-                icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
-                submenu: dataUserPlaylist
-            },
-            {
-                text: 'Thêm vào tiếp theo',
-                icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>'
-            },
-            {
-                text: 'Chia sẻ',
-                icon: '<i class="fas fa-share-square fa-1x mr-2"></i>'
-            },
-        ];
+    var songMenu = [
+        {
+            text: 'Thêm vào danh sách phát',
+            icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
+            submenu: dataUserPlaylist
+        },
+        {
+            text: 'Thêm vào tiếp theo',
+            icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>'
+        },
+        {
+            text: 'Chia sẻ',
+            icon: '<i class="fas fa-share-square fa-1x mr-2"></i>'
+        },
+    ];
 
 
     new adonisPopup({

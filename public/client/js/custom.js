@@ -166,7 +166,10 @@ $(document).on('click', '#playerLike', function (e) {
 
         $.ajax({
             type: 'POST',
-            url: 'like/song/' + id,
+            url: 'player/like/song',
+            data: {
+                songId: id
+            },
             success: function (data) {
                 if (data.action === 'liked') {
                     //Thêm nút likeglobal
@@ -250,7 +253,10 @@ $(document).on('click', '#likeGlobal', function (e) {
 
         $.ajax({
             type: 'POST',
-            url: 'like/song/' + id,
+            url: 'player/like/song',
+            data: {
+                songId: id
+            },
             success: function (data) {
                 if (data.action === 'liked') {
                     button.removeClass('far');
@@ -277,7 +283,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     }
 
                     $.notify({
-                        icon: 'fas fa-check-circle',
+                        icon: 'fas fa-heart',
                         message: data.msg
                     }, {
                         z_index: 1300
@@ -304,7 +310,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                     }
 
                     $.notify({
-                        icon: 'fas fa-check-circle',
+                        icon: 'fas fa-heart-broken',
                         message: data.msg
                     }, {
                         z_index: 1300
@@ -313,8 +319,11 @@ $(document).on('click', '#likeGlobal', function (e) {
             },
             complete: function () {
                 $.ajax({
-                    type: 'GET',
-                    url: 'song/' + id,
+                    type: 'POST',
+                    url: 'player/song',
+                    data: {
+                        songId: id
+                    },
                     success: function (data) {
                         let getLike = data["data"][0].like;
                         likeSongId.html(getLike + ' <i class="fas fa-heart fa-1x"></i>');
@@ -328,7 +337,10 @@ $(document).on('click', '#likeGlobal', function (e) {
 
         $.ajax({
             type: 'POST',
-            url: 'like/album/' + id,
+            url: 'player/like/album',
+            data: {
+                albumId: id
+            },
             success: function (data) {
                 if (data.action === 'liked') {
                     $.notify({
@@ -358,7 +370,10 @@ $(document).on('click', '#likeGlobal', function (e) {
     if (type === 'playlist') {
         $.ajax({
             type: 'POST',
-            url: 'like/playlist/' + id,
+            url: 'player/like/playlist',
+            data: {
+                playlistId: id
+            },
             success: function (data) {
                 if (data.action === 'liked') {
                     $.notify({
