@@ -1,7 +1,7 @@
 @extends('layouts.admin2.main')
 
 @section('title')
-    Cập nhật thể loại
+    Cập nhật slider
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Thông tin thể loại</h3>
+                <h3 class="card-title">Thông tin slider</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -18,25 +18,21 @@
                       enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form-group">
-                        <label class="col-form-label">Tên thể loại : </label>
-                        <input type="text" value="{{$genres->name}}" name="name"
-                               class="form-control">
-                        @if($errors->first('name'))
-                            <span class="text-danger">{{$errors->first('name')}}</span>
+                        <label class="col-form-label">Đường dẫn : </label>
+                        <input value="{{$model->url}}" type="text" name="url" class="form-control">
+                        @if($errors->first('url'))
+                            <span class="text-danger">{{$errors->first('url')}}</span>
                         @endif
+
                     </div>
-                    <div class="form-group">
-                        <label class="col-form-label">Mô tả : </label>
-                        <textarea rows="10" cols="5" name="description" class="form-control"
-                                  placeholder="Viết mô tả tại đây ...">{{$genres->description}}</textarea>
-                        @if($errors->first('description'))
-                            <span
-                                class="text-danger">{{$errors->first('description')}}</span>
-                        @endif
-                    </div>
+                    @if (session('status'))
+                        <div class="alert alert-danger">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <button type="submit"
                             class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
-                        Xác nhận
+                        Cập nhật slider
                     </button>
                     <button
                         class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
@@ -50,21 +46,18 @@
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Thông tin thể loại</h3>
+                <h3 class="card-title">Thông tin slider</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="card-block">
+
                     <div class="form-group">
                         <label class="col-form-label">Trạng thái : </label>
                         <select name="status" class="form-control">
                             <option value="">Lựa chọn trạng thái</option>
-                            <option @if ($genres->status == 0) {{"selected"}} @endif value="0">
-                                Không hoạt động
-                            </option>
-                            <option @if ($genres->status == 1) {{"selected"}} @endif value="1">
-                                Hoạt động
-                            </option>
+                            <option @if ($model->status == 0) {{"selected"}} @endif value="0">Không hoạt động</option>
+                            <option @if ($model->status == 1) {{"selected"}} @endif  value="1" selected>Hoạt động</option>
                         </select>
                         @if($errors->first('status'))
                             <span class="text-danger">{{$errors->first('status')}}</span>
@@ -72,7 +65,6 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputFile">Ảnh bìa</label>
-
                         <div class="custom-file">
                             <input id="fileInput" type="file" name="image" class="custom-file-input">
                             <label class="custom-file-label" for="exampleInputFile">Lựa chọn ảnh</label>
@@ -82,7 +74,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <img id="imgPreview" src="{{url($genres->image)}}" width="100%" alt="">
+                        <img id="imgPreview" src="{{url($model->image)}}" width="100%" alt="">
                     </div>
                     </form>
                 </div>
@@ -91,7 +83,6 @@
     </div>
 
 @endsection
-
 @section('custom-js')
 
     <script>

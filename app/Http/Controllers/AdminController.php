@@ -15,6 +15,11 @@ class AdminController extends Controller
         return view('admin2.index', compact('songs'));
     }
 
+    public function actionLogOut() {
+        Auth::logout();
+        return redirect()->route('admin.login');
+    }
+
     public function login()
     {
         return view('admin2.login');

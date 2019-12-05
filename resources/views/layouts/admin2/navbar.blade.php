@@ -12,8 +12,8 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-                        class="fas fa-th-large"></i></a>
+            <a class="nav-link" href="{{route('client.home')}}"><i
+                        ></i>Quay về trang chủ</a>
         </li>
     </ul>
 </nav>

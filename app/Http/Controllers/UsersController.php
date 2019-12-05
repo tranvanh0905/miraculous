@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Genres;
 use App\Http\Requests\AddUserForm;
 use App\Http\Requests\UpdateUserForm;
+use App\Model_client\History;
 use App\Playlist;
 use App\PlaylistDetail;
 use App\User;
@@ -118,12 +119,16 @@ class UsersController extends Controller
     {
         $model = User::find($user_id);
         $playlist = Playlist::where("upload_by_user_id", $user_id)->get();
+        $history = History::where('user_id', $user_id)->get();
         if ($playlist !== null && count($playlist) > 0) {
-            $playlist_detail = PlaylistDetail::where('playlist_id', $playlist->id);
+            $playlist_detail = PlaylistDetail::where('playlist_id', $playlist[0]->id);
             $playlist_detail->delete();
         }
         foreach ($playlist as $item) {
             $item->delete();
+        }
+        foreach ($history as $item2) {
+            $item2->delete();
         }
         $model->delete();
         return redirect()->route('users.home')->with('status', 'Xóa tài khoản thành công');
