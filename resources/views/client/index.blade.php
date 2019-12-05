@@ -11,17 +11,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="no">
+                         data-loop="yes" data-dots="yes">
                         <div class="owl-carousel owl-theme-adonis">
-                            <img src="https://photo-zmp3.zadn.vn/banner/e/1/8/1/e181d0a10cd0e354d6c60723e8c0d374.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/5/9/3/c/593c1fdb62e63c32e1b9da240ba663e4.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/b/e/0/8/be08de5a9a48c60ae7d58a897a75eecf.jpg"
-                                 alt=""
-                                 class="img-fluid">
+                            @foreach(getSlider() as $slider)
+                                <a href="{{url($slider->url)}}" class="box-img-slider">
+                                    <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -172,7 +168,9 @@
                                                          data-2x="{{$album->cover_image}}" alt="{{$album->name}}">
                                                     <div class="hover-state">
                                                         <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                            <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album" data-album-id="{{$album->id}}">
+                                                            <span
+                                                                class="pointer play-btn-dark round-btn adonis-album-button"
+                                                                data-type="album" data-album-id="{{$album->id}}">
                                                                  <i class="fas fa-play fs-21 play-index text-light"></i>
                                                             </span>
                                                         </div>
@@ -406,7 +404,9 @@
                                     </div>
                                     <div
                                         class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
-                                        <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a></h4>
+                                        <h4 class="title font-weight-bold"><a
+                                                href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a>
+                                        </h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
                                     <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-sm-3 pl-xl-0">
                                         <div class="list-trend">

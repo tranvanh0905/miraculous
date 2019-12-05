@@ -8344,36 +8344,52 @@ select.form-control:focus::-ms-value {
         height: 110px;
         line-height: 110px;
     }
+
     .notfound .notfound-404 h1 {
         font-size: 120px;
     }
 }
 
-.genres-brower{
+.genres-brower {
     height: 130px;
 }
-.banner-reg{
-    background: #12c2e9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+
+.banner-reg {
+    background: #12c2e9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #f64f59, #c471ed, #12c2e9); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.btn-reg{
+.btn-reg {
     padding: 10px 30px;
-    border-radius: 40px!important;
+    border-radius: 40px !important;
     background: #0a6aa1;
     color: white;
     margin-top: 10px;
     display: inline-block;
 }
-.btn-reg{
+
+.btn-reg {
     padding: 10px 30px;
-    border-radius: 40px!important;
+    border-radius: 40px !important;
     color: black;
     margin-top: 10px;
     display: inline-block;
     background: white;
     font-weight: bold;
 
+}
+
+.box-img-slider {
+    width: 100%;
+    height: 400px;
+    display: block;
+    overflow: hidden;
+}
+
+.img-slider {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
