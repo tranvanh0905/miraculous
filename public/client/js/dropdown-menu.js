@@ -190,9 +190,6 @@ jQuery(document).ready(function ($) {
             text: 'Xóa danh sách phát',
             icon: '<i class="fas fa-minus-circle mr-2"></i>',
             class: 'delete-user-playlist'
-        }, {
-            text: 'Chia sẻ',
-            icon: '<i class="fas fa-share-square mr-2"></i>'
         }
     ];
 

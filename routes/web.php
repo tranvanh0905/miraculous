@@ -70,7 +70,7 @@ Route::get('chart/album', 'ClientController@chartAlbum')->name('client.chart-alb
 
 //Bảng xếp hạng ca sĩ
 
-Route::get('chart/artist', 'ClientController@chartAritst')->name('client.chart-artist');
+Route::get('chart/artist', 'ClientController@chartArtist')->name('client.chart-artist');
 
 //Khám phá
 

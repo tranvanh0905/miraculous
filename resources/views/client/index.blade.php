@@ -100,7 +100,7 @@
                                                     <p class="sub-title">
                                                         @foreach($song->artists as $artist)
                                                             <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                         @endforeach
                                                     </p>
                                                 </div>
@@ -252,7 +252,7 @@
                                     <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 CA SĨ</h6>
                                 </div>
                                 <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
-                                    <a href="" class="text-light"><i
+                                    <a href="{{route('client.chart-artist')}}" class="text-light"><i
                                             class="icon-arrow-right2"></i>
                                         Xem bảng xếp hạng
                                         <span class="adonis-icon pl-1 icon-arrow icon-1x">
@@ -423,7 +423,7 @@
                                                             @foreach($song->artists as $artist)
                                                                 <a href="{{route('singleArtist', ['artist_id' => $artist->id])}}">
                                                                     {{$artist->nick_name}}
-                                                                </a>
+                                                                </a> @if ($loop->last) @else , @endif
                                                             @endforeach
                                                         </p>
                                                     </div>

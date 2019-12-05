@@ -5,7 +5,9 @@ let adonisPlayer = {},
     adonisPlaylist,
     currentPlaylistId,
     currentSongId,
-    currentAlbumId;
+    currentAlbumId,
+    songId,
+    countSeek;
 jQuery(document).ready(function ($) {
     "use strict";
 
@@ -43,9 +45,7 @@ jQuery(document).ready(function ($) {
 
         // player loaded event
         $("#" + adonisPlayerID).bind($.jPlayer.event.loadeddata, function (event) {
-            let Artist = $(this).data("jPlayer").status.media.artist,
-                Poster = $(this).data("jPlayer").status.media.poster,
-                Title = $(this).data("jPlayer").status.media.title;
+            let Poster = $(this).data("jPlayer").status.media.poster;
             $('#' + adonisPlayerContainer + ' .current-item .song-poster img').attr('src', Poster);
             $("#" + adonisPlayerID).find('img').attr('alt', '');
         });
@@ -59,21 +59,89 @@ jQuery(document).ready(function ($) {
          */
 
         $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
+            countSeek = 0;
+            songId = $("#" + adonisPlayerID).data("jPlayer").status.media.id;
+
+            let userId = $("input[name='id']").val();
+
+            if (userId !== undefined) {
+                //Thêm vào lịch sử nghe nhạc
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                //Kiểm tra bài hát đã được like chưa
+                $.ajax({
+                    type: 'POST',
+                    url: '/song/check_like',
+                    data: {
+                        songId: songId
+                    },
+                    success: function (data) {
+                        if (data.msg === 'dontLike') {
+                            //Nếu chưa sẽ thêm nút like vào player
+                            $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
+                                ' class="far' +
+                                ' fa-heart' +
+                                ' fa-2x' +
+                                ' font-14"></i></span>');
+
+                            $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
+                                ' class="far' +
+                                ' fa-heart' +
+                                ' fa-2x' +
+                                ' font-14"></i></span>');
+
+                            $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
+                                ' class="far' +
+                                ' fa-heart' +
+                                ' fa-2x' +
+                                ' font-14"></i></span>');
+                        } else {
+                            //Nếu đã like thêm nút dislike vào player
+                            $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
+                            $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
+                            $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
+                        }
+                        //Thêm bài hát vào lịch sử nghe của user
+                        $.ajax({
+                            type: 'POST',
+                            url: "user/add-history",
+                            data: {
+                                song_id: songId,
+                            }
+                        });
+                    }
+                });
+            }
+
             // poster
             let poster = $(this).data("jPlayer").status.media.poster;
+
             $('#' + adonisPlayerContainer).find('.adonis-player .song-poster img').attr('src', poster);
 
             // blurred background
             $('#' + adonisPlayerContainer).find('.blurred-bg').css('background-image', 'url(' + poster + ')');
 
+            let artists_html = '';
 
-            // astist_name
-            let artist = $(this).data("jPlayer").status.media.artist;
+            var name = $(this).data("jPlayer").status.media.artist;
+            var id = $(this).data("jPlayer").status.media.artist_id;
+            var assoc = [];
+            for (var i = 0; i < name.length; i++) {
+                assoc[i] = {
+                    'name': name[i],
+                    'id': id[i]
+                }
+            }
 
-            // astist_id
-            let artistId = $(this).data("jPlayer").status.media.artist_id;
-
-            let artists_html = '<a href="/single-artist/' + artistId + '">' + artist + '</a>';
+            $.each(assoc, function (key, value) {
+                artists_html += '<a href="single-artist/' + value.id + '" class="fix-a">' + value.name + '</a>';
+                if (key !== assoc.length - 1) {
+                    artists_html += ', ';
+                }
+            });
 
             $('#' + adonisPlayerContainer + ' .artist-name').html(artists_html);
 
@@ -81,7 +149,6 @@ jQuery(document).ready(function ($) {
             if (typeof currentPlaylistId !== 'undefined') {
                 $("[data-album-id='" + currentPlaylistId + "']").addClass('jp-playing');
             }
-
         });
 
         $('.adonis-mute-control').click(function () {
@@ -267,68 +334,6 @@ jQuery(document).ready(function ($) {
         $(document).on('click', '.adonis-album-button', function (e) {
             let type = $(this).attr('data-type');
             let albumId = parseInt($(this).attr('data-album-id'));
-            let userId = $("input[name='id']").val();
-
-            if (userId !== undefined) {
-                $("#" + adonisPlayerID).unbind($.jPlayer.event.play);
-
-                //Thêm vào lịch sử nghe nhạc
-                $("#" + adonisPlayerID).bind($.jPlayer.event.play, function (event) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    //Lấy id bài hát chạy ở player
-                    let songId = $(this).data("jPlayer").status.media.id;
-
-                    //Kiểm tra bài hát đã được like chưa
-                    $.ajax({
-                        type: 'POST',
-                        url: '/song/check_like',
-                        data: {
-                            songId: songId
-                        },
-                        success: function (data) {
-                            if (data.msg === 'dontLike') {
-                                //Nếu chưa sẽ thêm nút like vào player
-                                $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-
-                                $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-
-                                $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i' +
-                                    ' class="far' +
-                                    ' fa-heart' +
-                                    ' fa-2x' +
-                                    ' font-14"></i></span>');
-                            } else {
-                                //Nếu đã like thêm nút dislike vào player
-                                $('#like').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                                $('#like2').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                                $('#like3').html('<span class="adonis-icon icon-2x" id="playerLike" data-type="song" data-id="' + songId + '"><i class="fas fa-heart fa-2x font-14"></i></span>');
-                            }
-                        }
-                    });
-
-                    //Thêm bài hát vào lịch sử nghe của user
-                    $.ajax({
-                        type: 'POST',
-                        url: "user/add-history",
-                        data: {
-                            song_id: songId,
-                        }
-                    });
-                });
-            }
 
             //Nếu là bài hát
             if (type === "song") {
@@ -520,21 +525,15 @@ jQuery(document).ready(function ($) {
         iconClass: 'mdi mdi-fw mdi-upload'
     });
 
-    let player = $("#" + adonisPlayerID);
-    let countSeek = 0;
-
     //Tăng view cho bài hát, không tua và nghe hết bài hát
-    player.bind($.jPlayer.event.play, function (event) {
-        countSeek = 0;
-    });
-
-    player.bind($.jPlayer.event.seeking, function (event) {
+    $("#" + adonisPlayerID).bind($.jPlayer.event.seeking, function (event) {
         countSeek = 1;
     });
 
-    player.bind($.jPlayer.event.ended, function (event) {
+    $("#" + adonisPlayerID).bind($.jPlayer.event.ended, function (event) {
         if (countSeek === 0) {
             let id = $(this).data("jPlayer").status.media.id;
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -545,18 +544,16 @@ jQuery(document).ready(function ($) {
                 url: '/update-view',
                 data: {songId: id},
                 success: function (data) {
-                    console.log(data);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update-view-daily',
+                        data: {songId: id},
+                    });
                 }
             });
-
-            $.ajax({
-                type: 'POST',
-                url: '/update-view-daily',
-                data: {songId: id},
-                success: function (data) {
-                    console.log(data);
-                }
-            });
+        } else {
+            countSeek = 0;
+            console.log('k tang view')
         }
     });
 });

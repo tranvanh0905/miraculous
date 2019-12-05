@@ -25,7 +25,7 @@
                 </div>
             @else
                 <div class="col-lg-12">
-                    <div class="adonis-carousel music-img-box-cont-sm viewport-animate" data-items="1"
+                    <div class="adonis-carousel music-img-box-cont-sm viewport-animate" id="content-song-library" data-items="1"
                          data-animation="slideUp" data-animation-item=".item" data-auto-width="yes"
                          data-loop="no" data-dots="yes"
                          data-responsive-width="0:100%|600:50%|900:33.33%|1200:25%">
@@ -49,7 +49,7 @@
                                                     <p class="sub-title">
                                                         @foreach($song->artists as $artist)
                                                             <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                         @endforeach
                                                     </p>
                                                 </div>
@@ -227,11 +227,11 @@
                 </div>
             </div>
         @else
-            <div class="row auto-columns adonis-animate" data-animation="slideRightSkew"
+            <div class="row auto-columns adonis-animate" id="content-artits-library" data-animation="slideRightSkew"
                  data-animation-item=".music-img-box"
                  data-responsive-width="0:100%|300:50%|560:33%|820:25%|980:20%|1240:16.66%|1500:14.2858%">
                 @foreach($followArtist as $artist)
-                    <div class="col-auto">
+                    <div class="col-auto item-artist-library" id="artits-library{{$artist->id}}">
                         <div class="music-img-box mb-e-30 mb-e-md-40 text-center">
                             <div class="img-box rounded-circle img-artist-index">
                                 <img class="retina" src="{{url($artist->avatar)}}"

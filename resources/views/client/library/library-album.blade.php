@@ -30,26 +30,26 @@
                 @foreach($likedAlbum as $album)
                     <div class="col-auto">
                         <div class="music-img-box mb-e-30 mb-e-lg-40">
-                            <div class="img-box box-rounded-sm">
-                                <img class="retina" src="{{url($album->cover_image)}}"
-                                     data-2x="{{url($album->cover_image)}}" alt="{{$album->title}}">
+                            <div class="img-box box-rounded-md img-album-new">
+                                <img class="retina"
+                                     src="{{url($album->cover_image)}}"
+                                     data-2x="{{url($album->cover_image)}}"
+                                     alt="{{$album->title}}">
                                 <div class="hover-state">
                                     <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                            <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album"
-                                                  data-album-id="{{$album->id}}"><i
-                                                        class="play-icon"></i></span>
-                                    </div>
-                                    <div class="absolute-top-right pr-e-20 pt-e-20">
-                                            <span class="pointer dropdown-menu-toggle"><span
-                                                        class="adonis-icon icon-4x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                         version="1.1"><use
-                                                                xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                        <span
+                                            class="pointer play-btn-dark round-btn adonis-album-button"
+                                            data-album-id="{{$album->id}}" data-type="album">
+                                             <i class="fas fa-play fs-21 text-light play-index"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <h6 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a></h6>
+                            <h6 class="title"><a
+                                    href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
+                            </h6>
                             <p class="sub-title category">
-                                <a href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
+                                <a href="{{route('singleArtist', ['artist_id' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
                             </p>
                         </div>
                     </div>

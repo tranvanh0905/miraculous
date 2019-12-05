@@ -31,11 +31,11 @@
               \Illuminate\Support\Facades\Auth::id())->where('playlist_id', '=', $singlePlaylist->id)->exists())
                                 <a class="btn btn-primary mx-auto" id="likeGlobal" data-type="playlist"
                                    data-id="{{$singlePlaylist->id}}"
-                                   href="javascript:;"><i class="fas fa-heart-broken"></i> Bỏ yêu thích</a>
+                                   href="javascript:;"><i class="fas fa-heart-broken"></i> Bỏ yêu thích danh sách phát</a>
                             @else
                                 <a class="btn btn-primary mx-auto" id="likeGlobal" data-type="playlist"
                                    data-id="{{$singlePlaylist->id}}"
-                                   href="javascript:;"><i class="fas fa-heart"></i> Yêu thích</a>
+                                   href="javascript:;"><i class="fas fa-heart"></i> Yêu thích danh sách phát</a>
                             @endif
                         @endif
                     </div>

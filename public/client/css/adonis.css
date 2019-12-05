@@ -5280,7 +5280,7 @@ select.form-control:focus::-ms-value {
     width: 100%;
     height: 60vh;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center center;
     -webkit-background-size: cover;
     background-size: cover;
     mask-image: -webkit-gradient(linear, left 26%, left 100%, from(#000), to(transparent));
@@ -6309,9 +6309,6 @@ select.form-control:focus::-ms-value {
     box-shadow: 5px 18px 18px 0 rgba(168, 179, 211, 0.38)
 }
 
-.adonis-player-wrap .adonis-playlist a {
-    color: #000
-}
 
 .adonis-player-wrap .adonis-playlist a:hover {
     color: #b08cf9
@@ -8382,9 +8379,10 @@ select.form-control:focus::-ms-value {
 
 .box-img-slider {
     width: 100%;
-    height: 400px;
+    height: 460px;
     display: block;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .img-slider {
@@ -8392,4 +8390,28 @@ select.form-control:focus::-ms-value {
     height: 100%;
     object-fit: cover;
 }
+
+.img-box-text-over img {
+    filter: brightness(0.5);
+}
+
+.box-person-playlist{
+    height: 224px;
+    overflow: hidden;
+}
+
+.playlist-user .img-box .img-person-playlist, .img-person-playlist{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.fix-a{
+    position: relative;
+    z-index: 9999;
+}
+
+.adonis-player-wrap .artist-name a:hover, .adonis-player-wrap .adonis-playlist .jp-playlist .jp-artist a:hover{
+    color: #b08cf9;
+}
+
 

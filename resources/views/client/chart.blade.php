@@ -24,7 +24,7 @@
                                     <div>
                                         <h4 class="fs-7 m-0 text-light text-center"><span
                                                 class="font-weight-bold">TOP 50</span><br>
-                                            <em><span class="font-weight-light">Bài hát nghe nhiều nhất</span> </em>
+                                            <em><span class="font-weight-light">Bài Hát Nghe Nhiều Nhất</span> </em>
                                         </h4>
                                     </div>
                                     <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a
@@ -48,7 +48,7 @@
                                     <div>
                                         <h4 class="fs-7 m-0 text-center text-light"><span
                                                 class="text-light font-weight-bold">Top 50</span><br>
-                                            <em><span class="font-weight-light">Album nghe nhiều nhất</span>
+                                            <em><span class="font-weight-light">Album Yêu Thích Nhiều Nhất</span>
                                             </em></h4>
                                     </div>
                                     <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto"><a
@@ -69,7 +69,7 @@
                                      alt="">
 
                                 <div class="absolute-info d-flex flex-column justify-content-between">
-                                    <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">TOP CA SĨ</div>
+                                    <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">TOP 50 CA SĨ</div>
                                     <div>
                                         <h4 class="fs-7 m-0 text-dark text-center"><span
                                                 class="text-light font-weight-bold">Ca Sĩ</span><br>

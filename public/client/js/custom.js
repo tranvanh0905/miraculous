@@ -45,6 +45,7 @@ $(document).on('click', '.btn-follow', function () {
         },
         success: function (data) {
             $('.count-follow[data-artist-id="' + artistId + '"]').html(data.follow);
+
             if (data.type === 'follow') {
                 divTarget.html('<i class="fas fa-user-minus"></i> Bỏ quan tâm').fadeIn();
                 $.notify({
@@ -57,6 +58,20 @@ $(document).on('click', '.btn-follow', function () {
                 });
             } else {
                 divTarget.html('<i class="fas fa-user-plus"></i> Quan tâm').fadeIn();
+                $("#artits-library" + artistId).fadeOut(1000, function () {
+                    $(this).remove();
+                });
+
+                if ($('.item-artist-library').length - 1 == 0) {
+                    let htm_content = '<div class="no-content-block text-center p-5 col-12 rounded">' +
+                        '<img src="/client/images/audio_default.png" alt="no-song" class="d-block mx-auto" width="100px" height="auto">' +
+                        '<h3 class="m-3">Bạn chưa quan tâm ca sĩ nào !!!</h3>' +
+                        '<a href="/all/artists">Tìm ca sĩ mà bạn thích ngay</a>' +
+                        '</div>';
+
+                    $('#content-artits-library').html(htm_content);
+                }
+
                 $.notify({
                     icon: 'fas fa-user-minus',
                     message: data.msg
@@ -395,7 +410,7 @@ $(document).on('click', '#likeGlobal', function (e) {
                         delay: 1000,
                         z_index: 1300
                     });
-                    button.html('<i class="fas fa-heart"></i> Yêu thích');
+                    button.html('<i class="fas fa-heart"></i> Yêu thích danh sách phát');
                     countLikePlaylist.html(data.like);
                 }
             }
@@ -449,7 +464,7 @@ $(document).on('click', '.delete-user-playlist', function (e) {
                 $(this).remove();
             });
             $.notify({
-                icon: 'glyphicon glyphicon-ok',
+                icon: 'fas fa-check-circle',
                 message: data.msg
             }, {
                 z_index: 1300
@@ -461,7 +476,18 @@ $(document).on('click', '.delete-user-playlist', function (e) {
 //Bỏ yêu thích bài hát ở thư viện
 $(document).on('click', '.like-library', function () {
     let songId = $(this).attr('data-id');
-    $('.song-in-library[data-song-id="' + songId + '"]').remove().fadeOut();
+    $('.song-in-library[data-song-id="' + songId + '"]').fadeOut(1000, function () {
+        $(this).remove();
+    });
+    if ($('.song-in-library').length - 1 == 0) {
+        let htm_content = '<div class="no-content-block text-center p-5 col-12 rounded">' +
+            '<img src="/client/images/audio_default.png" alt="no-song" class="d-block mx-auto" width="100px" height="auto">' +
+            '<h3 class="m-3">Bạn chưa thích bài hát nào !!!</h3>' +
+            '<a href="/all/songs">Tìm bài hát mà bạn thích ngay</a>' +
+            '</div>';
+
+        $('#content-song-library').html(htm_content);
+    }
 });
 
 //Bình luận bài hát
@@ -515,6 +541,10 @@ function printErrorMsg(msg) {
     print_err.css('display', 'block');
     print_err.append('<p class="alert alert-danger">' + msg + '</p>');
 }
+
+
+
+
 
 
 

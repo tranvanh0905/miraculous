@@ -27,21 +27,15 @@
                 <div class="container container-content">
                     <div class="row">
                         <div class="col-12">
-                            <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                                 data-loop="no">
+                            <div class="adonis-carousel mt-3" data-items="1" data-stagePadding="0"
+                                 data-loop="yes" data-dots="yes">
                                 <div class="owl-carousel owl-theme-adonis">
-                                    <img src="https://photo-zmp3.zadn.vn/banner/e/1/8/1/e181d0a10cd0e354d6c60723e8c0d374.jpg" alt=""
-                                         class="img-fluid">
-                                    <img src="https://photo-zmp3.zadn.vn/banner/5/9/3/c/593c1fdb62e63c32e1b9da240ba663e4.jpg" alt=""
-                                         class="img-fluid">
-                                    <img src="https://photo-zmp3.zadn.vn/banner/b/e/0/8/be08de5a9a48c60ae7d58a897a75eecf.jpg" alt=""
-                                         class="img-fluid">
+                                    @foreach(getSlider() as $slider)
+                                        <a href="{{url($slider->url)}}" class="box-img-slider">
+                                            <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
+                                        </a>
+                                    @endforeach
                                 </div>
-                                <style>
-                                    .owl-theme-adonis .owl-stage-outer{
-                                        margin-bottom: 0;
-                                    }
-                                </style>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-3 pr-md-0">
@@ -51,11 +45,9 @@
                                 </div>
                                 <p class="text-center text-white font-weight-bold">{{Auth::user()->username}}</p>
                                 <ul class="menu-account">
-                                    <li class="@if (\Request::is('user')) active @endif"><a href="{{route('user-profile')}}">Tổng quan về tài khoản</a></li>
-                                    <li class="@if (\Request::is('user/upgrade-account')) active @endif"><a href="{{route('user-upgrade-profile')}}">Nâng cấp tài khoản</a></li>
-                                    <li class="@if (\Request::is('user/edit-account')) active @endif"><a href="{{route('user-edit-profile')}}">Sửa hồ sơ</a></li>
-                                    <li class="@if (\Request::is('user/change-password')) active @endif"><a href="{{route('user-change-password')}}">Đổi mật khẩu</a></li>
-                                    <li class="@if (\Request::is('user/invoice')) active @endif"><a href="{{route('user-invoice-profile')}}">Hóa đơn</a></li>
+                                    <li class="@if (\Request::is('user')) active @endif"><a href="{{route('user-profile')}}"><i class="fab fa-windows fs-19"></i> Tổng quan về tài khoản</a></li>
+                                    <li class="@if (\Request::is('user/edit-account')) active @endif"><a href="{{route('user-edit-profile')}}"><i class="fas fa-user-edit fs-19"></i> Sửa hồ sơ</a></li>
+                                    <li class="@if (\Request::is('user/change-password')) active @endif"><a href="{{route('user-change-password')}}"><i class="fas fa-key fs-19"></i> Đổi mật khẩu</a></li>
                                 </ul>
                             </div>
                         </div>

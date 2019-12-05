@@ -317,7 +317,22 @@
             // Wrap the <li> contents in a <div>
             var artistHtml = '';
 
-            artistHtml += '<a href="/single-artist/' + media.id + '">' + media.artist + '</a>';
+            var name_artits = media.artist;
+            var id_artists = media.artist_id;
+            var assoc = [];
+            for (var i = 0; i < name_artits.length; i++) {
+                assoc[i] = {
+                    'name': name_artits[i],
+                    'id': id_artists[i]
+                }
+            }
+
+            $.each(assoc, function (key, value) {
+                artistHtml += '<a href="single-artist/' + value.id + '" class="fix-a">' + value.name + '</a>';
+                if (key !== assoc.length - 1) {
+                    artistHtml += ', ';
+                }
+            });
 
             var uniqueId = function () {
                 return 'id-' + Math.random().toString(36).substr(2, 16);
@@ -327,7 +342,7 @@
 
             var listItem = "<li class='item clearfix' id='" + ID + "'><div class='playlist-item'>";
             listItem += '<div class="img-box music-img-box song-poster"><img src="' + media.poster + '" alt=""><div class="hover-state"><span class="play-btn-dark"><i class="fas fa-play fs-19 text-light play-index"></i></span></div></div>';
-            listItem += '<div class="meta"><span class="now playlist-animate playing"><span class="bar n1">A</span><span class="bar n2">B</span><span class="bar n3">c</span></span><div class="hover-state"> <div class="d-flex justify-content-end align-items-center"><a class="track-menu-playlist" href="#"><i class="icon-dot-nav-horizontal"></i></a></div></div> </div>';
+            listItem += '<div class="meta"><span class="now playlist-animate playing"><span class="bar n1">A</span><span class="bar n2">B</span><span class="bar n3">c</span></span><div class="hover-state"><div class="d-flex justify-content-end align-items-center"><a class="track-menu-playlist" href="#"><i class="icon-dot-nav-horizontal"></i></a></div></div> </div>';
             // Create remove control
             // listItem += "<header class=''>";
 
@@ -373,7 +388,7 @@
             }
 
 
-            listItem += "<a href='javascript:;' class='" + this.options.playlistOptions.itemClass + "'>" + media.title + "</a>";
+            listItem += "<a href='/single-song/" + media.id + "' class='fix-a " + this.options.playlistOptions.itemClass + "'>" + media.title + "</a>";
             listItem += media.artist ? "<p class='jp-artist'>" + artistHtml + "</p>" : "";
             //listItem += "</div>";
 

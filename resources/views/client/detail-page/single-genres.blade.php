@@ -10,7 +10,7 @@
             <div class="col-xl-9">
                 <div class="d-flex flex-row">
                     <div class="title-box">
-                        <h3 class="title h3-md">{{$genres->name}}</h3>
+                        <h3 class="title h3-md"><i class="fas fa-music fs-19"></i> {{$genres->name}}</h3>
                         {!! $genres->description !!}
                         <hr class="w-100 mt-0">
                         @if(count($songOfGenres) == 0)
@@ -41,7 +41,7 @@
                                                 <p class="sub-title">
                                                     @foreach($song->artists as $artist)
                                                         <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -96,7 +96,7 @@
             <div class="col-xl-3">
                 <div class="widget">
                     <div class="d-flex justify-content-between inactive-colored-links mb-3">
-                        <h3>Nghe nhiều nhất của {{$genres->name}}</h3>
+                        <h3><i class="fas fa-headphones fs-19"></i> Nghe nhiều của {{$genres->name}}</h3>
                     </div>
                     @foreach($mostViewOfGenres as $song)
                         <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
@@ -110,7 +110,7 @@
                                 <p class="sub-title">
                                     @foreach($song->artists as $artist)
                                         <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                     @endforeach
                                 </p>
                             </div>

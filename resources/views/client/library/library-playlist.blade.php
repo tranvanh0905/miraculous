@@ -35,19 +35,19 @@
                                      data-2x="{{url($playList->cover_image)}}" alt="{{$playList->title}}">
                                 <div class="hover-state">
                                     <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                            <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="playlist"
-                                                  data-album-id="{{$playList->id}}"><i
-                                                        class="play-icon"></i></span>
-                                    </div>
-                                    <div class="absolute-top-right pr-e-20 pt-e-20">
-                                            <span class="pointer dropdown-menu-toggle"><span
-                                                        class="adonis-icon icon-4x"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                         version="1.1"><use
-                                                                xlink:href="#icon-horizontal-dots"></use></svg></span></span>
+                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="playlist"
+                                              data-album-id="{{$playList->id}}">
+                                            <i class="fas fa-play fs-21 text-light play-index"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <h6 class="title mb-3"><a href="{{route('singlePlaylist', ['playlistId' => $playList->id])}}">{{$playList->name}}</a></h6>
+                            <h6 class="title mb-3">
+                                <a href="{{route('singlePlaylist', ['playlistId' => $playList->id])}}">{{$playList->name}}</a>
+                            </h6>
+                            <p class="sub-title category">
+                                4 bài hát
+                            </p>
                         </div>
                     </div>
                 @endforeach

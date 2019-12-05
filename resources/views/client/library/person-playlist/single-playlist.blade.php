@@ -12,8 +12,8 @@
                 <div class="col-md-3 flex-column-sidebar-md text-center text-md-left">
                     <div class="album-image text-center">
                         <div class="music-img-box d-inline-block">
-                            <div class="img-box ">
-                                <img class="retina box-rounded-md text-center" src="{{url($singlePlaylist->cover_image)}}"
+                            <div class="img-box box-person-playlist">
+                                <img class="retina box-rounded-md text-center img-person-playlist" src="{{url($singlePlaylist->cover_image)}}"
                                      data-2x="{{url($singlePlaylist->cover_image)}}" alt="{{$singlePlaylist->name}}">
                             </div>
                         </div>

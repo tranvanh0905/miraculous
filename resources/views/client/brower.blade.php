@@ -43,7 +43,7 @@
                                                         <p class="sub-title">
                                                             @foreach($song->artists as $artist)
                                                                 <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                             @endforeach
                                                         </p>
                                                     </div>
@@ -127,7 +127,7 @@
                                                         <p class="sub-title">
                                                             @foreach($song->artists as $artist)
                                                                 <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                             @endforeach
                                                         </p>
                                                     </div>
@@ -216,7 +216,7 @@
                                                 <p class="sub-title">
                                                     @foreach($song->artists as $artist)
                                                         <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -433,7 +433,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'genres'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                            <i class="fas fa-arrow-right fs-19"></i>
+                                    <i class="fas fa-arrow-right fs-19"></i>
                                 </span>
                             </a>
                         </div>
@@ -454,10 +454,10 @@
                                         </div>
                                         <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
                                             <a href="{{route('singleGenres', ['genresId' => $genre->id])}}"
-                                               class="color-white">Xem thể loại<span
-                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" version="1.1"><use
-                                                            xlink:href="#icon-see-all-arrow-right"></use></svg></span>
+                                               class="color-white">Xem thể loại
+                                                <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                                     <i class="fas fa-arrow-right fs-19"></i>
+                                                </span>
                                             </a>
                                         </div>
                                     </div>
