@@ -39,7 +39,7 @@
                                 <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a></h6>
                                 <p class="sub-title">
                                     @foreach($song->artists as $artist)
-                                        <a href="{{route('singleArtist', ['artistId' => $artist->id])}}">{{$artist->nick_name}}</a>
+                                        <a href="{{route('singleArtist', ['artistId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                     @endforeach
                                 </p>
                             </div>

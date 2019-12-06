@@ -315,18 +315,24 @@
             var self = this;
 
             // Wrap the <li> contents in a <div>
+            var artistHtml = '';
 
-            var re = /{(.*?\})/,
-                strRe = typeof media.artist !== 'undefined' ? media.artist.replace(re, '') : null,
-                Match = typeof media.artist !== 'undefined' ? media.artist.match(re, '') : null,
-                artistHtml = '';
-
-            if (Match != null) {
-                var Link = Match[1].replace('}', '');
-                artistHtml += '<a href="' + Link + '">' + strRe + '</a>';
-            } else {
-                artistHtml += strRe;
+            var name_artits = media.artist;
+            var id_artists = media.artist_id;
+            var assoc = [];
+            for (var i = 0; i < name_artits.length; i++) {
+                assoc[i] = {
+                    'name': name_artits[i],
+                    'id': id_artists[i]
+                }
             }
+
+            $.each(assoc, function (key, value) {
+                artistHtml += '<a href="single-artist/' + value.id + '" class="fix-a">' + value.name + '</a>';
+                if (key !== assoc.length - 1) {
+                    artistHtml += ', ';
+                }
+            });
 
             var uniqueId = function () {
                 return 'id-' + Math.random().toString(36).substr(2, 16);
@@ -335,8 +341,8 @@
             var ID = uniqueId();
 
             var listItem = "<li class='item clearfix' id='" + ID + "'><div class='playlist-item'>";
-            listItem += '<div class="img-box music-img-box song-poster"><img src="' + media.poster + '" alt=""><div class="hover-state"><span class="play-btn-dark"><i class="play-icon"></i></span></div></div>';
-            listItem += '<div class="meta"><span class="now playlist-animate playing"><span class="bar n1">A</span><span class="bar n2">B</span><span class="bar n3">c</span></span><div class="hover-state"> <div class="d-flex justify-content-end align-items-center"><a href="#" class="mr-2"><span class="adonis-icon"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 37 32"><path d="M27.379 0c-3.478 0.417-6.509 2.067-8.695 4.492l-0.011 0.012c-2.204-2.428-5.231-4.075-8.638-4.498l-0.068-0.007c-6.232 0-9.966 3.641-9.966 9.756 0.377 3.717 2.096 6.973 4.658 9.327l0.011 0.010 13.001 12.534c0.225 0.231 0.539 0.374 0.886 0.374 0.009 0 0.017-0 0.026-0l-0.001 0c0.004 0 0.010 0 0.015 0 0.35 0 0.667-0.143 0.895-0.373l0-0 13.187-12.511c0-0.187 4.668-4.365 4.668-9.36 0-6.115-3.734-9.756-9.966-9.756zM30.763 17.179l-12.090 11.647-12.114-11.67c-2.066-1.882-3.481-4.446-3.89-7.334l-0.008-0.065c0-5.859 3.968-7.002 7.306-7.002s6.605 3.361 7.679 4.668c0.253 0.283 0.619 0.46 1.027 0.46s0.774-0.177 1.026-0.458l0.001-0.001c1.074-1.284 4.668-4.668 7.679-4.668s7.282 1.237 7.282 7.002c0 3.805-3.851 7.352-3.898 7.422z"></path></svg></span></a><a class="track-menu-playlist" href="#"><i class="icon-dot-nav-horizontal"></i></a></div></div> </div>';
+            listItem += '<div class="img-box music-img-box song-poster"><img src="' + media.poster + '" alt=""><div class="hover-state"><span class="play-btn-dark"><i class="fas fa-play fs-19 text-light play-index"></i></span></div></div>';
+            listItem += '<div class="meta"><span class="now playlist-animate playing"><span class="bar n1">A</span><span class="bar n2">B</span><span class="bar n3">c</span></span><div class="hover-state"><div class="d-flex justify-content-end align-items-center"><a class="track-menu-playlist" href="#"><i class="icon-dot-nav-horizontal"></i></a></div></div> </div>';
             // Create remove control
             // listItem += "<header class=''>";
 
@@ -382,7 +388,7 @@
             }
 
 
-            listItem += "<a href='javascript:;' class='" + this.options.playlistOptions.itemClass + "'>" + media.title + "</a>";
+            listItem += "<a href='/single-song/" + media.id + "' class='fix-a " + this.options.playlistOptions.itemClass + "'>" + media.title + "</a>";
             listItem += media.artist ? "<p class='jp-artist'>" + artistHtml + "</p>" : "";
             //listItem += "</div>";
 

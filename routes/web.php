@@ -70,7 +70,7 @@ Route::get('chart/album', 'ClientController@chartAlbum')->name('client.chart-alb
 
 //Bảng xếp hạng ca sĩ
 
-Route::get('chart/artist', 'ClientController@chartAritst')->name('client.chart-artist');
+Route::get('chart/artist', 'ClientController@chartArtist')->name('client.chart-artist');
 
 //Khám phá
 
@@ -79,19 +79,12 @@ Route::get('brower', 'ClientController@brower')->name('client.brower');
 //Tìm kiếm
 Route::get('/search', 'ClientController@search')->name('search');
 
+//Kiểm tra like bài hát
+Route::post('song/check_like', 'ClientPlayerController@checkLikeSong');
 
-//-------- Player route --------------//
+//Lấy danh sách phát cá nhân
+Route::get('get-user-playlist', 'ClientPlayerController@getUserPlaylist');
 
-//Phát bài hát
-Route::get('/song/{songId}', 'ClientPlayerController@getSong');
-
-//Phát album
-Route::get('/album/{albumId}', 'ClientPlayerController@getSongOfAlbum');
-
-//Phát danh sách phát
-Route::get('/playlist/{playlistId}', 'ClientPlayerController@getSongOfPlaylist');
-
-//Check, like
 Route::group(['middleware' => 'request.check'], function () {
 
     //+ 1 view song
@@ -100,24 +93,11 @@ Route::group(['middleware' => 'request.check'], function () {
     //+ 1 view song daily
     Route::post('/update-view-daily', 'ClientPlayerController@updateViewDaily');
 
-    //user like song
-    Route::post('like/song/{id}', 'ClientPlayerController@likeSong');
-
-    //user like album
-    Route::post('like/album/{id}', 'ClientPlayerController@likeAlbum');
-
-    //user like playlist
-    Route::post('like/playlist/{id}', 'ClientPlayerController@likePlaylist');
-
+    //Quan tâm ca sĩ
     Route::post('/follow-artist/', 'ClientUserController@followArtist')->name('follow-artist');
-
+    //Thêm bài hát vào danh sách phát cá nhân
     Route::post('add-song-user-playlist/{songid}/{playlistid}', 'ClientPlayerController@addSongToPlaylist');
-
 });
-
-Route::get('song/check_like/{songId}', 'ClientPlayerController@checkLikeSong');
-
-Route::get('get-user-playlist', 'ClientPlayerController@getUserPlaylist');
 
 
 

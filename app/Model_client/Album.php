@@ -16,6 +16,10 @@ class Album extends Model
     public function userLikedAlbums(){
         return $this->belongsToMany('App\User', 'user_liked_albums');
     }
+    public function songs()
+    {
+        return $this->hasMany('App\Song');
+    }
 
     protected $fillable = [
         'title', 'description', 'cover_image', 'release_date', 'status', 'artist_id'

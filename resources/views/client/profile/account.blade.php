@@ -55,22 +55,5 @@
             </tbody>
         </table>
         <a href="{{route('user-edit-profile')}}" class="btn btn-dark btn-md">SỬA HỒ SƠ</a>
-        <hr>
-
-        <h4 class="mt-2 mb-2">Loại tài khoản</h4>
-
-        <div class="card-user">
-            <div class="card-user-name">
-                <h2 class="text-white">Thành Viên Thường</h2>
-            </div>
-            <div class="card-user-info">
-                <p>Chơi nhạc, tạo danh sách nhạc cá nhân</p>
-                <hr>
-            </div>
-            <div class="card-user-footer">
-                <h3>Miễn phí</h3>
-            </div>
-        </div>
-        <button class="btn btn-primary btn-lg mt-2">NÂNG CẤP LÊN VIP</button>
     </div>
 @endsection

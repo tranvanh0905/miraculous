@@ -93,7 +93,7 @@ class ClientUserController extends Controller
     {
         $historySong = Song::whereHas('userHistorys', function ($query){
             $query->where('history.user_id', '=', Auth::user()->id);
-        })->paginate(10);
+        })->paginate(20);
 
         return view('client.library.library-history', compact('historySong'));
     }
@@ -134,7 +134,7 @@ class ClientUserController extends Controller
         $model->fill($request->all());
         $model->save();
 
-        return redirect(route('user-library-personal-playlist'))->with('status', 'Thêm playlist thành công!');
+        return redirect(route('user-library-personal-playlist'))->with('status', 'Thêm danh sách phát cá nhân thành công!');
     }
 
     public function libraryUserPlaylistEdit($playlistId)
@@ -167,7 +167,7 @@ class ClientUserController extends Controller
         $userplaylist->fill($request->all());
         $userplaylist->save();
 
-        return redirect(route('user-library-personal-playlist'))->with('status', 'Chỉnh sửa playlist thành công!');
+        return redirect(route('user-library-personal-playlist'))->with('status', 'Chỉnh sửa danh sách phát cá nhân thành công!');
     }
 
     public function libraryUserPlaylistDelete(Request $request)
@@ -175,7 +175,7 @@ class ClientUserController extends Controller
         Playlist::where('id', '=', $request->id)->where('upload_by_user_id', '=', Auth::user()->id)->delete();
         PlaylistDetail::where('playlist_id', '=', $request->id)->delete();
 
-        return response()->json(array('msg' => 'Xóa playlist thành công !'), 200);
+        return response()->json(array('msg' => 'Xóa danh sách phát cá nhân thành công !'), 200);
     }
 
     public function libraryUserSinglePlaylist($playlistId)

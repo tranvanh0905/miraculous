@@ -52,7 +52,7 @@
                                 <p class="mb-2">
                                     Ca sĩ:
                                     @foreach($singleSong->artists as $artist)
-                                        <a href="#">{{$artist->nick_name}}</a>
+                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                     @endforeach
 
                                     @if($singleSong->genres !== null && $singleSong->genres->name !== null)
@@ -104,14 +104,18 @@
                                         <div class="panel panel-default widget">
                                             <div class="panel-heading">
                                                 <span class="glyphicon glyphicon-comment"></span>
-                                                <h4 class="panel-title font-weight-bold"><i class="fas fa-comments mb-3"></i> Bình luận của người cùng nghe
+                                                <h4 class="panel-title font-weight-bold"><i
+                                                        class="fas fa-comments mb-3"></i> Bình luận của người cùng nghe
                                                 </h4>
                                                 <span class="label label-info">{{count($comment)}} bình luận</span>
                                             </div>
                                             <div class="panel-body">
                                                 <ul class="list-group all-comment">
-                                                    <p class="font-weight-bold mb-0 font-italic no-comment p-2 bg-light">Bài hát chưa có bình luận
-                                                        nào! Hãy là người đầu tiên bình luận.</p>
+                                                    <p class="font-weight-bold mb-0 font-italic no-comment p-2 bg-light text-center">
+                                                        Bài hát chưa có bình luận
+                                                        nào! Hãy là người đầu tiên bình luận. <br><a
+                                                            href="{{route('login')}}" class="btn btn-primary">Đăng
+                                                            nhập</a></p>
                                                 </ul>
                                             </div>
                                             <div class="mt-2 text-center"> {{ $comment->links() }}</div>
@@ -120,7 +124,8 @@
                                         <div class="panel panel-default widget">
                                             <div class="panel-heading">
                                                 <span class="glyphicon glyphicon-comment"></span>
-                                                <h5 class="panel-title font-weight-bold"><i class="fas fa-comments mb-3"></i>  Bình luận của người cùng nghe
+                                                <h5 class="panel-title font-weight-bold"><i
+                                                        class="fas fa-comments mb-3"></i> Bình luận của người cùng nghe
                                                 </h5>
                                                 <span class="label label-info">{{count($comment)}} bình luận</span>
                                             </div>
@@ -137,7 +142,8 @@
                                                                 <div class="col-xs-10 col-md-10">
                                                                     <div>
                                                                         <div class="mic-info font-weight-bold">
-                                                                            Đăng bởi: {{$cm->user->username}} - {{time_elapsed_string($cm->created_at)}}
+                                                                            Đăng bởi: {{$cm->user->username}}
+                                                                            - {{time_elapsed_string($cm->created_at)}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment-text">
@@ -199,7 +205,7 @@
                                                 }}">{{$song->name}}</a></h6>
                                                 <p class="sub-title category mb-4">
                                                     @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a>
+                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -263,7 +269,7 @@
                                                 }}">{{$song->name}}</a></h6>
                                                 <p class="sub-title category mb-4">
                                                     @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a>
+                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                     @endforeach
                                                 </p>
                                             </div>

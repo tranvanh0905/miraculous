@@ -11,17 +11,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="no">
+                         data-loop="yes" data-dots="yes">
                         <div class="owl-carousel owl-theme-adonis">
-                            <img src="https://photo-zmp3.zadn.vn/banner/e/1/8/1/e181d0a10cd0e354d6c60723e8c0d374.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/5/9/3/c/593c1fdb62e63c32e1b9da240ba663e4.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/b/e/0/8/be08de5a9a48c60ae7d58a897a75eecf.jpg"
-                                 alt=""
-                                 class="img-fluid">
+                            @foreach(getSlider() as $slider)
+                                <a href="{{url($slider->url)}}" class="box-img-slider">
+                                    <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -104,7 +100,7 @@
                                                     <p class="sub-title">
                                                         @foreach($song->artists as $artist)
                                                             <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                         @endforeach
                                                     </p>
                                                 </div>
@@ -172,7 +168,9 @@
                                                          data-2x="{{$album->cover_image}}" alt="{{$album->name}}">
                                                     <div class="hover-state">
                                                         <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                            <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album" data-album-id="{{$album->id}}">
+                                                            <span
+                                                                class="pointer play-btn-dark round-btn adonis-album-button"
+                                                                data-type="album" data-album-id="{{$album->id}}">
                                                                  <i class="fas fa-play fs-21 play-index text-light"></i>
                                                             </span>
                                                         </div>
@@ -254,7 +252,7 @@
                                     <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 CA SĨ</h6>
                                 </div>
                                 <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
-                                    <a href="" class="text-light"><i
+                                    <a href="{{route('client.chart-artist')}}" class="text-light"><i
                                             class="icon-arrow-right2"></i>
                                         Xem bảng xếp hạng
                                         <span class="adonis-icon pl-1 icon-arrow icon-1x">
@@ -386,17 +384,29 @@
                             <div class="playlist-item-wrapper mb-3">
                                 <div class="row">
                                     <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
-                                        <a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">
-                                            <div class="image lazyload-img loaded"><img
-                                                    src="{{url($playlist->cover_image)}}">
+                                        <div class="music-img-box">
+                                            <div class="img-box box-rounded-md img-album-new">
+                                                <img class="retina"
+                                                     src="{{url($playlist->cover_image)}}"
+                                                     data-2x="{{url($playlist->cover_image)}}"
+                                                     alt="{{url($playlist->name)}}">
+                                                <div class="hover-state">
+                                                    <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                                                    <span
+                                                        class="pointer play-btn-dark round-btn adonis-album-button"
+                                                        data-album-id="{{$playlist->id}}" data-type="playList">
+                                                         <i class="fas fa-play fs-21 text-light play-index"></i>
+                                                    </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="opac"></div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <div
                                         class="col-xl-3 col-lg-3 col-md-3 col-sm-6 p-xl-0 text-md-left text-sm-left text-xl-left text-lg-left text-center p-2">
-                                        <h4 class="title font-weight-bold"><a href="{{route('singlePlaylist', ['playlistId' => $playlist->id])
-                                    }}">{{$playlist->name}}</a></h4>
+                                        <h4 class="title font-weight-bold"><a
+                                                href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a>
+                                        </h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
                                     <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-sm-3 pl-xl-0">
                                         <div class="list-trend">
@@ -413,7 +423,7 @@
                                                             @foreach($song->artists as $artist)
                                                                 <a href="{{route('singleArtist', ['artist_id' => $artist->id])}}">
                                                                     {{$artist->nick_name}}
-                                                                </a>
+                                                                </a> @if ($loop->last) @else , @endif
                                                             @endforeach
                                                         </p>
                                                     </div>

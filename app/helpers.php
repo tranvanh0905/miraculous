@@ -17,7 +17,8 @@ function get3songBottom()
 
 //Get time ago
 
-function time_elapsed_string($datetime, $full = false) {
+function time_elapsed_string($datetime, $full = false)
+{
     $now = new DateTime;
     $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
@@ -60,4 +61,10 @@ function getToken($length = 12)
     }
 
     return $token;
+}
+
+function getSlider()
+{
+    $allSlider = \App\Slider::where('status', '=', 1)->orderBy('sort', 'asc')->get();
+    return $allSlider;
 }

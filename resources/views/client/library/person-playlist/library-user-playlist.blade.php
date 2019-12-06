@@ -33,15 +33,14 @@
                  data-animation-item=".music-img-box" data-item-width="230" data-item-max-width="260">
                 @foreach($userPlaylists as $playlist)
                     <div class="col-auto">
-                        <div class="music-img-box mb-e-30 mb-e-lg-40 playlist-user" id="userPlaylist{{$playlist->id}}">
-                            <div class="img-box box-rounded-sm">
-                                <img class="retina" src="{{url($playlist->cover_image)}}"
+                        <div class="music-img-box mb-e-30 mb-e-lg-40 playlist-user " id="userPlaylist{{$playlist->id}}">
+                            <div class="img-box box-rounded-sm box-person-playlist">
+                                <img class="retina img-person-playlist" src="{{url($playlist->cover_image)}}"
                                      data-2x="{{url($playlist->cover_image)}}" alt="{{$playlist->name}}">
                                 <div class="hover-state">
                                     <div class="absolute-bottom-left pl-e-20 pb-e-20">
                                             <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="playList"
-                                                  data-album-id="{{$playlist->id}}"><i
-                                                        class="play-icon"></i></span>
+                                                  data-album-id="{{$playlist->id}}"><i class="fas fa-play fs-19 text-light play-index"></i></span>
                                     </div>
                                     <div class="absolute-top-right pr-e-20 pt-e-20">
                                             <span class="pointer drop-2" data-user-playlist-id="{{$playlist->id}}"><span
@@ -54,7 +53,7 @@
                             </div>
                             <h6 class="title"><a href="{{route('user-library-personal-playlist-detail', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a></h6>
                             <p class="sub-title category">
-                                <p>Đăng bởi {{$playlist->user->username}}</p>
+                                Đăng bởi {{$playlist->user->username}}
                             </p>
                         </div>
                     </div>
@@ -73,7 +72,7 @@
         <script>
             setTimeout(function () {
                 $.notify({
-                    icon: 'glyphicon glyphicon-ok',
+                    icon: 'fas fa-check-circle',
                     message: "{{session('status')}}"
                 })
             }, 1000)

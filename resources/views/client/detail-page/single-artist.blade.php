@@ -1,7 +1,7 @@
 @extends('layouts.client.main')
 
 @section('title')
-    Single Artist
+    {{$singleArtist->nick_name}}
 @endsection
 
 @section('content')
@@ -85,7 +85,7 @@
                                                 <p class="sub-title">
                                                     @foreach($song->artists as $artist)
                                                         <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                                     @endforeach
                                                 </p>
                                             </div>

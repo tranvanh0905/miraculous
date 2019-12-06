@@ -11,17 +11,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="no">
+                         data-loop="yes" data-dots="yes">
                         <div class="owl-carousel owl-theme-adonis">
-                            <img src="https://photo-zmp3.zadn.vn/banner/e/1/8/1/e181d0a10cd0e354d6c60723e8c0d374.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/5/9/3/c/593c1fdb62e63c32e1b9da240ba663e4.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <img src="https://photo-zmp3.zadn.vn/banner/b/e/0/8/be08de5a9a48c60ae7d58a897a75eecf.jpg"
-                                 alt=""
-                                 class="img-fluid">
+                            @foreach(getSlider() as $slider)
+                                <a href="{{url($slider->url)}}" class="box-img-slider">
+                                    <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -30,7 +26,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="title-box ">
-                                <h4 class="title h3 text-uppercase d-inline-block">Bảng xếp hạng Top 50 bài hát</h4>
+                                <h4 class="title h3 text-uppercase d-inline-block"><i class="fas fa-table"></i> Bảng xếp hạng Top 50 bài hát</h4>
                             </div>
                         </div>
                     </div>
@@ -51,7 +47,7 @@
                                     <p class="sub-title">
                                         @foreach($song->artists as $artist)
                                             <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a>
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
                                         @endforeach
                                     </p>
                                 </div>
@@ -97,11 +93,11 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="title-box">
-                        <h4 class="title h3 text-uppercase">Thể loại hay</h4>
+                        <h4 class="title h3 text-uppercase"><i class="fas fa-boxes"></i> Thể loại hay</h4>
                     </div>
                     <div class="row">
                         @foreach($allGenres as $genres)
-                            <div class="item col-6 mb-3 pr-0">
+                            <div class="item col-12 mb-3 pr-0">
                                 <div class="img-box-text-over lg box-rounded-lg">
                                     <img src="{{$genres->image}}"
                                          data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" width="100%">
@@ -117,10 +113,7 @@
                                         <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
                                             <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
                                                class="color-white">Xem thể loại<span
-                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        version="1.1"><use
-                                                            xlink:href="#icon-see-all-arrow-right"/></svg></span>
+                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><i class="fas fa-arrow-right fs-19"></i></span>
                                             </a>
                                         </div>
                                     </div>
