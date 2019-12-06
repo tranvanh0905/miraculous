@@ -24,7 +24,7 @@ class SliderController extends Controller
         $count_data = count($data);
         $count_sort = count($sort);
         $i = 1;
-        if ($count_data == 6 && $count_sort == 6) {
+        if ($count_data != 6 && $count_sort != 6) {
             foreach ($data as $key => $value) {
                 $slider = Slider::find($value);
                 $slider->sort = $i;
@@ -66,12 +66,14 @@ class SliderController extends Controller
         return view('admin2.addSlider');
     }
 
-    public function update($slider_id) {
+    public function update($slider_id)
+    {
         $model = Slider::find($slider_id);
         return view('admin2.editSlider', compact('model'));
     }
 
-    public function updateForm($slider_id, EditSlider $request) {
+    public function updateForm($slider_id, EditSlider $request)
+    {
         $model = Slider::find($slider_id);
         $model->fill($request->all());
         if ($request->hasFile('image')) {
@@ -90,7 +92,18 @@ class SliderController extends Controller
         return redirect()->route('slider.home');
     }
 
-    public function delete() {
-
+    public function delete($slider_id)
+    {
+        $model = Slider::find($slider_id);
+        if ($model->delete()) {
+            $sliders = Slider::orderBy('sort', 'ASC')->get();
+            $i = 0;
+            foreach ($sliders as $slider) {
+                $slider->sort = $i+1;
+                $slider->update();
+                $i++;
+            }
+        }
+        return redirect()->route('slider.home');
     }
 }
