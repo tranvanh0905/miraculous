@@ -83,4 +83,5 @@ Route::get('slider/add', 'SliderController@add')->middleware('checkAdminLogin')-
 Route::post('slider/add', 'SliderController@actionAdd')->middleware('checkAdminLogin')->name('slider.add');
 Route::get('slider/update/{id}', 'SliderController@update')->middleware('checkAdminLogin')->name('slider.updateform');
 Route::post('slider/update/{id}', 'SliderController@updateForm')->middleware('checkAdminLogin')->name('slider.updateform');
+Route::get('slider/delete/{id}', 'SliderController@delete')->middleware('checkAdminLogin')->name('slider.delete');
 

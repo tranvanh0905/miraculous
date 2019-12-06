@@ -22,6 +22,7 @@
                             <th>ID</th>
                             <th>Đường dẫn</th>
                             <th>Ảnh</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                         <tbody class="row_position">
@@ -31,8 +32,12 @@
                                     <td style="width:10%">{{$slider->id}}</td>
                                     <td style="width:50%"><a href="{{$slider->url}}">{{$slider->url}}</a></td>
                                     <td><img src="{{url($slider->image)}}" width="50px" alt=""></td>
+                                    <td>
+                                        @if ($slider->status == 0) {{"Không hoạt động"}} @endif
+                                        @if ($slider->status == 1) {{"hoạt động"}} @endif
+                                    </td>
                                     <td><a href="{{route('slider.updateform', $slider->id)}}" class="mr-3"><i class="nav-icon fas
-                            fa-edit"></i></a><a class="btn-remove text-danger"><i
+                            fa-edit"></i></a><a class="btn-remove text-danger" href="{{route('slider.delete', $slider->id)}}"><i
                                                 class="fas fa-trash-alt"></i></a></td>
                                 </tr>
                             @endforeach
