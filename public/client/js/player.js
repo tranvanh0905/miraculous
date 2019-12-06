@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
             },
             [
                 {
-                    title: "",
+                    title: "...",
                     artist: "",
                     artist_id: "",
                     mp3: "",
@@ -61,6 +61,8 @@ jQuery(document).ready(function ($) {
         $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
             countSeek = 0;
             songId = $("#" + adonisPlayerID).data("jPlayer").status.media.id;
+
+            $('.drop-player').attr('data-songid', songId);
 
             let userId = $("input[name='id']").val();
 
@@ -303,7 +305,7 @@ jQuery(document).ready(function ($) {
                 _return = adonisPlaylist.playlist.length - 1;
             }
             return _return;
-        }
+        };
 
         /**
          * function to transfer song poster and play button to a larger view. eg. homepage 3 top album listener
@@ -389,8 +391,7 @@ jQuery(document).ready(function ($) {
                     }
                 });
 
-            }
-            else if (type === "album") {
+            } else if (type === "album") {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -443,8 +444,7 @@ jQuery(document).ready(function ($) {
 
                     }
                 });
-            }
-            else if (type === "playList") {
+            } else if (type === "playList") {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -556,4 +556,50 @@ jQuery(document).ready(function ($) {
             console.log('k tang view')
         }
     });
+
+    $(document).on('click', '.add-next', function () {
+        let songId = $(this).attr('data-id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        //Lấy data bài hát và truyền vào player
+        $.ajax({
+            type: 'POST',
+            url: '/player/song',
+            data: {
+                songId: songId
+            },
+            success: function (data) {
+                if (data.msgErrors !== undefined) {
+                    $.notify({
+                        icon: 'fas fa-exclamation-circle',
+                        message: data.msgErrors
+                    }, {
+                        z_index: 1300,
+                        delay: 100,
+                        timer: 1000
+                    });
+                } else {
+                    $.notify({
+                        icon: 'fas fa-check-circle',
+                        message: 'Thêm bài hát vào danh sách chờ'
+                    }, {
+                        z_index: 1300,
+                        delay: 100,
+                        timer: 1000
+                    });
+
+                    if (adonisPlaylist.playlist[0].title === '...') {
+                        adonisPlaylist.remove(0);
+                        adonisPlaylist.add(data.data[0], true);
+                    } else {
+                        adonisPlaylist.add(data.data[0]);
+                    }
+                }
+            }
+        });
+
+    })
 });

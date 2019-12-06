@@ -115,10 +115,8 @@
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
                                                                 @endif
-                                                                <span class="pointer dropdown-menu-toggle"
-                                                                      data-songid="{{$song->id}}" data-link="123">
-                                                                    <span
-                                                                        class="icon-dot-nav-horizontal text-light"></span>
+                                                                <span class="pointer dropdown-menu-toggle" data-songid="{{$song->id}}">
+                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
                                                                 </span>
                                                             @endif
                                                         </span>

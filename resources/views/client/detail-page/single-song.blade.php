@@ -52,7 +52,8 @@
                                 <p class="mb-2">
                                     Ca sĩ:
                                     @foreach($singleSong->artists as $artist)
-                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
+                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                            , @endif
                                     @endforeach
 
                                     @if($singleSong->genres !== null && $singleSong->genres->name !== null)
@@ -168,7 +169,8 @@
                     <div class="more-items pt-4">
                         <div class="d-flex flex-row">
                             <div class="title-box">
-                                <h3 class="title h3-md text-uppercase">Nghe thêm của ca sĩ này</h3>
+                                <h3 class="title h3-md text-uppercase"><i class="fas fa-music"></i> Nghe thêm của ca sĩ
+                                    này</h3>
                             </div>
                         </div>
 
@@ -199,13 +201,23 @@
                                                           <i class="fas fa-play fs-21 text-light play-index"></i>
                                                         </span>
                                                         </div>
+                                                        <div class="absolute-top-right pr-e-15 pt-e-15">
+                                                            <span class="pointer dropdown-menu-toggle"
+                                                                  data-songid="{{$song->id}}">
+                                                                <span class="adonis-icon icon-4x">
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])
                                                 }}">{{$song->name}}</a></h6>
                                                 <p class="sub-title category mb-4">
                                                     @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
+                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                                            , @endif
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -225,12 +237,13 @@
                     <div class="more-items ">
                         <div class="d-flex flex-row">
                             <div class="title-box">
-                                <h3 class="title h3-md text-uppercase">Bài hát cùng thể loại</h3>
+                                <h3 class="title h3-md text-uppercase"><i class="fas fa-music"></i> Bài hát cùng thể
+                                    loại</h3>
                             </div>
                             <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                                 <a href="{{route('singleGenres', ['genres_id' => $singleSong->genres_id])}}">Xem thêm
                                     <span class="adonis-icon pl-1 icon-arrow icon-1x">
-
+                                        <i class="fas fa-arrow-right"></i>
                                     </span>
                                 </a>
                             </div>
@@ -263,13 +276,23 @@
                                                             <i class="fas fa-play fs-21 text-light play-index"></i>
                                                         </span>
                                                         </div>
+                                                        <div class="absolute-top-right pr-e-15 pt-e-15">
+                                                            <span class="pointer dropdown-menu-toggle"
+                                                                  data-songid="{{$song->id}}">
+                                                                <span class="adonis-icon icon-4x">
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <h6 class="title"><a href="{{route('singleSong', ['songId' => $song->id])
                                                 }}">{{$song->name}}</a></h6>
                                                 <p class="sub-title category mb-4">
                                                     @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
+                                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                                            , @endif
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -289,7 +312,8 @@
                     <div class="widget mb-3">
                         <div class="d-flex justify-content-between inactive-colored-links">
                             <h3 class="widget-title h3-md text-uppercase"><i class="fas fa-boxes"></i> Thể loại</h3>
-                            <a href="{{route('all', ['type' => 'genres'])}}" class="inactive-color mt-2">Xem tất cả</a>
+                            <a href="{{route('all', ['type' => 'genres'])}}" class="inactive-color mt-2">Xem tất cả <i
+                                    class="fas fa-arrow-right"></i> </a>
                         </div>
                         <div class="tagcloud">
                             @foreach($genres as $genre)
@@ -394,10 +418,11 @@
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
                                                                 @endif
-                                                                <span class="pointer dropdown-menu-toggle"
-                                                                      data-songid="{{$song->id}}" data-link="123">
+                                                                <span class="pointer dropdown-menu-toggle" data-songid="{{$song->id}}">
+                                                                <span class="adonis-icon icon-4x">
                                                                     <span
                                                                         class="icon-dot-nav-horizontal text-light"></span>
+                                                                    </span>
                                                                 </span>
                                                             @endif
                                                         </span>

@@ -7,52 +7,37 @@
 @section('content')
     <h2>Sửa hồ sơ</h2>
     <hr>
-    @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session('status') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <form action="{{route('user-edit-profile')}}" method="post" enctype="multipart/form-data">
+    <div id="errors-account">
+    </div>
+    <form action="{{route('user-edit-profile')}}" method="post" enctype="multipart/form-data" id="edit-account-form">
         @csrf
 
         <div class="form-group">
             <label for="username">Tên tài khoản</label>
             <input type="text" name="username"
-                   class="form-control text-dark @if($errors->first('username')) is-invalid @endif" id="username"
-                   value="{{old('username', Auth::user()->username)}}">
-            @if($errors->first('username'))
-                <span class="text-danger">
-                    {{$errors->first('username')}}
-                </span>
-            @endif
+                   class="form-control text-dark" id="username"
+                   value="{{ Auth::user()->username}}">
         </div>
 
         <div class="form-group">
             <label for="full_name">Họ và tên</label>
             <input type="text" name="full_name"
-                   class="form-control text-dark @if($errors->first('full_name')) is-invalid @endif" id="full_name"
-                   value="{{old('full_name', Auth::user()->full_name)}}">
-            @if($errors->first('full_name'))
-                <span class="text-danger">
-                    {{$errors->first('full_name')}}
-                </span>
-            @endif
+                   class="form-control text-dark" id="full_name"
+                   value="{{ Auth::user()->full_name}}">
         </div>
 
-        <div class="form-group">
-            <label for="birthday">Ngày sinh</label>
-            <input type="date" name="birthday"
-                   class="form-control text-dark @if($errors->first('birthday')) is-invalid @endif" id="birthday"
-                   value="{{old('birthday', Auth::user()->birthday)}}">
-            @if($errors->first('birthday'))
-                <span class="text-danger">
-                    {{$errors->first('birthday')}}
-                </span>
-            @endif
-        </div>
+        @if(\Illuminate\Support\Facades\Auth::user()->birthday == null)
+            <div class="form-group">
+                <label for="birthday">Ngày sinh</label>
+                <input type="date" name="birthday"
+                       class="form-control text-dark" id="birthday"
+                       value="{{Auth::user()->birthday}}">
+            </div>
+        @else
+            <input type="hidden" name="birthday"
+                   class="form-control text-dark" id="birthday"
+                   value="{{Auth::user()->birthday}}">
+        @endif
 
         <div class="form-group">
             <label for="gender">Giới tính</label>
@@ -65,7 +50,7 @@
         <div class="form-group">
             <label for="avatar">Tải lên ảnh đại diện</label>
             <div class="tower-file mb-2">
-                <input type="file" id="avatar" name="avatar" />
+                <input type="file" id="avatar" name="avatar"/>
 
                 <label for="avatar" class="btn btn-info">
                     <span class="mdi mdi-upload"></span>Chọn ảnh đại diện
@@ -74,15 +59,10 @@
                     <span class="mdi mdi-cancel pr-1"></span>Xóa file đã chọn
                 </button>
             </div>
-            @if($errors->first('avatar'))
-                <span class="text-danger">
-                    {{$errors->first('avatar')}}
-                </span>
-            @endif
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg">Lưu hồ sơ</button>
+            <div class="btn btn-primary btn-lg" id="edit-account">Lưu hồ sơ</div>
         </div>
     </form>
     <script>

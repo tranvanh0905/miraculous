@@ -5,11 +5,11 @@
         <div class="icons">
             <span class="animate-loading">
                 <span class="adonis-icon icon-5x">
-                      <img src="{{url(getWebSetting()->logo)}}" alt="logo" width="50px" height="auto">
+                      <img src="/client/images/loading.gif" alt="logo" width="100px" height="auto">
                 </span>
             </span>
             <span class="adonis-icon icon-5x">
-                <img src="{{url(getWebSetting()->logo)}}" alt="logo" width="50px" height="auto">
+                <img src="/client/images/loading.gif" alt="logo" width="100px" height="auto">
             </span>
         </div>
     </div>

@@ -100,7 +100,8 @@
                                                     <p class="sub-title">
                                                         @foreach($song->artists as $artist)
                                                             <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                                                , @endif
                                                         @endforeach
                                                     </p>
                                                 </div>
@@ -274,7 +275,7 @@
                     <div class="button-right ml-auto ml-auto d-flex align-items-end">
                         <a href="{{route('all', ['type' => 'genres'])}}" class="mb-4">Xem tất cả
                             <span class="adonis-icon pl-1 icon-arrow icon-1x"><i
-                                    class="fas fa-arrow-right fs-19"></i></span>
+                                    class="fas fa-arrow-right"></i></span>
                         </a>
                     </div>
                 </div>
@@ -302,7 +303,7 @@
                                                 <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
                                                    class="color-white">Xem thể loại
                                                     <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                                        <i class="fas fa-arrow-right fs-19"></i>
+                                                        <i class="fas fa-arrow-right"></i>
                                                     </span>
                                                 </a>
                                             </div>
@@ -323,7 +324,7 @@
                     <div class="button-right ml-auto ml-auto d-flex align-items-end">
                         <a href="{{route('all', ['type' => 'albums'])}}" class="mb-4">Xem tất cả
                             <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                            <i class="fas fa-arrow-right fs-19"></i>
+                            <i class="fas fa-arrow-right"></i>
                             </span>
                         </a>
                     </div>
@@ -373,7 +374,7 @@
                     <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                         <a href="{{route('all', ['type' => 'playlists'])}}">Xem tất cả
                             <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                <i class="fas fa-arrow-right fs-19"></i>
+                                <i class="fas fa-arrow-right"></i>
                             </span>
                         </a>
                     </div>
@@ -482,7 +483,7 @@
                     <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                         <a href="#">Xem tất cả
                             <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                               <i class="fas fa-arrow-right fs-19"></i>
+                               <i class="fas fa-arrow-right"></i>
                             </span>
                         </a>
                     </div>

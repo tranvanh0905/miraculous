@@ -32,8 +32,8 @@
             <div class="row auto-fit-columns adonis-animate" data-animation="slideUp"
                  data-animation-item=".music-img-box" data-item-width="230" data-item-max-width="260">
                 @foreach($userPlaylists as $playlist)
-                    <div class="col-auto">
-                        <div class="music-img-box mb-e-30 mb-e-lg-40 playlist-user " id="userPlaylist{{$playlist->id}}">
+                    <div class="col-auto playlist-user" id="userPlaylist{{$playlist->id}}">
+                        <div class="music-img-box mb-e-30 mb-e-lg-40">
                             <div class="img-box box-rounded-sm box-person-playlist">
                                 <img class="retina img-person-playlist" src="{{url($playlist->cover_image)}}"
                                      data-2x="{{url($playlist->cover_image)}}" alt="{{$playlist->name}}">

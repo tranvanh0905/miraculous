@@ -31,7 +31,7 @@
                                             href="{{route('client.chart-song')}}"
                                             class="color-white">Xem bảng xếp hạng<span
                                                 class="adonis-icon pl-1 icon-arrow icon-1x">
-                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                                 <i class="fas fa-arrow-right"></i>
                                             </span></a>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                             href="{{route('client.chart-album')}}"
                                             class="color-white">Xem bảng xếp hạng<span
                                                 class="adonis-icon pl-1 icon-arrow icon-1x">
-                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                         </a>
                                     </div>
@@ -81,7 +81,7 @@
                                             href="{{route('client.chart-artist')}}"
                                             class="color-white">Xem tất cả<span
                                                 class="adonis-icon pl-1 icon-arrow icon-1x">
-                                                 <i class="fas fa-arrow-right fs-19"></i>
+                                                 <i class="fas fa-arrow-right"></i>
                                             </span></a>
                                     </div>
                                 </div>

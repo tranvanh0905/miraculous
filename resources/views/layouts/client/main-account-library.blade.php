@@ -71,7 +71,7 @@
                                                         </span>
                                                     <p class="m-0">Ca sĩ đã quan tâm</p>
                                                 </a>
-                                                <a href="{{route('user-library-personal-playlist')}}"
+                                                <a id="user-playlist" href="{{route('user-library-personal-playlist')}}"
                                                    class="lt-side-btn btn btn-120-60 mb-2 @if (\Request::is('user/library/user-playlist'))  btn-primary @else btn-transparent @endif ">
                                                         <span class="adonis-icon pb-2">
                                                             <i class="fas fa-user-astronaut fa-2x"></i>

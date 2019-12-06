@@ -238,7 +238,7 @@
                                         <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
                                            class="color-white">Xem thể loại<span
                                                     class="adonis-icon pl-1 icon-arrow icon-1x"><i
-                                                    class="fas fa-arrow-right fs-19"></i></span>
+                                                    class="fas fa-arrow-right"></i></span>
                                         </a>
                                     </div>
                                 </div>

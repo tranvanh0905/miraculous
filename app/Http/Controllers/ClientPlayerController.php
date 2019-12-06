@@ -80,9 +80,9 @@ class ClientPlayerController extends Controller
         if ($check) {
             $song = $dailyView->where('song_id', $request->songId)->get();
 
-            $yesterday_at_midnight = date("Y-m-d H:i:s", strtotime("yesterday"));
+            $yesterday_at_midnight = strtotime("today 1 sec ago");
 
-            if ($song[0]['date'] < $yesterday_at_midnight) {
+            if (strtotime($song[0]['date']) < $yesterday_at_midnight) {
 
                 $dailyView->where('song_id', $request->songId)->update(['total_view' => 1]);
 
@@ -100,7 +100,7 @@ class ClientPlayerController extends Controller
             $dailyView->total_view = 1;
             $dailyView->date = now();
             $dailyView->save();
-            return response()->json(['msg' => '+1 view daily for new song']);
+//            return response()->json(['msg' => '+1 view daily for new song']);
         }
 
     }

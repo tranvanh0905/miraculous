@@ -1,4 +1,4 @@
-<footer class="site-footer pb-5" id="site-footer">
+<footer class="site-footer" id="site-footer">
     <div class="master-container-fluid">
         <div class="p-2"></div>
         <hr>

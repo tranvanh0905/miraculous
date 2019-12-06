@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     ('removeSongOfPlaylist');
 
     Route::get('library/user-playlist/edit-playlist/{playlistId}', 'ClientUserController@libraryUserPlaylistEdit')->name('user-library-personal-playlist-edit');
-    Route::post('library/user-playlist/edit-playlist/{playlistId}', 'ClientUserController@saveEditLibraryUserPlaylist')->name('user-library-personal-playlist-edit');
+    Route::post('library/user-playlist/edit-playlist/', 'ClientUserController@saveEditLibraryUserPlaylist')->name('user-library-personal-playlist-edit');
 
     Route::post('library/user-playlist/delete-playlist', 'ClientUserController@libraryUserPlaylistDelete')->name('user-library-personal-playlist-delete');
 

@@ -144,10 +144,10 @@ class ClientUserController extends Controller
         return view('client.library.person-playlist.library-user-playlist-edit', compact('userPlaylist'));
     }
 
-    public function saveEditLibraryUserPlaylist(UserPlaylistRequest $request, $playlistId)
+    public function saveEditLibraryUserPlaylist(UserPlaylistRequest $request)
     {
         $model = new Playlist();
-        $userplaylist = $model->find($playlistId);
+        $userplaylist = $model->find($request->id);
 
         if ($request->hasFile('cover_image')) {
             // lấy tên gốc của ảnh

@@ -25,10 +25,10 @@
             </div>
         @else
             <div class="row auto-fit-columns adonis-animate" data-animation="slideUp" data-animation-item=".col-auto"
-                 data-item-width="350" data-item-max-width="520">
+                 data-item-width="350" data-item-max-width="350">
                 @foreach($songLiked as $song)
                     <div class="col-auto">
-                        <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
+                        <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow song-in-library" data-song-id="{{$song->id}}">
                             <div class="img-box img-box-sm box-rounded-sm">
                                 <img src="{{$song->cover_image}}" alt="{{$song->name}}">
                             </div>
@@ -64,7 +64,7 @@
                                                                 @else
                                                                     <span
                                                                         class="adonis-icon icon-2x box-dis-like-global">
-                                                                <i class="fas fa-heart fa-2x font-14" id="likeGlobal"
+                                                                <i class="fas fa-heart fa-2x font-14 like-library" id="likeGlobal"
                                                                    data-type="song"
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>

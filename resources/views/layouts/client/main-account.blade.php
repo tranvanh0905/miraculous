@@ -45,7 +45,7 @@
                                 </div>
                                 <p class="text-center text-white font-weight-bold">{{Auth::user()->username}}</p>
                                 <ul class="menu-account">
-                                    <li class="@if (\Request::is('user')) active @endif"><a href="{{route('user-profile')}}"><i class="fab fa-windows fs-19"></i> Tổng quan về tài khoản</a></li>
+                                    <li class="@if (\Request::is('user')) active @endif"><a id="user-index"  href="{{route('user-profile')}}"><i class="fab fa-windows fs-19"></i> Tổng quan về tài khoản</a></li>
                                     <li class="@if (\Request::is('user/edit-account')) active @endif"><a href="{{route('user-edit-profile')}}"><i class="fas fa-user-edit fs-19"></i> Sửa hồ sơ</a></li>
                                     <li class="@if (\Request::is('user/change-password')) active @endif"><a href="{{route('user-change-password')}}"><i class="fas fa-key fs-19"></i> Đổi mật khẩu</a></li>
                                 </ul>

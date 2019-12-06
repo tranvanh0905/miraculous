@@ -187,7 +187,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'songs'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                <i class="fas fa-arrow-right fs-19"></i>
+                                <i class="fas fa-arrow-right"></i>
                             </span>
                             </a>
                         </div>
@@ -274,7 +274,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'albums'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                            <i class="fas fa-arrow-right fs-19"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </span>
                             </a>
                         </div>
@@ -325,7 +325,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'playlists'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                            <i class="fas fa-arrow-right fs-19"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </span>
                             </a>
                         </div>
@@ -375,7 +375,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'artists'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                            <i class="fas fa-arrow-right fs-19"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </span>
                             </a>
                         </div>
@@ -433,7 +433,7 @@
                         <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
                             <a href="{{route('all', ['type' => 'genres'])}}">Xem tất cả
                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                    <i class="fas fa-arrow-right fs-19"></i>
+                                    <i class="fas fa-arrow-right"></i>
                                 </span>
                             </a>
                         </div>
@@ -456,7 +456,7 @@
                                             <a href="{{route('singleGenres', ['genresId' => $genre->id])}}"
                                                class="color-white">Xem thể loại
                                                 <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                                     <i class="fas fa-arrow-right fs-19"></i>
+                                                     <i class="fas fa-arrow-right"></i>
                                                 </span>
                                             </a>
                                         </div>

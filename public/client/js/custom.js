@@ -9,6 +9,11 @@ $(document).on('click', '#logout', function () {
     });
 });
 
+//Go admin
+$(document).on('click', '#go-admin', function () {
+    location.href = "/admin";
+});
+
 //Search
 $(document).on('keyup', '.search-input', function () {
     let value = $(this).val();
@@ -52,25 +57,12 @@ $(document).on('click', '.btn-follow', function () {
                     icon: 'fas fa-user-plus',
                     message: data.msg
                 }, {
-                    delay: 1000,
+                    delay: 100,
                     timer: 1000,
                     z_index: 1300
                 });
             } else {
                 divTarget.html('<i class="fas fa-user-plus"></i> Quan tâm').fadeIn();
-                $("#artits-library" + artistId).fadeOut(1000, function () {
-                    $(this).remove();
-                });
-
-                if ($('.item-artist-library').length - 1 == 0) {
-                    let htm_content = '<div class="no-content-block text-center p-5 col-12 rounded">' +
-                        '<img src="/client/images/audio_default.png" alt="no-song" class="d-block mx-auto" width="100px" height="auto">' +
-                        '<h3 class="m-3">Bạn chưa quan tâm ca sĩ nào !!!</h3>' +
-                        '<a href="/all/artists">Tìm ca sĩ mà bạn thích ngay</a>' +
-                        '</div>';
-
-                    $('#content-artits-library').html(htm_content);
-                }
 
                 $.notify({
                     icon: 'fas fa-user-minus',
@@ -127,6 +119,8 @@ $(document).on('click', '.add-to-playlist', function () {
                 icon: 'fas fa-check-circle',
                 message: data.msg
             }, {
+                delay: 100,
+                timer: 1000,
                 z_index: 1300
             });
         }
@@ -159,6 +153,8 @@ $(document).on('click', '.remove-from-playlist', function () {
                 icon: 'fas fa-check-circle',
                 message: data.msg
             }, {
+                delay: 100,
+                timer: 1000,
                 z_index: 1300
             });
         }
@@ -210,6 +206,8 @@ $(document).on('click', '#playerLike', function (e) {
                         icon: 'fas fa-check-circle',
                         message: "Yêu thích bài hát thành công !"
                     }, {
+                        delay: 100,
+                        timer: 1000,
                         z_index: 1300
                     });
                 } else {
@@ -236,6 +234,8 @@ $(document).on('click', '#playerLike', function (e) {
                         icon: 'fas fa-check-circle',
                         message: "Bỏ yêu thích bài hát !"
                     }, {
+                        delay: 100,
+                        timer: 1000,
                         z_index: 1300
                     });
                 }
@@ -301,6 +301,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         icon: 'fas fa-heart',
                         message: data.msg
                     }, {
+                        delay: 100,
+                        timer: 1000,
                         z_index: 1300
                     });
                 } else {
@@ -328,6 +330,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         icon: 'fas fa-heart-broken',
                         message: data.msg
                     }, {
+                        delay: 100,
+                        timer: 1000,
                         z_index: 1300
                     });
                 }
@@ -372,6 +376,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         icon: 'fas fa-heart-broken',
                         message: data.msg
                     }, {
+                        delay: 100,
+                        timer: 1000,
                         z_index: 1300
                     });
                     button.html('<i class="fas fa-heart"></i> Yêu thích album');
@@ -395,8 +401,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         icon: 'fas fa-heart',
                         message: data.msg
                     }, {
+                        delay: 100,
                         timer: 1000,
-                        delay: 1000,
                         z_index: 1300
                     });
                     button.html('<i class="fas fa-heart-broken"></i> Bỏ yêu thích danh sách phát');
@@ -406,8 +412,8 @@ $(document).on('click', '#likeGlobal', function (e) {
                         icon: 'fas fa-heart-broken',
                         message: data.msg
                     }, {
+                        delay: 100,
                         timer: 1000,
-                        delay: 1000,
                         z_index: 1300
                     });
                     button.html('<i class="fas fa-heart"></i> Yêu thích danh sách phát');
@@ -437,6 +443,8 @@ $(document).on('click', '.add-user-playlist', function (e) {
                 icon: 'fas fa-check-circle',
                 message: data.msg
             }, {
+                delay: 100,
+                timer: 1000,
                 z_index: 1300
             });
         }
@@ -467,27 +475,12 @@ $(document).on('click', '.delete-user-playlist', function (e) {
                 icon: 'fas fa-check-circle',
                 message: data.msg
             }, {
+                delay: 100,
+                timer: 1000,
                 z_index: 1300
             });
         }
     });
-});
-
-//Bỏ yêu thích bài hát ở thư viện
-$(document).on('click', '.like-library', function () {
-    let songId = $(this).attr('data-id');
-    $('.song-in-library[data-song-id="' + songId + '"]').fadeOut(1000, function () {
-        $(this).remove();
-    });
-    if ($('.song-in-library').length - 1 == 0) {
-        let htm_content = '<div class="no-content-block text-center p-5 col-12 rounded">' +
-            '<img src="/client/images/audio_default.png" alt="no-song" class="d-block mx-auto" width="100px" height="auto">' +
-            '<h3 class="m-3">Bạn chưa thích bài hát nào !!!</h3>' +
-            '<a href="/all/songs">Tìm bài hát mà bạn thích ngay</a>' +
-            '</div>';
-
-        $('#content-song-library').html(htm_content);
-    }
 });
 
 //Bình luận bài hát
@@ -542,6 +535,236 @@ function printErrorMsg(msg) {
     print_err.append('<p class="alert alert-danger">' + msg + '</p>');
 }
 
+//Tạo danh sách cá nhân mới
+$(document).on('click', '#addUserPlaylist', function () {
+
+    let errorHtml = '';
+    var form_data = new FormData();
+    let playlistId = $(this).attr('data-playlist-id');
+    var name = $("input[name='name']").val();
+    var description = $("textarea[name='description']").val();
+
+    if ($("#add-user-playlist").find("input")[2].files[0] !== undefined) {
+        var attachment_data = $("#add-user-playlist").find("input")[2].files[0];
+    }
+
+    form_data.append("name", name);
+    form_data.append("description", description);
+
+    if ($("#add-user-playlist").find("input")[2].files[0] !== undefined) {
+        form_data.append("cover_image", attachment_data);
+    }
+
+    if (playlistId !== undefined) {
+        form_data.append("id", playlistId);
+    }
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    if (playlistId !== undefined) {
+        $.ajax({
+            url: "user/library/user-playlist/edit-playlist",
+            method: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function () {
+
+                $.notify({
+                    icon: 'fas fa-check-circle',
+                    message: 'Chỉnh sửa danh sách phát cá nhân thành công !'
+                }, {
+                    delay: 100,
+                    timer: 1000,
+                    z_index: 1300
+                });
+                setTimeout(function () {
+                    $("#user-playlist").trigger("click");
+                }, 1000);
+            },
+            error: function (data) {
+                var errors = data.responseJSON;
+
+                errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
+
+                $.each(errors.errors, function (key, value) {
+                    errorHtml += '<li>' + value + '</li>'; //showing only the first error.
+                });
+                errorHtml += '</ul></div>';
+
+                $('.errorHtml-form').html(errorHtml); //appending to a <div id="form-errors"></div> inside form
+            }
+        })
+    } else {
+        $.ajax({
+            url: "/user/library/user-playlist/add-playlist",
+            method: "POST",
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function () {
+
+                $.notify({
+                    icon: 'fas fa-check-circle',
+                    message: 'Thêm danh sách phát cá nhân thành công !'
+                }, {
+                    delay: 100,
+                    timer: 1000,
+                    z_index: 1300
+                });
+                setTimeout(function () {
+                    $("#user-playlist").trigger("click");
+                }, 1000);
+            },
+            error: function (data) {
+                var errors = data.responseJSON;
+
+                errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
+
+                $.each(errors.errors, function (key, value) {
+                    errorHtml += '<li>' + value + '</li>'; //showing only the first error.
+                });
+                errorHtml += '</ul></div>';
+
+                $('.errorHtml-form').html(errorHtml); //appending to a <div id="form-errors"></div> inside form
+            }
+        })
+    }
+});
+
+//Chỉnh sửa thông tin tài khoản
+$(document).on('click', '#edit-account', function () {
+
+    let errorHtml = '';
+    var form_data = new FormData();
+
+    var username = $("input[name='username']").val();
+    var full_name = $("input[name='full_name']").val();
+    var birthday = $("input[name='birthday']").val();
+    var gender = $("select[name='gender']").val();
+
+    if ($("#edit-account-form").find("input")[4].files[0] !== undefined) {
+        var attachment_data = $("#edit-account-form").find("input")[4].files[0];
+    }
+
+    form_data.append("username", username);
+    form_data.append("full_name", full_name);
+    if (birthday !== undefined) {
+        form_data.append("birthday", birthday);
+    }
+    form_data.append("gender", gender);
+    if ($("#edit-account-form").find("input")[4].files[0] !== undefined) {
+        form_data.append("avatar", attachment_data);
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: "user/edit-account",
+        method: "POST",
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function () {
+            $.notify({
+                icon: 'fas fa-check-circle',
+                message: 'Chỉnh sửa hồ sơ cá nhân thành công !'
+            }, {
+                delay: 100,
+                timer: 1000,
+                z_index: 1300
+            });
+
+            setTimeout(function () {
+                $("#user-index").trigger("click");
+            }, 1000);
+        },
+        error: function (data) {
+            var errors = data.responseJSON;
+
+            errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
+
+            $.each(errors.errors, function (key, value) {
+                errorHtml += '<li>' + value + '</li>';
+            });
+            errorHtml += '</ul></div>';
+
+            $('#errors-account').html(errorHtml);
+        }
+    });
+});
+
+//Đổi mật khẩu tài khoản
+$(document).on('click', '#edit-password', function () {
+
+    let errorHtml = '';
+    var form_data = new FormData();
+
+    var current_password = $("input[name='current_password']").val();
+    var new_password = $("input[name='new_password']").val();
+    var re_new_password = $("input[name='re_new_password']").val();
+
+    form_data.append("current_password", current_password);
+    form_data.append("new_password", new_password);
+    form_data.append("re_new_password", re_new_password);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: "user/change-password",
+        method: "POST",
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function () {
+            $.notify({
+                icon: 'fas fa-check-circle',
+                message: 'Thay đổi mật khẩu thành công !'
+            }, {
+                delay: 100,
+                timer: 1000,
+                z_index: 1300
+            });
+
+            setTimeout(function () {
+                $("#user-index").trigger("click");
+            }, 1000);
+        },
+        error: function (data) {
+            var errors = data.responseJSON;
+
+            errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
+
+            $.each(errors.errors, function (key, value) {
+                errorHtml += '<li>' + value + '</li>';
+            });
+            errorHtml += '</ul></div>';
+
+            $('#errors-password').html(errorHtml);
+        }
+    });
+});
+
+$('#cover_image').fileInput({
+    iconClass: 'mdi mdi-fw mdi-upload'
+});
 
 
 

@@ -22,20 +22,10 @@
                 var Class = element.class ? ' ' + element.class : '';
                 if (typeof element.submenu != 'undefined') {
                     html += '<li class="has-dropdown"><a class="dropdown-item' + Class + '" href="#">' + element.icon + element.text + '</a>';
-                    html += '<ul class="dropdown-menu">';
-                    element.submenu.forEach(function (element) {
-                        html += '<li class="item-playlist"><a class="add-user-playlist dropdown-item' + Class + '" data-songid=""' +
-                            ' data-playlistId="' + element.id + '" href="javascript:' +
-                            ' void(0)"><i' +
-                            ' class="fas' +
-                            ' fa-headset mr-2"></i>' +
-                            ' ' + element.name + '</a>';
-                    });
-                    html += '<li class="item-playlist"><a href="/user/library/user-playlist/add-playlist" class="dropdown-item"><i class="fas' +
-                        ' fa-plus mr-2"></i> Tạo danh sách phát mới</a></li>';
+                    html += '<ul class="dropdown-menu sub-menu">';
                     html += '</ul>';
                 } else {
-                    html += '<li><a class="dropdown-item' + Class + '" href="javascript:">' + element.icon + element.text + '</a>';
+                    html += '<li><a class="dropdown-item ' + Class + '" href="javascript:;">' + element.icon + element.text + '</a>';
                 }
                 html += '</li>';
             });
@@ -51,7 +41,9 @@
 
             let songid = $(this).attr('data-songid');
 
-            $('.add-user-playlist').attr('data-songid', songid);
+            setTimeout(function () {
+                $('.add-user-playlist').attr('data-songid', songid);
+            }, 1000);
 
             let userPlaylistId = $(this).attr('data-user-playlist-id');
 
@@ -59,8 +51,11 @@
 
             $('.delete-user-playlist').attr('data-playlist-id', userPlaylistId);
 
-
             $('.menu-like').attr('data-id', songid);
+
+            $('.add-next').attr('data-id', songid);
+
+            $('.view-song').attr('href', '/single-song/' + songid);
         });
 
         function clickEvent(el) {
@@ -139,21 +134,6 @@
 })(jQuery);
 
 jQuery(document).ready(function ($) {
-    let dataUserPlaylist = [];
-    let userId = $("input[name='id']").val();
-
-    //Lấy danh sách phát cá nhân
-    if (userId !== undefined) {
-        $.ajax({
-            type: 'GET',
-            url: '/get-user-playlist/',
-            async: false,
-            success: function (data) {
-                dataUserPlaylist = data['data'];
-            }
-        });
-    }
-
     $('.nav-item').on('show.bs.dropdown', function (e) {
         adonisPopup.outside(e);
     });
@@ -162,11 +142,17 @@ jQuery(document).ready(function ($) {
         {
             text: 'Thêm vào danh sách phát',
             icon: '<i class="fas fa-plus fa-1x mr-2"></i>',
-            submenu: dataUserPlaylist
+            submenu: true,
+        },
+        {
+            text: 'Xem bài hát',
+            icon: '<i class="fas fa-eye fa-1x mr-2"></i>',
+            class: 'view-song'
         },
         {
             text: 'Thêm vào tiếp theo',
-            icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>'
+            icon: '<i class="fas fa-caret-square-right fa-1x mr-2"></i>',
+            class: 'add-next'
         },
         {
             text: 'Chia sẻ',
@@ -174,12 +160,12 @@ jQuery(document).ready(function ($) {
         },
     ];
 
-
     new adonisPopup({
         selector: '.dropdown-menu-toggle',
         menu: songMenu,
         parent: '.music-img-box'
     });
+
 
     var playlistUserMenu = [
         {
@@ -199,41 +185,39 @@ jQuery(document).ready(function ($) {
         parent: '.music-img-box'
     });
 
+    let dataUserPlaylist = [];
+    let userId = $("input[name='id']").val();
+    let html = '';
 
-    var playlistTrackMenu = [{
-        text: 'Yêu thích',
-    }, {
-        text: 'Chia sẻ',
-    }, {
-        class: 'remove-track-item-playlist',
-        text: 'Xóa khỏi danh sách phát',
-    }, {
-        text: 'Thêm vào danh sách phát',
-    }];
+    $(document).on('click', '.dropdown-menu-toggle', function () {
+        html = '';
+        //Lấy danh sách phát cá nhân
+        if (userId !== undefined) {
+            $.ajax({
+                type: 'GET',
+                url: '/get-user-playlist/',
+                async: false,
+                success: function (data) {
+                    dataUserPlaylist = data['data'];
+                }
+            });
+        }
+        setTimeout(function () {
 
-    new adonisPopup({
-        selector: '.track-menu-playlist',
-        menu: playlistTrackMenu,
-        parent: '.song-poster',
-    });
+            dataUserPlaylist.forEach(myFunction);
 
+            function myFunction(item, index) {
+                html += '<li class="item-playlist"><a class="add-user-playlist dropdown-item" data-songid=""' +
+                    ' data-playlistId="' + item.id + '" href="javascript:' +
+                    ' void(0)"><i' +
+                    ' class="fas' +
+                    ' fa-headset mr-2"></i>' +
+                    ' ' + item.name + '</a>';
+            }
 
-    var trackMenuCurrent = [{
-        text: 'Yêu thích',
-    }, {
-        text: 'Chia sẻ',
-    }, {
-        class: 'remove-track-item-current',
-        text: 'Xóa khỏi danh sáchs',
-    }, {
-        text: 'Thêm vào danh sách',
-    }];
-
-    new adonisPopup({
-        selector: '.current-track-menu',
-        menu: trackMenuCurrent,
-        parent: '.song-poster',
-    });
-
+            html += '<li class="item-playlist"><a href="/user/library/user-playlist/add-playlist" class="dropdown-item"><i class="fas fa-plus mr-2"></i> Tạo danh sách phát mới</a></li>';
+            $('.sub-menu').html(html);
+        }, 100);
+    })
 });
 

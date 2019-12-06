@@ -83,7 +83,7 @@ jQuery(document).ready(function ($) {
     /**
      * section preloader
      */
-    adonisObj.preloaderPlayHtml = '<span class="shadow"></span><div class="icons"><span class="animate-loading"><span class="adonis-icon icon-5x"><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><use xlink:href="#icon-brand-play-gradient"></use></svg></span></span><span class="adonis-icon icon-5x"><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><use xlink:href="#icon-brand-play"></use></svg></span></div>';
+    adonisObj.preloaderPlayHtml = '<span class="shadow"></span><div class="icons"><span class="animate-loading"><span class="adonis-icon icon-5x"><img src="/client/images/loading.gif" width="100px" height="auto" alt="loading"></span></span><span class="adonis-icon icon-5x"><img src="/client/images/loading.gif" width="100px" height="auto" alt="loading"></span></div>';
 
     adonisObj.rotatorPreloaderHtml = '<div class="preloader preloader-static spinner-holder d-flex justify-content-center"><div class="adonis-rotate dark adonis-x"><div><div></div></div></div></div>';
     /**

@@ -82,6 +82,14 @@
                                                 <i class="fas fa-book fs-19"></i>
                                             </span>Thư viện của bạn</a>
                                     </li>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role > 400)
+                                        <li>
+                                            <a href="javascript:;" class="inactive-color" id="go-admin"><span
+                                                    class="adonis-icon mr-3 icon-2x">
+                                                <i class="fas fa-tools fs-19"></i>
+                                            </span>Quản lý website</a>
+                                        </li>
+                                    @endif
                                     <li><a href="javascript:;" class="inactive-color" id="logout"><span
                                                 class="adonis-icon mr-3 icon-2x">
                                                 <i class="fas fa-sign-in-alt fs-19"></i>
