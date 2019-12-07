@@ -69,7 +69,7 @@ class ArtistsController extends Controller
         $model = Artist::find($id);
         if ($model !== null) {
             foreach ($model->get() as $key => $value) {
-                $model_details = ArtistSongDetail::where('artist_id', $value['id']);
+                $model_details = ArtistSongDetail::where('artist_id', $id);
                 $model_albums = Album::where('artist_id', $id);
                 if ($model_albums !== null) {
                     $model_albums->delete();
