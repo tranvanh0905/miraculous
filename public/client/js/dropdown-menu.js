@@ -24,6 +24,8 @@
                     html += '<li class="has-dropdown"><a class="dropdown-item' + Class + '" href="#">' + element.icon + element.text + '</a>';
                     html += '<ul class="dropdown-menu sub-menu">';
                     html += '</ul>';
+                }else if (typeof element.type != 'undefined') {
+                    html += '<li><a class="dropdown-item ' + Class + '" href="javascript:;" data-toggle="modal" data-target="#exampleModalCenter">' + element.icon + element.text + '</a>';
                 } else {
                     html += '<li><a class="dropdown-item ' + Class + '" href="javascript:;">' + element.icon + element.text + '</a>';
                 }
@@ -54,6 +56,8 @@
             $('.menu-like').attr('data-id', songid);
 
             $('.add-next').attr('data-id', songid);
+
+            $('.share-song').attr('data-id', songid);
 
             $('.view-song').attr('href', '/single-song/' + songid);
         });
@@ -156,7 +160,9 @@ jQuery(document).ready(function ($) {
         },
         {
             text: 'Chia sẻ',
-            icon: '<i class="fas fa-share-square fa-1x mr-2"></i>'
+            icon: '<i class="fas fa-share-square fa-1x mr-2"></i>',
+            class: 'share-song',
+            type: 'share'
         },
     ];
 
@@ -218,6 +224,13 @@ jQuery(document).ready(function ($) {
             html += '<li class="item-playlist"><a href="/user/library/user-playlist/add-playlist" class="dropdown-item"><i class="fas fa-plus mr-2"></i> Tạo danh sách phát mới</a></li>';
             $('.sub-menu').html(html);
         }, 100);
+    });
+
+    $(document).on('click', '.share-song', function () {
+        let songId = $(this).attr('data-id');
+        $(".link-share").val('');
+        $('.link-share').val(window.location.origin + '/single-song/' + songId);
+
     })
 });
 

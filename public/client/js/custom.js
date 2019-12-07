@@ -766,6 +766,8 @@ $('#cover_image').fileInput({
     iconClass: 'mdi mdi-fw mdi-upload'
 });
 
+new ClipboardJS('.btn');
+
 
 
 

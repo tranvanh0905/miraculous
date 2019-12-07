@@ -32,41 +32,49 @@
                     </div>
                 </div>
 
-                <div class="adonis-carousel mb-3" data-auto-width="no" data-loop="no" data-dots="yes"
-                     data-items-responsive="0:1|600:2|1000:3|1500:3">
-                    <div class="gutter-30">
-                        <div class="owl-carousel owl-theme-adonis owl-loaded owl-drag">
-                            <?php
-                            $countop = 1;
-                            ?>
-                            @foreach($trendSong as $song)
-                                <div class="item">
-                                    <div class="radio">
-                                        <div class="img-box-text-over lg box-rounded-lg trend-song border">
-                                            <a href="{{route('singleSong',['song_id' => $song->song_id])}}">
-                                                <img src="{{url($song->cover_image)}}"
-                                                     data-2x="{{url($song->cover_image)}}" alt="{{$song->name}}">
-                                                <div class="absolute-info">
-                                                    <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                @if($trendSong == null)
+                <div class="row">
+                    <div class="col-12 text-center pt-3 mb-3 rounded update">
+                        <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                        <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px" height="auto">
+                    </div>
+                </div>
+                @else
+                    <div class="adonis-carousel mb-3" data-auto-width="no" data-loop="no" data-dots="yes"
+                         data-items-responsive="0:1|600:2|1000:3|1500:3">
+                        <div class="gutter-30">
+                            <div class="owl-carousel owl-theme-adonis owl-loaded owl-drag">
+                                <?php
+                                $countop = 1;
+                                ?>
+                                @foreach($trendSong as $song)
+                                    <div class="item">
+                                        <div class="radio">
+                                            <div class="img-box-text-over lg box-rounded-lg trend-song border">
+                                                <a href="{{route('singleSong',['song_id' => $song->song_id])}}">
+                                                    <img src="{{url($song->cover_image)}}"
+                                                         data-2x="{{url($song->cover_image)}}" alt="{{$song->name}}">
+                                                    <div class="absolute-info">
+                                                        <div class="absolute-bottom-left pl-e-20 pb-e-20">
                                                         <span
                                                             class="adonis-highlight-dark font-weight-bold">Top <?= $countop; $countop++?></span>
-                                                    </div>
-                                                    <div class="absolute-top-right pr-e-15 pt-e-15">
+                                                        </div>
+                                                        <div class="absolute-top-right pr-e-15 pt-e-15">
                                                         <span class="adonis-highlight-dark font-weight-bold">
                                                          {{$song->name}}
                                                         </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </section>
-
 
             <section>
                 <div class="row">

@@ -5,3 +5,4 @@
 <link href="<?= url('/client/css/animate.css') ?>" rel="stylesheet">
 <link href="<?= url('/client/css/adonis.css') ?>" rel="stylesheet">
 <link href="<?= url('/client/css/all.css') ?>" rel="stylesheet">
+<link href="<?= url('/client/css/custom.css') ?>" rel="stylesheet">

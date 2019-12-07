@@ -111,7 +111,7 @@ class ClientController extends Controller
     //Tất cả bảng xếp hạng
     public function chart()
     {
-        return view('client.chart');
+        return view('client.chart.chart');
     }
 
     //Bảng xếp hạng bài hát
@@ -124,7 +124,7 @@ class ClientController extends Controller
 
         $allGenres = Genres::inRandomOrder()->limit(10)->get();
 
-        return view('client.chart-song', compact('top50song', 'allGenres'));
+        return view('client.chart.chart-song', compact('top50song', 'allGenres'));
     }
 
     //Bảng xếp hạng album
@@ -135,7 +135,7 @@ class ClientController extends Controller
 
         $allGenres = Genres::inRandomOrder()->limit(10)->get();
 
-        return view('client.chart-album', compact('top50album', 'allGenres'));
+        return view('client.chart.chart-album', compact('top50album', 'allGenres'));
     }
 
     public function chartArtist()
@@ -143,7 +143,7 @@ class ClientController extends Controller
         $top50Artist = Artist::orderBy('follow', 'desc')->where('status', '=', 1)->limit(50)->get();
         $allGenres = Genres::where('status', '=', 1)->inRandomOrder()->limit(10)->get();
 
-        return view('client.chart-artist', compact('allGenres', 'top50Artist'));
+        return view('client.chart.chart-artist', compact('allGenres', 'top50Artist'));
     }
 
     //Tất cả bài hát, album, playlist
