@@ -766,7 +766,36 @@ $('#cover_image').fileInput({
     iconClass: 'mdi mdi-fw mdi-upload'
 });
 
-new ClipboardJS('.btn');
+var clipboard = new ClipboardJS('.btn');
+
+clipboard.on('success', function (e) {
+    $.notify({
+        icon: 'fas fa-check-circle',
+        message: 'Sao chép đường dẫn thành công !'
+    }, {
+        delay: 100,
+        timer: 1000,
+        z_index: 9999999
+    });
+
+    e.clearSelection();
+});
+
+clipboard.on('error', function (e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+});
+
+$(document).ready(function () {
+    let user = $("input[name='user-name']").val();
+    setInterval(function () {
+        if (user === undefined) {
+            $('.check-user-submenu').css("display", "none");
+        }
+    }, 5000);
+});
+
+
 
 
 

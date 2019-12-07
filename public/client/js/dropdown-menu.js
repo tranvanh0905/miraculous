@@ -21,7 +21,7 @@
             settings.menu.forEach(function (element) {
                 var Class = element.class ? ' ' + element.class : '';
                 if (typeof element.submenu != 'undefined') {
-                    html += '<li class="has-dropdown"><a class="dropdown-item' + Class + '" href="#">' + element.icon + element.text + '</a>';
+                    html += '<li class="has-dropdown"><a class="dropdown-item' + Class + '" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' + element.icon + element.text + '</a>';
                     html += '<ul class="dropdown-menu sub-menu">';
                     html += '</ul>';
                 }else if (typeof element.type != 'undefined') {

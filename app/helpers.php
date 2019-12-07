@@ -68,3 +68,9 @@ function getSlider()
     $allSlider = \App\Slider::where('status', '=', 1)->orderBy('sort', 'asc')->get();
     return $allSlider;
 }
+
+function convertDate($date)
+{
+    $orgDate = $date;
+    return $newDate = date("d-m-Y", strtotime($orgDate));
+}

@@ -71,7 +71,7 @@
                                 <div class="separator mb-4 mt-4">
                                     <span class="separator-md"></span>
                                 </div>
-                                <p class="mb-2">Ra mắt chính thức {{$singleSong->release_date}}</p>
+                                <p class="mb-2">Ra mắt chính thức {{convertDate($singleSong->release_date)}}</p>
                             </div>
                             <div class="lyrics">
                                 <hr>
@@ -113,9 +113,12 @@
                                                 <ul class="list-group all-comment">
                                                     <p class="font-weight-bold mb-0 font-italic no-comment p-2 bg-light text-center">
                                                         Bài hát chưa có bình luận
-                                                        nào! Hãy là người đầu tiên bình luận. <br><a
-                                                            href="{{route('login')}}" class="btn btn-primary">Đăng
-                                                            nhập</a></p>
+                                                        nào! Hãy là người đầu tiên bình luận. <br>
+                                                        @if(!\Illuminate\Support\Facades\Auth::check())
+                                                            <a href="{{route('login')}}" class="btn btn-primary">Đăng
+                                                                nhập</a>
+                                                        @endif
+                                                    </p>
                                                 </ul>
                                             </div>
                                             <div class="mt-2 text-center"> {{ $comment->links() }}</div>
@@ -134,12 +137,12 @@
                                                     @foreach($comment as $cm)
                                                         <li class="list-group-item">
                                                             <div class="row">
-                                                                <div class="col-xs-2 col-md-2">
+                                                                <div class="col-3 col-md-3 col-xl-2 ">
                                                                     <img src="{{url($cm->user->avatar)}}"
-                                                                         class="rounded-circle img-responsive"
+                                                                         class="rounded-circle img-fluid"
                                                                          alt="{{$cm->user->username}}"/>
                                                                 </div>
-                                                                <div class="col-xs-10 col-md-10">
+                                                                <div class="col-9 col-md-9 col-xl-10 ">
                                                                     <div>
                                                                         <div class="mic-info font-weight-bold">
                                                                             Đăng bởi: {{$cm->user->username}}
@@ -360,7 +363,8 @@
                     </div>
                     <div class="widget">
                         <div class="d-flex justify-content-between inactive-colored-links">
-                            <h3 class="text-uppercase widget-title h3-md"><i class="fas fa-heart"></i> Yêu thích nhiều nhất</h3>
+                            <h3 class="text-uppercase widget-title h3-md"><i class="fas fa-heart"></i> Yêu thích nhiều
+                                nhất</h3>
                         </div>
                         @foreach($mostLikeSong as $song)
                             <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">

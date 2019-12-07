@@ -1,12 +1,10 @@
 <footer class="site-footer" id="site-footer">
     <div class="master-container-fluid">
-        <div class="p-2"></div>
         <hr>
     </div>
     <div class="master-container-fluid">
-        <div class="pt-e-40"></div>
         <div class="row">
-            <div class="col-lg-4 col-xl-3 order-2 order-lg-1">
+            <div class="col-md-12 col-lg-4 col-xl-3 order-1 order-md-1 order-lg-1 mb-md-3">
                 <div class="footer-widget-1">
                     <div class="footer-logo mb-2">
                         <a class="brand d-flex align-items-center" href="{{route('client.home')}}">
@@ -18,11 +16,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-9 pl-e-lg-70 order-1">
+            <div class="col-md-12 col-lg-8 col-xl-9 order-2 order-md-2 pl-e-lg-70 ">
                 <div class="row">
-                    <div class="col-md-6 col-xl-4">
+                    <div class="col-md-4 col-xl-4">
                         <div class="footer-manage widget">
-                            <h5 class="widget-title text-uppercase">Liên kết hữu ích</h5>
+                            <h5 class="widget-title text-uppercase font-weight-bold">Liên kết hữu ích</h5>
                             <ul class="list-inline vertical-list">
                                 <li><a href="{{route('client.home')}}">Trang chủ</a></li>
                                 <li><a href="{{route('user-profile')}}">Tài khoản</a></li>
@@ -30,9 +28,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-4">
+                    <div class="col-md-4 col-xl-4">
                         <div class="widget">
-                            <h5 class="widget-title text-uppercase">Bài hát ngẫu nhiên</h5>
+                            <h5 class="widget-title text-uppercase font-weight-bold">Bài hát ngẫu nhiên</h5>
                             <div class="footer-album-list music-img-box-cont-sm">
                                 @foreach(get3songBottom() as $song)
                                     <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
@@ -90,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-4 text-right">
+                    <div class="col-md-4 col-xl-4 text-right">
                         <div class="widget">
                             <div class="social-icons">
                                 <ul class="list-inline horizon-list fs-3">
@@ -155,7 +153,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Sao chép liên kết</button>
             </div>
         </div>
     </div>

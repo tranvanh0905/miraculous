@@ -29,38 +29,38 @@
                                 <h4 class="title h3 text-uppercase d-inline-block"><i class="fas fa-table"></i> Bảng xếp hạng Top 50 bài hát</h4>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                    $count = 1;
-                    ?>
-                    @foreach($top50song as $song)
-                        <div class="item d-flex">
-                            <h2 class="number-rank"><?php echo $count; $count++;?></h2>
-                            <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
-                                <div class="img-box img-box-sm box-rounded-sm">
-                                    <img src="{{$song->cover_image}}" alt="{{$song->name}}">
-                                </div>
-                                <div class="des">
-                                    <h6 class="title fs-2"><a
-                                            href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
-                                    </h6>
-                                    <p class="sub-title">
-                                        @foreach($song->artists as $artist)
-                                            <a href="{{route('singleArtist', ['artistId' => $artist->id])
+                        <div class="col-12">
+                            <?php
+                            $count = 1;
+                            ?>
+                            @foreach($top50song as $song)
+                                <div class="item d-flex">
+                                    <h2 class="number-rank"><?php echo $count; $count++;?></h2>
+                                    <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
+                                        <div class="img-box img-box-sm box-rounded-sm">
+                                            <img src="{{$song->cover_image}}" alt="{{$song->name}}">
+                                        </div>
+                                        <div class="des">
+                                            <h6 class="title fs-2"><a
+                                                    href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                            </h6>
+                                            <p class="sub-title">
+                                                @foreach($song->artists as $artist)
+                                                    <a href="{{route('singleArtist', ['artistId' => $artist->id])
                                                             }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
-                                        @endforeach
-                                    </p>
-                                </div>
-                                <span style="line-height: 50px;">{{$song->view}} <i class="fas fa-headphones fs-19"></i> </span>
-                                <div
-                                    class="hover-state d-flex justify-content-between align-items-center">
+                                                @endforeach
+                                            </p>
+                                        </div>
+                                        <span style="line-height: 50px;">{{$song->view}} <i class="fas fa-headphones fs-19"></i> </span>
+                                        <div
+                                            class="hover-state d-flex justify-content-between align-items-center">
                                                     <span
                                                         class="pointer play-btn-dark box-rounded-sm adonis-album-button"
                                                         data-type="song"
                                                         data-album-id="{{$song->id}}">
                                                          <i class="fas fa-play fs-19 text-light"></i>
                                                     </span>
-                                    <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
                                                         <span class="adonis-icon text-light pointer mr-2 icon-2x">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
                                                                 @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
@@ -85,11 +85,13 @@
                                                                 </span>
                                                             @endif
                                                         </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="title-box">
@@ -97,7 +99,7 @@
                     </div>
                     <div class="row">
                         @foreach($allGenres as $genres)
-                            <div class="item col-12 mb-3 pr-0">
+                            <div class="item col-12 mb-3">
                                 <div class="img-box-text-over lg box-rounded-lg">
                                     <img src="{{$genres->image}}"
                                          data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" width="100%">

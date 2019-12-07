@@ -16,6 +16,7 @@
                             @foreach(getSlider() as $slider)
                                 <a href="{{url($slider->url)}}" class="box-img-slider">
                                     <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
+                                    <img src="{{url($slider->image)}}" alt="{{url($slider->url)}}" class="img-slider">
                                 </a>
                             @endforeach
                         </div>
@@ -33,12 +34,12 @@
                 </div>
 
                 @if($trendSong == null)
-                <div class="row">
-                    <div class="col-12 text-center pt-3 mb-3 rounded update">
-                        <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
-                        <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px" height="auto">
+                    <div class="row">
+                        <div class="col-12 text-center pt-3 mb-3 rounded update">
+                            <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                            <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px" height="auto">
+                        </div>
                     </div>
-                </div>
                 @else
                     <div class="adonis-carousel mb-3" data-auto-width="no" data-loop="no" data-dots="yes"
                          data-items-responsive="0:1|600:2|1000:3|1500:3">
@@ -210,64 +211,79 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <div class="img-box-text-over lg box-rounded-lg mb-4 overlay-index">
-                            <img src="{{url('client/images/this-week/popular-album-week.jpg')}}"
-                                 data-2x="{{url('client/images/this-week/popular-album-week@2x.jpg')}}" alt="bxh-song">
-                            <div class="hover-state show">
-                                <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
-                                    <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 BÀI HÁT</h6>
-                                </div>
-                                <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
-                                    <a href="{{route('client.chart-song')}}" class="text-light"><i
-                                            class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng
-                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                            <i class="fas fa-arrow-right fs-19"></i>
+                </div>
+                <div class="adonis-carousel viewport-animate" data-animation="slideUp"
+                     data-animation-item=".owl-item.active" data-dots="yes" data-auto-width="yes"
+                     data-responsive-width="0:100%|500:50%|730:33.33%|1100:33.33%|1460:50%">
+                    <div class="gutter-30">
+                        <div class="owl-carousel owl-theme-adonis">
+                            <div class="item">
+                                <div class="img-box-text-over lg box-rounded-lg">
+                                    <img src="{{url('client/images/this-week/popular-album-week.jpg')}}"
+                                         data-2x="{{url('client/images/this-week/popular-album-week@2x.jpg')}}"
+                                         alt="bxh-song">
+                                    <div class="hover-state show">
+                                        <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
+                                            <h6 class="text-light font-weight-bold"><i class="fas fa-music"></i>
+                                                BẢNG XẾP HẠNG
+                                                TOP 50 BÀI HÁT</h6>
+                                        </div>
+                                        <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
+                                            <a href="{{route('client.chart-song')}}" class="text-light"><i
+                                                    class="icon-arrow-right2"></i>
+                                                Xem bảng xếp hạng
+                                                <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right"></i>
                                         </span>
-                                    </a>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img-box-text-over lg  box-rounded-lg mb-4 overlay-index">
-                            <img src="{{url('client/images/this-week/new-songs-week.jpg')}}"
-                                 data-2x="{{url('client/images/this-week/new-songs-week@2x.jpg')}}" alt="bxh-album">
-                            <div class="hover-state show">
-                                <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
-                                    <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 ALBUM</h6>
-                                </div>
-                                <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
-                                    <a href="{{route('client.chart-album')}}" class="text-light"><i
-                                            class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng
-                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                            <i class="fas fa-arrow-right fs-19"></i>
+                            <div class="item">
+                                <div class="img-box-text-over lg  box-rounded-lg">
+                                    <img src="{{url('client/images/this-week/new-songs-week.jpg')}}"
+                                         data-2x="{{url('client/images/this-week/new-songs-week@2x.jpg')}}"
+                                         alt="bxh-album">
+                                    <div class="hover-state show">
+                                        <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
+                                            <h6 class="text-light font-weight-bold"><i
+                                                    class="fas fa-compact-disc"></i> BẢNG XẾP
+                                                HẠNG TOP 50 ALBUM</h6>
+                                        </div>
+                                        <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
+                                            <a href="{{route('client.chart-album')}}" class="text-light"><i
+                                                    class="icon-arrow-right2"></i>
+                                                Xem bảng xếp hạng
+                                                <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right"></i>
                                         </span>
-                                    </a>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="img-box-text-over lg  box-rounded-lg mb-4  overlay-index">
-                            <img src="{{url('client/images/this-week/popular-artists-week.jpg')}}"
-                                 data-2x="{{url('client/images/this-week/popular-artists-week@2x.jpg')}}"
-                                 alt="bxh-artist">
-                            <div class="hover-state show">
-                                <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
-                                    <h6 class="text-light font-weight-bold">BẢNG XẾP HẠNG TOP 50 CA SĨ</h6>
-                                </div>
-                                <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
-                                    <a href="{{route('client.chart-artist')}}" class="text-light"><i
-                                            class="icon-arrow-right2"></i>
-                                        Xem bảng xếp hạng
-                                        <span class="adonis-icon pl-1 icon-arrow icon-1x">
-                                            <i class="fas fa-arrow-right fs-19"></i>
+                            <div class="item">
+                                <div class="img-box-text-over lg  box-rounded-lg">
+                                    <img src="{{url('client/images/this-week/popular-artists-week.jpg')}}"
+                                         data-2x="{{url('client/images/this-week/popular-artists-week@2x.jpg')}}"
+                                         alt="bxh-artist">
+                                    <div class="hover-state show">
+                                        <div class="absolute-top-left pl-e-percent-10 pt-e-percent-8">
+                                            <h6 class="text-light font-weight-bold"><i class="fas fa-users"></i>
+                                                BẢNG XẾP HẠNG
+                                                TOP 50 CA SĨ</h6>
+                                        </div>
+                                        <div class="absolute-bottom-right pr-e-percent-8 pb-e-percent-8">
+                                            <a href="{{route('client.chart-artist')}}" class="text-light"><i
+                                                    class="icon-arrow-right2"></i>
+                                                Xem bảng xếp hạng
+                                                <span class="adonis-icon pl-1 icon-arrow icon-1x">
+                                            <i class="fas fa-arrow-right"></i>
                                         </span>
-                                    </a>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -300,7 +316,8 @@
                                              class="img-genres">
                                         <div
                                             class="absolute-info d-flex flex-column justify-content-between">
-                                            <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">Thể Loại
+                                            <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light"><i
+                                                    class="fas fa-th-list"></i> Thể Loại
                                             </div>
                                             <div>
                                                 <h4 class="fs-7 m-0 text-light text-center"><span
@@ -389,10 +406,10 @@
                 </div>
                 <div class="row">
                     @foreach($playLists as $playlist)
-                        <div class="col-xl-6 col-lg-6 col-md-12 ">
+                        <div class="col-xl-6 col-lg-12 col-md-12 ">
                             <div class="playlist-item-wrapper mb-3">
                                 <div class="row">
-                                    <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                                    <div class="col-xl-4 col-lg-3 col-md-4 col-sm-6">
                                         <div class="music-img-box">
                                             <div class="img-box box-rounded-md img-album-new">
                                                 <img class="retina"
@@ -417,7 +434,7 @@
                                                 href="{{route('singlePlaylist', ['playlistId' => $playlist->id])}}">{{$playlist->name}}</a>
                                         </h4>
                                         <i>{{count($playlist->songs)}} bài hát</i></div>
-                                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-sm-3 pl-xl-0">
+                                    <div class="col-xl-5 col-lg-6 col-md-5 col-sm-12 mb-sm-3 pl-xl-0">
                                         <div class="list-trend">
                                             @foreach($playlist->getThreeSongs as $song)
                                                 <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">

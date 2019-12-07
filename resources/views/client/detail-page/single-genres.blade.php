@@ -153,7 +153,7 @@
                     @endforeach
                 </div>
                 <div class="widget">
-                    <h3 class="widget-title h3-md">Thể loại khác</h3>
+                    <h3 class="widget-title h3-md"><i class="fas fa-boxes"></i> Thể loại khác</h3>
                     <div class="tagcloud">
                         @foreach($otherGenres as $genre)
                             <a href="{{route('singleGenres', ['genresId' => $genre->id])}}">{{$genre->name}}</a>

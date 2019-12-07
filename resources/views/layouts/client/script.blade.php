@@ -18,11 +18,12 @@
 <script src="<?= url('/client/js/effects.js') ?>"></script>
 <script src="<?= url('/client/js/dropdown-menu.js') ?>"></script>
 <script src="<?= url('/client/js/tower-file-input.js')?>"></script>
+<script src="<?= url('/client/js/clipboard.min.js') ?>"></script>
 <script src="<?= url('/client/js/custom.js') ?>"></script>
 <script src="<?= url('/client/js/app.js') ?>"></script>
 
 <script src="<?= url('/client/js/bootstrap-notify.js') ?>"></script>
-<script src="<?= url('/client/js/clipboard.min.js') ?>"></script>
+
 
 
 
