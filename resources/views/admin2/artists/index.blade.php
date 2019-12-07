@@ -35,6 +35,7 @@
                                     <th class="text-center">Ảnh đại diện</th>
                                     <th class="text-center">Tên đầy đủ</th>
                                     <th class="text-center">Lượt theo dõi</th>
+                                    <th class="text-center">Số lượng bài hát</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -145,6 +146,11 @@
                         "searchable": false,
                         "orderable": false, "width": "8%",
                         "class": "text-center"
+                    }, {
+                        "targets": [6],
+                        "searchable": false,
+                        "orderable": false, "width": "8%",
+                        "class": "text-center"
                     },
                 ],
                 columns: [
@@ -165,6 +171,16 @@
                     },
                     {
                         data: 'follow',
+                    },
+                    {
+                        data: "songs",
+                        render: function (data, type, row) {
+                            if (data !== null) {
+                                return data.length;
+                            } else {
+                                return "0";
+                            }
+                        }
                     },
                     {
                         data: 'status',
