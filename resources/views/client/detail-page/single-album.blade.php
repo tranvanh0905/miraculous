@@ -19,24 +19,31 @@
                         </div>
                     </div>
                     <div class="pb-2 album-likes text-center">
-                                <span class="adonis-icon pr-2 icon-2x"><i class="fas fa-heart fs-19"></i></span>
-                        <span class="pr-2 count-like-album" id="likeAlbum{{$singleAlbum->id}}">{{$singleAlbum->like}}</span>
+                        <span class="adonis-icon pr-2 icon-2x"><i class="fas fa-heart fs-19"></i></span>
+                        <span class="pr-2 count-like-album"
+                              id="likeAlbum{{$singleAlbum->id}}">{{$singleAlbum->like}}</span>
                     </div>
                     <div class="button-save-share pb-4 text-center">
                         @if(\Illuminate\Support\Facades\Auth::check())
                             @if(\App\Model_client\UserLikedAlbum::where
                                                             ('user_id', '=',
               \Illuminate\Support\Facades\Auth::id())->where('album_id', '=', $singleAlbum->id)->exists())
-                                <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album" data-id="{{$singleAlbum->id}}"><i
-                                            class="fas fa-heart-broken "></i> Bỏ yêu
+                                <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album"
+                                     data-id="{{$singleAlbum->id}}"><i
+                                        class="fas fa-heart-broken "></i> Bỏ yêu
                                     thích album
                                 </div>
                             @else
-                                <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album" data-id="{{$singleAlbum->id}}"><i class="fas
+                                <div class="btn btn-primary mx-auto" id="likeGlobal" data-type="album"
+                                     data-id="{{$singleAlbum->id}}"><i class="fas
                                  fa-heart"></i> Yêu thích album
                                 </div>
                             @endif
                         @endif
+
+                        <button class="btn btn-primary share-album" data-toggle="modal" data-target="#exampleModalCenter2" data-id="{{$singleAlbum->id}}">
+                            <i class="fas fa-share-alt-square"></i> Chia sẻ
+                        </button>
                     </div>
                     <div class="about text-justify">
                         <h4 class="text-center">Mô tả</h4>
@@ -50,7 +57,9 @@
                     <div class="album-top-box text-center text-md-left">
                         <h6 class="inactive-color">ALBUM</h6>
                         <h1 class="album-title"> {{$singleAlbum->title}}</h1>
-                        <p class="mb-2">Trình bày: <a href="{{route('singleArtist', ['artistId' => $singleAlbum->artist_id])}}">{{$singleAlbum->artist->nick_name}}</a></p>
+                        <p class="mb-2">Trình bày: <a
+                                href="{{route('singleArtist', ['artistId' => $singleAlbum->artist_id])}}">{{$singleAlbum->artist->nick_name}}</a>
+                        </p>
                         <div class="separator mb-4 mt-4">
                             <span class="separator-md"></span>
                         </div>
@@ -63,7 +72,8 @@
                         <div class="d-flex mb-3 justify-content-between">
                             <h3 class="font-weight-bold">Danh sách bài hát</h3>
                             <a class="btn text-white btn-primary adonis-album-button" data-type="album"
-                               data-album-id="{{$singleAlbum->id}}"> <span class="hover-show adonis-icon icon-1x"><i class="fas fa-play fs-14 mr-1"></i></span> Phát tất cả</a>
+                               data-album-id="{{$singleAlbum->id}}"> <span class="hover-show adonis-icon icon-1x"><i
+                                        class="fas fa-play fs-14 mr-1"></i></span> Phát tất cả</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="single-songs" role="tabpanel"
@@ -77,12 +87,16 @@
                                                          <img src="{{url($song->cover_image)}}" alt="{{$song->name}}"
                                                               width="50px" height="50px" class="rounded">
                                                     </span>
-                                                    <span class="hover-show adonis-icon icon-1x adonis-album-button" data-type="song"
-                                                          data-album-id="{{$song->id}}"><i class="fas fa-play fs-19"></i></span>
+                                                    <span class="hover-show adonis-icon icon-1x adonis-album-button"
+                                                          data-type="song"
+                                                          data-album-id="{{$song->id}}"><i
+                                                            class="fas fa-play fs-19"></i></span>
                                                 </div>
-                                                <a href="{{route('singleSong', ['songId' => $song->id])}}" class="item-title font-weight-bold">{{$song->name}}</a>
-                                                <div class="item-genre"><a href="{{route('singleGenres', ['genresId' => $song->genres->id])}}"
-                                                                           class="hover-hide hover-lg-show font-weight-bold">{{$song->genres->name}}</a>
+                                                <a href="{{route('singleSong', ['songId' => $song->id])}}"
+                                                   class="item-title font-weight-bold">{{$song->name}}</a>
+                                                <div class="item-genre"><a
+                                                        href="{{route('singleGenres', ['genresId' => $song->genres->id])}}"
+                                                        class="hover-hide hover-lg-show font-weight-bold">{{$song->genres->name}}</a>
                                                 </div>
                                                 <div class="item-tools">
                                                     <span class="hover-hide" id="likeSong{{$song->id}}">{{$song->like}}
@@ -92,14 +106,18 @@
                                                             @if(count(\App\Model_client\UserLikedSong::where
                                                             ('user_id', '=',
               \Illuminate\Support\Facades\Auth::id())->where('song_id', '=', $song->id)->get()) == 1)
-                                                                <span class="adonis-icon icon-2x pointer  box-dis-like-global">
-                                                                        <i class="fas fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                <span
+                                                                    class="adonis-icon icon-2x pointer  box-dis-like-global">
+                                                                        <i class="fas fa-heart fa-2x font-14"
+                                                                           id="likeGlobal" data-type="song"
                                                                            data-id="{{$song->id}}"
                                                                         ></i>
                                                                       </span>
                                                             @else
-                                                                <span class="adonis-icon icon-2x pointer box-like-global">
-                                                                    <i class="far fa-heart fa-2x font-14" id="likeGlobal" data-type="song"
+                                                                <span
+                                                                    class="adonis-icon icon-2x pointer box-like-global">
+                                                                    <i class="far fa-heart fa-2x font-14"
+                                                                       id="likeGlobal" data-type="song"
                                                                        data-id="{{$song->id}}"></i>
                                                                     </span>
                                                             @endif
@@ -138,13 +156,20 @@
                                                  alt="">
                                             <div class="hover-state">
                                                 <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album"
-                                                              data-album-id="{{$album->id}}"><i class="fas fa-play fs-21 text-light play-index"></i></span>
+                                                        <span
+                                                            class="pointer play-btn-dark round-btn adonis-album-button"
+                                                            data-type="album"
+                                                            data-album-id="{{$album->id}}"><i
+                                                                class="fas fa-play fs-21 text-light play-index"></i></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h6 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a></h6>
-                                        <p class="sub-title category"><a href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a></p>
+                                        <h6 class="title"><a
+                                                href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
+                                        </h6>
+                                        <p class="sub-title category"><a
+                                                href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach
@@ -171,13 +196,20 @@
                                                  alt="">
                                             <div class="hover-state">
                                                 <div class="absolute-bottom-left pl-e-20 pb-e-20">
-                                                        <span class="pointer play-btn-dark round-btn adonis-album-button" data-type="album"
-                                                              data-album-id="{{$album->id}}"><i class="fas fa-play fs-21 text-light play-index"></i></span>
+                                                        <span
+                                                            class="pointer play-btn-dark round-btn adonis-album-button"
+                                                            data-type="album"
+                                                            data-album-id="{{$album->id}}"><i
+                                                                class="fas fa-play fs-21 text-light play-index"></i></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h6 class="title"><a href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a></h6>
-                                        <p class="sub-title category"><a href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a></p>
+                                        <h6 class="title"><a
+                                                href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
+                                        </h6>
+                                        <p class="sub-title category"><a
+                                                href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach

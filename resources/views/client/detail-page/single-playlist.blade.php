@@ -38,6 +38,9 @@
                                    href="javascript:;"><i class="fas fa-heart"></i> Yêu thích danh sách phát</a>
                             @endif
                         @endif
+                            <button class="btn btn-primary share-playlist" data-toggle="modal" data-target="#exampleModalCenter3" data-id="{{$singlePlaylist->id}}">
+                                <i class="fas fa-share-alt-square"></i> Chia sẻ
+                            </button>
                     </div>
                     <div class="about">
                         <h4>Mô tả</h4>

@@ -795,6 +795,19 @@ $(document).ready(function () {
     }, 5000);
 });
 
+$(document).on('click', '.share-album', function () {
+    let albumId = $(this).attr('data-id');
+    $(".link-share-album").val('');
+    $('.link-share-album').val(window.location.origin + '/single-album/' + albumId);
+});
+
+$(document).on('click', '.share-playlist', function () {
+    let playlistId = $(this).attr('data-id');
+    $(".link-share-playlist").val('');
+    $('.link-share-playlist').val(window.location.origin + '/single-playlist/' + playlistId);
+});
+
+
 
 
 
