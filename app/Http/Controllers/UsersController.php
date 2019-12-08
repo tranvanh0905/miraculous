@@ -78,6 +78,9 @@ class UsersController extends Controller
             $request->file('avatar')->move('upload/image', $filename);
             $model->avatar = "$path";
         }
+        if ($request->password !== null) {
+            $model->password = password_hash($request->password, PASSWORD_DEFAULT);
+        }
         $model->save();
         return redirect()->route('users.home')->with('status', 'Thêm tài khoản thành công');
 

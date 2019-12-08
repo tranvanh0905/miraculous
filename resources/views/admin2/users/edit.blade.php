@@ -101,7 +101,6 @@
                         <option value="">Lựa chọn trạng thái</option>
                         <option @if ($model->role == 900) {{"selected"}} @endif value="900">Admin</option>
                         <option @if ($model->role == 600) {{"selected"}} @endif value="600">Cộng tác viên</option>
-                        <option @if ($model->role == 400) {{"selected"}} @endif value="400">Thành viên VIP</option>
                         <option @if ($model->role == 100) {{"selected"}} @endif value="100">Thành viên</option>
                     </select>
                     @if($errors->first('role'))
