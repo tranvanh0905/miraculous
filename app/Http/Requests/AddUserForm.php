@@ -25,7 +25,7 @@ class AddUserForm extends FormRequest
     {
         return [
             'username' => 'required|max:20|unique:users',
-            'password' =>  'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,10}$/',
+            'password' =>  'required|min:6',
             'email' => 'required|unique:users,email',
             'role' => 'required',
             'birthday' => 'required',
@@ -46,8 +46,7 @@ class AddUserForm extends FormRequest
             'email.required' => 'Hãy nhập email',
             'email.unique' => "Email đã tồn tại",
             'password.required' => "Vui lòng nhập mật khẩu",
-            'password.min' => "Mật khẩu tối thiểu 8 ký tự",
-            'password.regex' => " Mật khẩu nên có ít nhất 1 chữ thường VÀ 1 chữ hoa và 1 số và 1 ký hiệu",
+            'password.min' => "Mật khẩu tối thiểu 6 ký tự",
             'role.required' => "Vui lòng chọn quyền",
             'status.required' => "Vui lòng chọn trạng thái",
             'full_name.required' => "Vui lòng nhập đủ họ và tên",

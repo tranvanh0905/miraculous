@@ -1,7 +1,7 @@
 @extends('layouts.admin2.main')
 
 @section('title')
-    Bài hát
+    Danh sách bài hát
 @endsection
 
 @section('content')

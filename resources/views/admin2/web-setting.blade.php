@@ -87,7 +87,6 @@
                         class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
                         Xác nhận
                     </button>
-                </form>
             </div>
             <!-- /.card-body -->
         </div>
@@ -113,7 +112,7 @@
                         <span class="text-danger">{{$errors->first('logo')}}</span>
                     @endif
                     <div class="mt-3 text-center w-100">
-                        <img id="imgPreview" alt="" class="img-thumbnail">
+                        <img id="imgPreview" alt="" src="{{url($webSettings[0]->logo)}}" class="img-thumbnail">
                     </div>
                 </div>
                 </form>
