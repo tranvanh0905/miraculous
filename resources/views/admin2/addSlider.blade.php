@@ -34,10 +34,12 @@
                             class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
                         Thêm slider
                     </button>
-                    <button
-                        class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
-                        Quay lại
-                    </button>
+                    <a href="{{route('slider.home')}}">
+                        <button type="button"
+                                class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
+                            Quay lại
+                        </button>
+                    </a>
             </div>
         </div>
     </div>

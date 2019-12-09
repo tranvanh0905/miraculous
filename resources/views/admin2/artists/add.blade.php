@@ -10,7 +10,7 @@
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Thông tin bài hát</h3>
+                <h3 class="card-title">Thông tin ca sĩ</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -55,10 +55,12 @@
                         class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
                         Xác nhận
                     </button>
-                    <button
-                        class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
-                        Quay lại
-                    </button>
+                    <a href="{{route('songs.home')}}">
+                        <button type="button"
+                                class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
+                            Quay lại
+                        </button>
+                    </a>
 
             </div>
         </div>
@@ -68,7 +70,7 @@
         <!-- general form elements disabled -->
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Thông tin bài hát</h3>
+                <h3 class="card-title">Thông tin ca sĩ</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

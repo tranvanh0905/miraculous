@@ -121,10 +121,14 @@ class UsersController extends Controller
     public function actionDelete($user_id)
     {
         $model = User::find($user_id);
+        if ($model->role == 900 && $model->role == 600) {
+            return false;
+        }
         $playlist = Playlist::where("upload_by_user_id", $user_id)->get();
         $history = History::where('user_id', $user_id)->get();
-        if ($playlist !== null && count($playlist) > 0) {
-            $playlist_detail = PlaylistDetail::where('playlist_id', $playlist[0]->id);
+        $comment = Comment::where('user_id', $user_id)->get();
+        foreach ($playlist as $item4) {
+            $playlist_detail = PlaylistDetail::where('playlist_id', $item4->id);
             $playlist_detail->delete();
         }
         foreach ($playlist as $item) {
@@ -132,6 +136,9 @@ class UsersController extends Controller
         }
         foreach ($history as $item2) {
             $item2->delete();
+        }
+        foreach ($comment as $item3) {
+            $item3->delete();
         }
         $model->delete();
         return redirect()->route('users.home')->with('status', 'Xóa tài khoản thành công');

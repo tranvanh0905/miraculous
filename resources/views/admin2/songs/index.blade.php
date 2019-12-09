@@ -179,7 +179,7 @@
                             let str = '';
                             if (typeof data == "object") {
                                 data.forEach(function (item, index) {
-                                    str += `<a href="#" class="mx-auto d-block text-center">${item.nick_name}</a>`;
+                                    str += `<a href="../single-artist/${item.id}" class="mx-auto d-block text-center">${item.nick_name}</a>`;
                                 });
                                 return str;
                             } else {

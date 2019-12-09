@@ -169,7 +169,19 @@
                         data: 'release_date',
                     },
                     {
-                        data: 'artist.nick_name',
+                        data: 'artist',
+                        render: function (data, type, row) {
+                            let str = '';
+                            if (typeof data == "object") {
+                                let array = [data];
+                                array.forEach(function (item, index) {
+                                    str += `<a href="../single-artist/${item.id}" class="mx-auto d-block text-center">${item.nick_name}</a>`;
+                                });
+                                return str;
+                            } else {
+                                return str;
+                            }
+                        },
                     },
                     {
                         data: 'status',

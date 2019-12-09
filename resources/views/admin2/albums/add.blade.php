@@ -67,10 +67,12 @@
                         class="btn btn-success m-t-20 waves-effect waves-light js-programmatic-enable ">
                         Xác nhận
                     </button>
-                    <button
-                        class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
-                        Quay lại
-                    </button>
+                    <a href="{{route('albums.home')}}">
+                        <button type="button"
+                            class="btn btn-danger m-t-20 m-l-10 waves-effect waves-light js-programmatic-disable">
+                            Quay lại
+                        </button>
+                    </a>
             </div>
         </div>
     </div>
@@ -141,6 +143,7 @@
                 ;
             })
         })
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
