@@ -188,10 +188,22 @@
                     </div>
                 </div>
             </div>
+            <p class="font-weight-bold text-uppercase pt-2 pl-3">Danh sách phát</p>
             <div class="jp-playlist scroll-y">
                 <ul>
                     <li></li>
                 </ul>
+            </div>
+            <div class="name-playing d-flex justify-content-between pr-3 pt-2">
+               <p class="font-weight-bold text-uppercase pl-3">Gợi ý  <span><i class="fas fa-sync-alt ml-3 pointer reload-suggest"></i></span></p>
+                <div class="toggle-button-demo">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="song-suggest-player scroll-y ps ps--active-y">
             </div>
         </div> <!-- / #adonis-playlist -->
         <div class="jp-no-solution">

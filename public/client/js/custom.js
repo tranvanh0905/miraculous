@@ -807,6 +807,10 @@ $(document).on('click', '.share-playlist', function () {
     $('.link-share-playlist').val(window.location.origin + '/single-playlist/' + playlistId);
 });
 
+$(document).on('click', '.reload-suggest', function () {
+    $(this).toggleClass('rotate');
+});
+
 
 
 

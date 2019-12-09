@@ -35,6 +35,61 @@ class ClientPlayerController extends Controller
 
     }
 
+    public function getSongSuggest(Request $request)
+    {
+        $songSuggest = [];
+        $type = $request->type;
+        $idSuggest = $request->idSugesst;
+
+        if ($type == "song") {
+            $main = Song::find($idSuggest)->load('artists');
+
+            //Lấy bài hát gợi ý theo thể loại
+            $songSuggest = Song::where('genres_id', '=', $main->genres_id)->where('status', '=', 1)->where('id', '<>', $request->songId)->with('artists')->limit(5)->inRandomOrder()->get();
+        } else if ($type == "album") {
+            //Lấy bài hát gợi ý theo ca sĩ của album
+            $main = Album::find($idSuggest);
+
+            $getSongOfMain = Song::where('album_id', '=', $idSuggest);
+            $songOfAlbum = [];
+            foreach ($getSongOfMain as $m) {
+                array_push($songOfAlbum, $m->id);
+            }
+
+            $songSuggest = Song::whereHas('artists', function ($query) use ($main, $songOfAlbum) {
+                $query->where('status', '=', 1)->where('artist_id', '=', $main->artist_id)->whereNotIn('id', $songOfAlbum);
+            })->limit(5)->inRandomOrder()->get();
+        } else if ($type == "playList") {
+            //Lấy bài hát gợi ý theo các ca sĩ của playlist
+
+            $singlePlaylist = Playlist::find($idSuggest)->load(['songs' => function ($query) {
+                $query->where('status', '=', 1);
+            }]);
+
+            $songOfPlaylist = [];
+
+            foreach ($singlePlaylist->songs as $song) {
+                array_push($songOfPlaylist, $song->id);
+            }
+
+
+            $aritstOfPlaylist = [];
+
+            foreach ($singlePlaylist->songs as $song) {
+                foreach ($song->artists as $artist) {
+                    array_push($aritstOfPlaylist, $artist->id);
+                }
+            }
+
+            $songSuggest = Song::whereHas('artists', function ($query) use ($aritstOfPlaylist, $songOfPlaylist) {
+                $query->where('status', '=', 1)->whereIn('artist_id', $aritstOfPlaylist);
+            })->whereNotIn('id', $songOfPlaylist)->limit(5)->inRandomOrder()->get();
+        }
+
+        $data = $songSuggest;
+        return SongResource::collection($data);
+    }
+
     public function getSongOfAlbum(Request $request)
     {
         $modelSong = new Song();

@@ -32,8 +32,7 @@
                         <h3 class="title h3-md"><i class="fas fa-poll-h"></i> Top 24H</h3>
                     </div>
                 </div>
-
-                @if($trendSong == null)
+                @if($trendSong == null || $trendSong->isEmpty())
                     <div class="row">
                         <div class="col-12 text-center pt-3 mb-3 rounded update">
                             <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>

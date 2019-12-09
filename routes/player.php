@@ -37,6 +37,8 @@ Route::group(['middleware' => 'request.check'], function () {
     //user like playlist
     Route::post('like/playlist', 'ClientPlayerController@likePlaylist');
 
+    //Lấy bài hát gợi ý
+    Route::post('/song/suggest', 'ClientPlayerController@getSongSuggest');
 });
 
 
