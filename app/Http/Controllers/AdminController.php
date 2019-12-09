@@ -15,7 +15,8 @@ class AdminController extends Controller
         return view('admin2.index', compact('songs'));
     }
 
-    public function actionLogOut() {
+    public function actionLogOut()
+    {
         Auth::logout();
         return redirect()->route('admin.login');
     }
@@ -31,9 +32,15 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'role' => 900,
-            'status' => 1
+            'status' => 1,
         ];
-        if (Auth::attempt($login)) {
+        $login2 = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 600,
+            'status' => 1,
+        ];
+        if (Auth::attempt($login) || Auth::attempt($login2)) {
             return redirect('admin');
         } else {
             return redirect()->back()->with('status', 'Email hoặc Password không chính xác');

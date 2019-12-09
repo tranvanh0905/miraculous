@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Artist;
 use App\ArtistSongDetail;
 use App\PersonSong;
@@ -11,12 +12,13 @@ use Illuminate\Http\Request;
 class AjaxController extends Controller
 {
 
-    public function actionGetSongArtist($artist_id)
+    public function actionGetSongArtist($artist_id, $album_id)
     {
         $song = Song::whereHas('artists', function ($q) use ($artist_id) {
             $q->where('artist_id', '=', $artist_id);
-        })->where('album_id', '=',0)->get();
-        return view('admin2.albums.song_artist', compact(['song']));
+        })->get();
+        $album = Album::where('id', $album_id)->first();
+        return view('admin2.albums.song_artist', compact(['song', 'album']));
     }
 
 }

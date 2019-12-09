@@ -2,12 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Requests\LoginRequest;
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdminLogin
+class StaffCheck
 {
     /**
      * Handle an incoming request.
@@ -20,7 +18,7 @@ class CheckAdminLogin
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user !== null && $user->role >= 600 && $user->status == 1) {
+            if ($user !== null && $user->role == 900 && $user->status == 1) {
                 return $next($request);
             } else {
                 return redirect()->route('client.home');

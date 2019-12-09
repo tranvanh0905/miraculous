@@ -165,9 +165,7 @@
                         render: function (data) {
                             if (data == 100) {
                                 return "<p>Thành viên</p>";
-                            } else if (data == 400) {
-                                return "<p>Thành viên VIP</p>";
-                            } else if (data == 600) {
+                            }else if (data == 600) {
                                 return "<p>Cộng tác viên</p>";
                             } else if (data == 900) {
                                 return "<p>Admin</p>";

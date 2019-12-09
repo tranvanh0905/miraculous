@@ -37,7 +37,7 @@
                                         @if ($slider->status == 1) {!! '<span class="badge bg-success">Hiển thị</span>'!!} @endif
                                     </td>
                                     <td><a href="{{route('slider.updateform', $slider->id)}}" class="mr-3"><i class="nav-icon fas
-                            fa-edit"></i></a><a class="btn-remove text-danger" href="{{route('slider.delete', $slider->id)}}"><i
+                            fa-edit"></i></a><a class="btn-remove text-danger"  href="javascript:;" data-remove="{{$slider->id}}"><i
                                                 class="fas fa-trash-alt"></i></a></td>
                                 </tr>
                             @endforeach
@@ -79,9 +79,39 @@ $url = url('admin');
                     sort
                 },
                 success: function () {
-                    alert('your change successfully saved');
+                    alert('Đổi chỗ thành công');
                 }
             })
         }
+        $('body').on('click', '.btn-remove', function () {
+            let id = $(this).data('remove');
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn xóa slider này',
+                text: "Bạn sẽ không lấy lại được dữ liệu đã xóa!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa slider!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "slider/delete/" + id,
+                        method: 'GET',
+                    }).done((result) => {
+                        if (result) {
+                            Swal.fire(
+                                'Xóa Slider này!',
+                                'Slider đã được xóa',
+                                'success'
+                            )
+                        }
+                        setTimeout(function () {
+                            table.ajax.reload();
+                        }, 500);
+                    })
+                }
+            })
+        })
     </script>
 @endsection

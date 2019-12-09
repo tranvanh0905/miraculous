@@ -29,7 +29,9 @@
                             @if ($song !== null)
                                 @foreach ($song as $list)
                                     <option
-                                        @if ($list->song == $playlist->song_id) {{"selected"}} @endif
+                                        @foreach ($song_of_playlist as $list2)
+                                        @if ($list->id == $list2->song_id) {{"selected"}} @endif
+                                            @endforeach
                                         value="{{$list->id}}">{{$list->name}}</option>
                                 @endforeach
                             @endif

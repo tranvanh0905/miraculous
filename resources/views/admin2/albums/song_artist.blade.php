@@ -6,6 +6,7 @@
 
             @foreach ($song as $list)
                 <option
+                    @if ($album->id == $list->album_id) {{"selected"}} @endif
                     value="{{$list->id}}">{{$list->name}}</option>
             @endforeach
         @endif

@@ -27,7 +27,6 @@
                         <label class=" col-form-label">Người thể hiện : </label>
                         <select name="artist_id" id="person_song_list"
                                 class="form-control">
-                            <option value="">Lựa chọn ca sĩ</option>
                             @foreach ($artists as $artist)
                                 <option
                                     @if ($album->artist_id == $artist->id) {{'selected'}} @endif  value="{{$artist->id}}">{{$artist->nick_name}}</option>
@@ -131,7 +130,7 @@
                 var selected = $(this).children("option:selected").val();
                 $.ajax({
                     type: "GET",
-                    url: '{{$url}}' + "/ajax/artist_song/" + selected,
+                    url: '{{$url}}' + "/ajax/artist_song/" + selected + "/" + '{{$album->id}}',
                     cache: false,
                     success: function (e) {
                         $("#ajax_artist").html(e);
