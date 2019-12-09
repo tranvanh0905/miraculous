@@ -30,7 +30,7 @@ class CommentsController extends Controller
             ->orderBy($orders, $dir)
             ->get();
 
-        $data->load('user');
+        $data->load('user', 'song');
 
 
         foreach ($data as $key => $value) {

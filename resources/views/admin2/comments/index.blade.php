@@ -20,6 +20,7 @@
                                     <th class="text-center">ID</th>
                                     <th class="text-center">Người bình luận</th>
                                     <th class="text-center">Nội dung bình luận</th>
+                                    <th class="text-center">Bài hát</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -101,7 +102,7 @@
                         "targets": [1],
                         "searchable": true,
                         "orderable": true,
-                        "width" : "30%",
+                        "width": "30%",
                         "class": "text-center"
 
                     },
@@ -116,10 +117,15 @@
                         "targets": [3],
                         "searchable": true,
                         "orderable": false,
-                        "class" : "text-center",
+                        "class": "text-center",
                     },
                     {
                         "targets": [4],
+                        "searchable": false,
+                        "orderable": false, "width": "8%",
+                        "class": "text-center"
+                    }, {
+                        "targets": [5],
                         "searchable": false,
                         "orderable": false, "width": "8%",
                         "class": "text-center"
@@ -136,6 +142,21 @@
                     },
                     {
                         data: 'content',
+                    },
+                    {
+                        data: 'song',
+                        render: function (data, type, row) {
+                            let str = '';
+                            let array = [data];
+                            if (typeof data == "object") {
+                                array.forEach(function (item, index) {
+                                    str += `<a href="../single-song/${item.id}" class="mx-auto d-block text-center">${item.name}</a>`;
+                                });
+                                return str;
+                            } else {
+                                return str;
+                            }
+                        }
                     },
                     {
                         data: 'status',

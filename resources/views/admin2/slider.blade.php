@@ -100,18 +100,27 @@ $url = url('admin');
                         method: 'GET',
                     }).done((result) => {
                         if (result) {
-                            Swal.fire(
-                                'Xóa Slider này!',
-                                'Slider đã được xóa',
-                                'success'
-                            )
+                            location.reload();
+
                         }
-                        setTimeout(function () {
-                            table.ajax.reload();
-                        }, 500);
                     })
                 }
             })
         })
     </script>
+    @if (session('status'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            Toast.fire({
+                type: 'success',
+                title: '{{ session('status') }}'
+            })
+        </script>
+    @endif
 @endsection

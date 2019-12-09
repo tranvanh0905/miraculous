@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\ArtistSongDetail;
+use App\Genres;
 use App\Http\Requests\AddPlaylistForm;
 use App\Http\Requests\EditPlaylist;
+use App\Model_client\UserLikedPlaylist;
 use App\Playlist;
 use App\PlaylistDetail;
 use App\Song;
@@ -124,5 +127,23 @@ class PlaylistController extends Controller
             return redirect()->route('playlist.home')->with('status', 'Thêm danh sách phát thành công');
         };
         return redirect()->route('playlist.home')->with('status', 'Thêm danh sách phát thành công');
+    }
+
+    public function actionDelete($id) {
+        $model = Playlist::find($id);
+        $modelPlaylist = PlaylistDetail::where('playlist_id', $id)->get();
+        $modelUserLike = UserLikedPlaylist::where('playlist_id', $id)->get();
+        foreach ($modelPlaylist as $list) {
+            $list->delete();
+        }
+        foreach ($modelUserLike as $list2) {
+            $list2->delete();
+        }
+        if ($model !== null) {
+            $model->delete();
+            return redirect()->route('playlist.home')->with('status', 'Xóa danh sách thành công');
+        } else {
+            return redirect()->route('playlist.home')->with('status', 'Xóa danh sách thành công');
+        }
     }
 }

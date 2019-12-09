@@ -11,6 +11,9 @@
 */
 
 Route::get('/', 'AdminController@index')->middleware('checkAdminLogin')->name('admin.home');
+Route::get('/403', function () {
+    return view('admin2.403');
+})->name('admin.403');
 Route::get('/login', 'AdminController@login')->name('admin.login');
 Route::post('/login', 'AdminController@actionLogin')->name('admin.login');
 Route::get('/logout', 'AdminController@actionLogOut')->name('admin.logout');
@@ -84,4 +87,3 @@ Route::post('slider/add', 'SliderController@actionAdd')->middleware('staffCheck'
 Route::get('slider/update/{id}', 'SliderController@update')->middleware('staffCheck')->middleware('checkAdminLogin')->name('slider.updateform');
 Route::post('slider/update/{id}', 'SliderController@updateForm')->middleware('staffCheck')->middleware('checkAdminLogin')->name('slider.updateform');
 Route::get('slider/delete/{id}', 'SliderController@delete')->middleware('staffCheck')->middleware('checkAdminLogin')->name('slider.delete');
-

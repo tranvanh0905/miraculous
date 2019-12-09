@@ -59,7 +59,7 @@
                         <select name="status" class="form-control">
                             <option value="">Lựa chọn trạng thái</option>
                             <option @if ($model->status == 0) {{"selected"}} @endif value="0">Không hoạt động</option>
-                            <option @if ($model->status == 1) {{"selected"}} @endif  value="1" selected>Hoạt động</option>
+                            <option @if ($model->status == 1) {{"selected"}} @endif  value="1">Hoạt động</option>
                         </select>
                         @if($errors->first('status'))
                             <span class="text-danger">{{$errors->first('status')}}</span>

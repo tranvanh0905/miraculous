@@ -43,13 +43,10 @@
                             <label class="col-form-label">Bài hát : </label>
                             <select class="js-example-basic-multiple form-control"
                                     name="person_song[]" multiple="multiple">
-                                @if ($songs !== null)
-                                    @foreach ($songs as $list)
-                                        <option selected
+                                @if ($song !== null)
+                                    @foreach ($song as $list)
+                                        <option @if($album->id == $list->album_id) {{"selected"}}  @endif
                                                 value="{{$list->id}}">{{$list->name}}</option>
-                                    @endforeach
-                                    @foreach ($all_song as $list)
-                                        <option value="{{$list->id}}">{{$list->name}}</option>
                                     @endforeach
                                 @endif
                             </select>
@@ -126,6 +123,7 @@
 @section('custom-js')
     <script>
         $(document).ready(function () {
+
             $("select#person_song_list").on("change", function () {
                 var selected = $(this).children("option:selected").val();
                 $.ajax({

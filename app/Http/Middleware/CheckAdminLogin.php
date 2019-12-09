@@ -23,7 +23,7 @@ class CheckAdminLogin
             if ($user !== null && $user->role >= 600 && $user->status == 1) {
                 return $next($request);
             } else {
-                return redirect()->route('client.home');
+                return view('admin2.403');
             }
         } else {
             return redirect()->route('admin.login');

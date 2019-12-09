@@ -173,13 +173,13 @@
                     $('body').on('click', '.btn-remove', function () {
                         let id = $(this).data('remove');
                         Swal.fire({
-                            title: 'Bạn có chắc chắn muốn xóa bài hát này',
+                            title: 'Bạn có chắc chắn muốn xóa danh sách phát này',
                             text: "Bạn sẽ không lấy lại được dữ liệu đã xóa!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Có, xóa bài hát!'
+                            confirmButtonText: 'Có, xóa danh sách phát!'
                         }).then((result) => {
                             if (result.value) {
                                 $.ajax({
@@ -188,8 +188,8 @@
                                 }).done((result) => {
                                     if (result) {
                                         Swal.fire(
-                                            'Xóa bài hát!',
-                                            'Bài hát đã bị xóa',
+                                            'Xóa danh sách phát!',
+                                            'Danh sách phát đã bị xóa',
                                             'success'
                                         )
                                     }

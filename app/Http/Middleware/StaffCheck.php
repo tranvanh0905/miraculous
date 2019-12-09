@@ -21,7 +21,7 @@ class StaffCheck
             if ($user !== null && $user->role == 900 && $user->status == 1) {
                 return $next($request);
             } else {
-                return redirect()->route('client.home');
+                return redirect()->route('admin.403');
             }
         } else {
             return redirect()->route('admin.login');

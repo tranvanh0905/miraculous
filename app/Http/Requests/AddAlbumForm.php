@@ -24,7 +24,7 @@ class AddAlbumForm extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required|unique',
             'description' => 'required',
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'artist_id' => 'required',
@@ -37,6 +37,7 @@ class AddAlbumForm extends FormRequest
     {
         return [
             'title.required' => 'Vui lòng nhập tên album',
+            'title.unique' => 'Không được nhập trùng tên album',
             'description.required' => 'Vui lòng nhập mô tả',
             'cover_image.required' => 'Vui lòng chọn ảnh cho album',
             'cover_image.mimes' => "Chỉ chấp nhận ảnh với đuôi .jpg .jpeg .png",

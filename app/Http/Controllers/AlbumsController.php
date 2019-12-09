@@ -95,10 +95,14 @@ class AlbumsController extends Controller
     public function update($id)
     {
         $album = Album::find($id);
+        $artist_id = $album->artist_id;
         $songs = Song::where('album_id', $id)->get();
+        $song = Song::whereHas('artists', function ($q) use ($artist_id) {
+            $q->where('artist_id', '=', $artist_id);
+        })->get();
         $all_song = Song::all();
         $artists = Artist::all();
-        return view('admin2.albums.edit', compact(['album', 'songs', 'artists', 'all_song']));
+        return view('admin2.albums.edit', compact(['album', 'song', 'artists', 'all_song']));
     }
 
     public function actionUpdate(EditAlbum $request, $album_id)

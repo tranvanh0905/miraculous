@@ -58,7 +58,7 @@ class SliderController extends Controller
             $model->image = "$path";
         }
         $model->save();
-        return redirect()->route('slider.home');
+        return redirect()->route('slider.home')->with('status', 'Thêm thành công');
     }
 
     public function add()
@@ -89,7 +89,7 @@ class SliderController extends Controller
             $model->image = "$path";
         }
         $model->save();
-        return redirect()->route('slider.home');
+        return redirect()->route('slider.home')->with('status', 'Cập nhật thành công');
     }
 
     public function delete($slider_id)
