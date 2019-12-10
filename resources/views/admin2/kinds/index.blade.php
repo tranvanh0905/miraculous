@@ -12,7 +12,12 @@
                 <a href="{{route('kinds.add')}}" class="btn btn-primary mr-auto"> <i class="nav-icon fas fa-plus"></i> Thêm thể loại</a>
                 <form action="">
                     <div class="card-tools ml-auto">
-                        <div class="input-group input-group-sm" style="width: 150px;">
+                        <div class="input-group input-group-sm">
+                            <select name="status" id="status" class="form-control mr-3">
+                                <option value="">--Chọn trạng thái--</option>
+                                <option value="1">Hiển thị</option>
+                                <option value="0">Ẩn</option>
+                            </select>
                             <input type="text" name="searchs" class="form-control float-right" placeholder="Tìm kiếm">
 
                             <div class="input-group-append">
@@ -93,7 +98,8 @@
                 ajax: {
                     url: "{{route('kinds.getData')}}",
                     "data": {
-                        "searchs": getUrlParameter('searchs')
+                        "searchs": getUrlParameter('searchs'),
+                        "status": getUrlParameter('status')
                     }
                 },
                 contentType: "application/json",

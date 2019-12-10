@@ -12,7 +12,13 @@
                     Thêm tài khoản</a>
                 <form action="">
                     <div class="card-tools ml-auto">
-                        <div class="input-group input-group-sm" style="width: 150px;">
+                        <div class="input-group input-group-sm">
+                            <select name="status" id="status" class="form-control mr-3">
+                                <option value="">--Chọn quyền--</option>
+                                <option value="900">Admin</option>
+                                <option value="600">Cộng tác viên</option>
+                                <option value="100">Thành viên</option>
+                            </select>
                             <input type="text" name="searchs" class="form-control float-right" placeholder="Tìm kiếm">
 
                             <div class="input-group-append">
@@ -93,7 +99,8 @@
                 ajax: {
                     url: "{{ route('users.getData') }}",
                     "data": {
-                        "searchs": getUrlParameter('searchs')
+                        "searchs": getUrlParameter('searchs'),
+                        "status": getUrlParameter('status')
                     }
                 },
                 contentType: "application/json",

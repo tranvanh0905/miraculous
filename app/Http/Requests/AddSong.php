@@ -28,7 +28,7 @@ class AddSong extends FormRequest
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'genres_id' => 'required',
             'mp3_url' => 'required|mimes:mpga,wav',
-            'name' => 'required',
+            'name' => 'required|unique:songs',
             'release_date' => 'required',
             'person_song' => 'required',
             'lyric' => 'required',
@@ -48,6 +48,7 @@ class AddSong extends FormRequest
             'mp3_url.required' => 'Vui lòng chọn bài hát',
             'mp3_url.mimes' => 'Chỉ chấp nhận nhạc với đuôi .mp3 .wav',
             'name.required' => 'Vui lòng điền tên bài hát',
+            'name.unique' => 'Tên bài hát không được trùng',
             'lyric.required' => 'Vui lòng điền lời bài hát',
             'description.required' => 'Vui lòng mô tả bài hát',
         ];

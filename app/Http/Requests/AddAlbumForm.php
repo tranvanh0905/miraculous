@@ -24,7 +24,7 @@ class AddAlbumForm extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique',
+            'title' => 'required|unique:albums',
             'description' => 'required',
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'artist_id' => 'required',

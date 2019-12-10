@@ -28,10 +28,13 @@ class ArtistsController extends Controller
         $start = $request->input('start');
         $orders = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-        $search = $request->input('searchs');
+        $search = str_replace("+"," ", $request->input('searchs'));
+        $status = $request->input('status');
         $args = [];
         $args[] = ['artists.nick_name', 'like', "%$search%"];
-
+        if ($status != null){
+            $args[] = ['artists.status', '=', $status];
+        }
 
         $total = Artist::count();
 
