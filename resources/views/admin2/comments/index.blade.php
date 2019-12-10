@@ -8,23 +8,6 @@
 
     <div class="col-12">
         <div class="card">
-            <div class="card-header d-flex justify-content-end">
-                <form action="">
-                    <div class="card-tools ml-auto">
-                        <div class="input-group input-group-sm">
-                            <select name="status" id="status" class="form-control mr-3">
-                                <option value="">--Chọn trạng thái--</option>
-                                <option value="1">Hiển thị</option>
-                                <option value="0">Ẩn</option>
-                            </select>
-
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
