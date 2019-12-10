@@ -30,10 +30,14 @@ class UsersController extends Controller
         $dir = $request->input('order.0.dir');
         $search = $request->input('searchs');
         $status = $request->input('status');
+        $status2 = $request->input('status2');
         $args = [];
         $args[] = ['users.email', 'like', "%$search%"];
         if ($status != null){
             $args[] = ['users.role', '=', $status];
+        }
+        if ($status2 != null){
+            $args[] = ['users.status', '=', $status2];
         }
 
 

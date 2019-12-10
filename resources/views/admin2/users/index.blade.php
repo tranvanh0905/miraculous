@@ -19,6 +19,11 @@
                                 <option value="600">Cộng tác viên</option>
                                 <option value="100">Thành viên</option>
                             </select>
+                            <select name="status2" id="status2" class="form-control mr-3">
+                                <option value="">--Chọn trạng thái--</option>
+                                <option value="1">Hiển thị</option>
+                                <option value="0">Ẩn</option>
+                            </select>
                             <input type="text" name="searchs" class="form-control float-right" placeholder="Tìm kiếm">
 
                             <div class="input-group-append">
@@ -100,7 +105,8 @@
                     url: "{{ route('users.getData') }}",
                     "data": {
                         "searchs": getUrlParameter('searchs'),
-                        "status": getUrlParameter('status')
+                        "status": getUrlParameter('status'),
+                        "status2": getUrlParameter('status2')
                     }
                 },
                 contentType: "application/json",
