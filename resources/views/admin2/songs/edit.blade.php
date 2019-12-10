@@ -130,7 +130,7 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-12">
                             <label for="exampleInputFile">Ảnh bìa bài hát</label>
                             <div class="input-group">
                                 <div class="custom-file">
@@ -145,8 +145,8 @@
                                 <span class="text-danger">{{$errors->first('mp3_url')}}</span>
                             @endif
                         </div>
-                        <div class="col-3">
-                            <img src="{{url($song->cover_image)}}" id="imgPreview" width="100px" height="auto">
+                        <div class="col-12 mt-3 text-center">
+                            <img src="{{url($song->cover_image)}}" id="imgPreview" width="100%" height="auto">
                         </div>
                     </div>
 
