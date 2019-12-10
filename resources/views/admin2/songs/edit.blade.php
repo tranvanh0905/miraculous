@@ -27,12 +27,12 @@
                             <label class="col-form-label">Người thể hiện : </label>
                             <select class="js-example-basic-multiple form-control"
                                     name="person_song[]" multiple="multiple">
-                                @foreach ($artist_song_detail as $list)
-                                    <option selected
-                                            value="{{$list->artist_id}}">{{$list->artist->nick_name}}</option>
-                                @endforeach
+
                                 @foreach ($artists as $artist)
-                                    <option value="{{$artist->id}}">{{$artist->nick_name}}</option>
+                                    @foreach ($artist_song_detail as $list)
+                                    <option @if($list->artist_id == $artist->id) {{"selected"}} @endif value="{{$artist->id}}">{{$artist->nick_name}}</option>
+                                    @endforeach
+
                                 @endforeach
                             </select>
                             @if($errors->first('person_song'))
