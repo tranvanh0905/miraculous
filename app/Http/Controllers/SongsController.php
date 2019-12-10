@@ -201,7 +201,7 @@ class SongsController extends Controller
                 $model_artist_song->save();
             }
             DB::commit();
-            return redirect()->route('songs.home');
+            return redirect()->route('songs.home')->with('status', 'Thêm bài hát thành công');
         } catch (Exception $ex) {
             // ghi log lỗi lại
             DB::rollback();
