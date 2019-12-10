@@ -10,7 +10,8 @@ let adonisPlayer = {},
     countSeek,
     suggestSongPlayer = [],
     idSuggest,
-    typeSuggest;
+    typeSuggest,
+    currentIdInPlayer = [];
 jQuery(document).ready(function ($) {
     "use strict";
 
@@ -64,6 +65,64 @@ jQuery(document).ready(function ($) {
         $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
             countSeek = 0;
             songId = $("#" + adonisPlayerID).data("jPlayer").status.media.id;
+
+            setTimeout(function () {
+                currentIdInPlayer = [];
+
+                $.each(adonisPlaylist.playlist, function (key, value) {
+                    currentIdInPlayer.push(value.id);
+                });
+                // Lấy bài hát gợi ý
+                $.ajax({
+                    type: 'POST',
+                    url: '/player/song/suggest',
+                    data: {
+                        'idSugesst': idSuggest,
+                        'type': typeSuggest,
+                        'currentId': currentIdInPlayer
+                    },
+                    success: function (data) {
+                        suggestSongPlayer = data;
+                        let html = '';
+                        $.each(data.data, function (key, value) {
+                            var name_artits = value.artist;
+                            var id_artists = value.artist_id;
+                            var assoc = [];
+                            for (let i = 0; i < name_artits.length; i++) {
+                                assoc[i] = {
+                                    'name': name_artits[i],
+                                    'id': id_artists[i]
+                                }
+                            }
+                            html += ' <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">' +
+                                '<div class="img-box img-box-sm box-rounded-sm">' +
+                                '<img src="' + value.poster + '" alt="' + value.title + '">' +
+                                '</div>' +
+                                '<div class="des">' +
+                                '<h6 class="title fs-2">' +
+                                '<a href="/single-song/' + value.id + '">' + value.title + '</a>' +
+                                '</h6><p class="sub-title">';
+
+                            $.each(assoc, function (key, value) {
+                                html += '<a href="/single-artist/' + value.id + '">' + value.name + '</a>';
+                                if (key !== assoc.length - 1) {
+                                    html += ', ';
+                                }
+                            });
+
+                            html += '</p></div>' +
+                                '<div class="hover-state d-flex justify-content-between align-items-center">' +
+                                '<span class="pointer play-btn-dark box-rounded-sm adonis-album-button" data-type="song" data-album-id="' + value.id + '">' +
+                                '<i class="fas fa-play fs-19 text-light"></i>' +
+                                '</span>' +
+                                '</div>' +
+                                '</div>';
+                        });
+                        $('.song-suggest-player').fadeOut().html(html).fadeIn();
+                    }
+                });
+            }, 500);
+
 
             $('.drop-player').attr('data-songid', songId);
 
@@ -446,10 +505,8 @@ jQuery(document).ready(function ($) {
                                 adonisPlaylist.pause();
                             }
                         }
-
                     }
                 });
-
             } else if (type === "playList") {
                 idSuggest = albumId;
                 typeSuggest = type;
@@ -475,7 +532,6 @@ jQuery(document).ready(function ($) {
                                 z_index: 1300
                             });
                         }
-                        ;
 
                         adonisAllPlaylists[albumId] = data["data"];
 
@@ -504,61 +560,9 @@ jQuery(document).ready(function ($) {
                                 adonisPlaylist.pause();
                             }
                         }
-
                     }
                 });
             }
-
-            // Lấy bài hát gợi ý
-            $.ajax({
-                type: 'POST',
-                url: '/player/song/suggest',
-                data: {
-                    'idSugesst': idSuggest,
-                    'type': typeSuggest
-                },
-                success: function (data) {
-                    suggestSongPlayer = data;
-                    let html = '';
-                    $.each(data.data, function (key, value) {
-                        var name_artits = value.artist;
-                        var id_artists = value.artist_id;
-                        var assoc = [];
-                        for (let i = 0; i < name_artits.length; i++) {
-                            assoc[i] = {
-                                'name': name_artits[i],
-                                'id': id_artists[i]
-                            }
-                        }
-                        html += ' <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">' +
-                            '<div class="img-box img-box-sm box-rounded-sm">' +
-                            '<img src="' + value.poster + '" alt="' + value.title + '">' +
-                            '</div>' +
-                            '<div class="des">' +
-                            '<h6 class="title fs-2">' +
-                            '<a href="/single-song/' + value.id + '">' + value.title + '</a>' +
-                            '</h6><p class="sub-title">';
-
-                        $.each(assoc, function (key, value) {
-                            html += '<a href="/single-artist/' + value.id + '">' + value.name + '</a>';
-                            if (key !== assoc.length - 1) {
-                                html += ', ';
-                            }
-                        });
-
-                        html += '</p></div>' +
-                            '<div class="hover-state d-flex justify-content-between align-items-center">' +
-                            '<span class="pointer play-btn-dark box-rounded-sm adonis-album-button" data-type="song" data-album-id="' + value.id + '">' +
-                            '<i class="fas fa-play fs-19 text-light"></i>' +
-                            '</span>' +
-                            '</div>' +
-                            '</div>';
-                    });
-                    $('.song-suggest-player').fadeOut().html(html).fadeIn();
-                }
-            });
-
-
         });
 
         adonisPlayer.addPlaylist = function (albumId) {
@@ -613,12 +617,27 @@ jQuery(document).ready(function ($) {
             });
         } else {
             countSeek = 0;
-            console.log('k tang view')
+        }
+
+        if ($('#auto-play-suggest:checkbox:checked').length > 0) {
+            let lastSongPlayer = adonisPlaylist.playlist[adonisPlaylist.playlist.length - 1].id;
+
+            if ($(this).data("jPlayer").status.media.id === lastSongPlayer) {
+                adonisPlaylist.add(suggestSongPlayer.data[0], true);
+
+                $.each(adonisPlaylist.playlist, function (key, value) {
+                    currentIdInPlayer.push(value.id);
+                });
+            }
         }
     });
 
     $(document).on('click', '.add-next', function () {
         let songId = $(this).attr('data-id');
+        idSuggest = songId;
+        typeSuggest = 'song';
+
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -660,6 +679,5 @@ jQuery(document).ready(function ($) {
                 }
             }
         });
-
     })
 });

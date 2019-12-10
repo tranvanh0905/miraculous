@@ -505,7 +505,7 @@
                         <h3 class="title h3-md"><i class="fas fa-users"></i> Ca Sĩ Nổi Bật</h3>
                     </div>
                     <div class="button-right ml-auto ml-auto mt-auto mb-4 d-flex">
-                        <a href="#">Xem tất cả
+                        <a href="{{route('all', ['type' => 'artists'])}}">Xem tất cả
                             <span class="adonis-icon pl-1 icon-arrow icon-1x">
                                <i class="fas fa-arrow-right"></i>
                             </span>

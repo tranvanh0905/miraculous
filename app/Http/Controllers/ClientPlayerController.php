@@ -40,12 +40,18 @@ class ClientPlayerController extends Controller
         $songSuggest = [];
         $type = $request->type;
         $idSuggest = $request->idSugesst;
+        $currentId = $request->currentId;
 
         if ($type == "song") {
             $main = Song::find($idSuggest)->load('artists');
-
             //Lấy bài hát gợi ý theo thể loại
-            $songSuggest = Song::where('genres_id', '=', $main->genres_id)->where('status', '=', 1)->where('id', '<>', $request->songId)->with('artists')->limit(5)->inRandomOrder()->get();
+            $songSuggest = Song::where('genres_id', '=', $main->genres_id)->where('status', '=', 1)
+                            ->whereNotIn('id', $currentId)
+                            ->with('artists')
+                            ->limit(5)
+                            ->inRandomOrder()
+                            ->get();
+
         } else if ($type == "album") {
             //Lấy bài hát gợi ý theo ca sĩ của album
             $main = Album::find($idSuggest);
@@ -58,7 +64,8 @@ class ClientPlayerController extends Controller
 
             $songSuggest = Song::whereHas('artists', function ($query) use ($main, $songOfAlbum) {
                 $query->where('status', '=', 1)->where('artist_id', '=', $main->artist_id)->whereNotIn('id', $songOfAlbum);
-            })->limit(5)->inRandomOrder()->get();
+            })->whereNotIn('id', $currentId)->limit(5)->inRandomOrder()->get();
+
         } else if ($type == "playList") {
             //Lấy bài hát gợi ý theo các ca sĩ của playlist
 
@@ -83,7 +90,7 @@ class ClientPlayerController extends Controller
 
             $songSuggest = Song::whereHas('artists', function ($query) use ($aritstOfPlaylist, $songOfPlaylist) {
                 $query->where('status', '=', 1)->whereIn('artist_id', $aritstOfPlaylist);
-            })->whereNotIn('id', $songOfPlaylist)->limit(5)->inRandomOrder()->get();
+            })->whereNotIn('id', $songOfPlaylist)->whereNotIn('id', $currentId)->limit(5)->inRandomOrder()->get();
         }
 
         $data = $songSuggest;

@@ -198,7 +198,7 @@
                <p class="font-weight-bold text-uppercase pl-3">Gợi ý  <span><i class="fas fa-sync-alt ml-3 pointer reload-suggest"></i></span></p>
                 <div class="toggle-button-demo">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="auto-play-suggest" checked>
                         <span class="slider round"></span>
                     </label>
                 </div>
