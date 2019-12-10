@@ -17,10 +17,11 @@ class CommentsController extends Controller
         $start = $request->input('start');
         $orders = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-        $search = $request->input('searchs');
+        $status = $request->input('status');
         $args = [];
-        $args[] = ['comment.content', 'like', "%$search%"];
-
+        if ($status != null){
+            $args[] = ['comment.status', '=', $status];
+        }
 
         $total = Comment::count();
 
