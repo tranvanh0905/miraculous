@@ -26,10 +26,13 @@ class SongsController extends Controller
         $start = $request->input('start');
         $orders = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-        $search = $request->input('searchs');
+        $search = str_replace("+"," ", $request->input('searchs'));
+        $status = $request->input('status');
         $args = [];
         $args[] = ['songs.name', 'like', "%$search%"];
-
+        if ($status != null){
+            $args[] = ['songs.status', '=', $status];
+        }
 
         $total = Song::count();
 
