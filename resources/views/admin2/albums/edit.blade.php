@@ -97,6 +97,17 @@
             <div class="card-body">
                 <div class="card-block">
                     <div class="form-group">
+                        <label class=" col-form-label">Trạng thái : </label>
+                        <select name="status" class="form-control">
+                            <option value="">Lựa chọn trạng thái</option>
+                            <option @if ($album->status == 1) {{"selected"}} @endif value="1">Hoạt động</option>
+                            <option  @if ($album->status == 0) {{"selected"}} @endif  value="0">Không hoạt động</option>
+                        </select>
+                        @if($errors->first('status'))
+                            <span class="text-danger">{{$errors->first('status')}}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputFile">Ảnh bìa</label>
 
                         <div class="custom-file">
