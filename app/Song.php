@@ -10,7 +10,7 @@ class Song extends Model
     protected $table = "songs";
 
     protected $fillable = [
-        'name', 'mp3_url', 'cover_image', 'description', 'lyric', 'genres_id', 'album_id', 'release_date', 'upload_by_user_id'
+        'name', 'mp3_url', 'cover_image', 'description', 'lyric', 'genres_id', 'album_id', 'release_date', 'upload_by_user_id', 'status'
     ];
 
     public function artists()
