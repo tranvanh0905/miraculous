@@ -20,6 +20,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Song', 'upload_by_user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'user_id');
+    }
+
     public function historys(){
         return $this->belongsToMany('App\Model_client\History', 'history');
     }

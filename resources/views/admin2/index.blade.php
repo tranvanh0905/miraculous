@@ -57,53 +57,199 @@
         </div>
     </div>
     <!-- ./col -->
-    <div class="col-md-12">
-        <div class="card table-card">
-            <div class="card-header">
-                <h5>Những bài hát mới nhất</h5>
-                <div class="card-header-right">
-                    <ul class="list-unstyled card-option">
-                        <li class="first-opt"><i
-                                class="feather icon-chevron-left open-card-option"></i></li>
-                        <li><i class="feather icon-maximize full-card"></i></li>
-                        <li><i class="feather icon-minus minimize-card"></i></li>
-                        <li><i class="feather icon-refresh-cw reload-card"></i></li>
-                        <li><i class="feather icon-trash close-card"></i></li>
-                        <li><i class="feather icon-chevron-left open-card-option"></i></li>
-                    </ul>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header border-transparent">
+                <h3 class="card-title font-weight-bold text-uppercase">Bài hát được nghe nhiều nhất</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
                 </div>
             </div>
-            <div class="card-block p-b-0">
+            <!-- /.card-header -->
+            <div class="card-body p-0" style="display: block;">
                 <div class="table-responsive">
-                    <table class="table table-hover m-b-0">
+                    <table class="table m-0">
                         <thead>
                         <tr>
                             <th>Tên bài hát</th>
-                            <th>Người thể hiện</th>
-                            <th>Số lượt xem</th>
-                            <th>Số lượt yêu thích</th>
+                            <th>Ca sĩ</th>
+                            <th class="text-center">Số lượt nghe</th>
+                            <th class="text-center">Số lượt yêu thích</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if ($songs !== null)
-                            @foreach ($songs as $song)
-                                <tr>
-                                    <td>{{$song->name}}</td>
-                                    @if ($song->artists !== null)
-
-                                        <td> @foreach ($song->artists as $key => $value){{$song->artists[$key]->nick_name}} {!! "<br>"  !!} @endforeach</td>
-
-                                    @endif
-                                    <td>{{$song->view}}</td>
-                                    <td>{{$song->like}}</td>
-                                </tr>
-                            @endforeach
-                        @endif
+                        @foreach($songs as $song)
+                            <tr>
+                                <td><a href="{{route('singleSong', ['songid' => $song->id])}}">{{$song->name}}</a></td>
+                                <td>
+                                    @foreach($song->artists as $artist)
+                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                            , @endif
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    <p>{{$song->view}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p>{{$song->like}}</p>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
+                <!-- /.table-responsive -->
             </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix" style="display: block;">
+                <a href="{{route('songs.add')}}" class="btn btn-sm btn-info float-left">Thêm bài hát mới</a>
+                <a href="{{route('songs.home')}}" class="btn btn-sm btn-secondary float-right">Xem tất cả bài hát</a>
+            </div>
+            <!-- /.card-footer -->
         </div>
     </div>
 
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-uppercase">Ca sĩ đang được quan tâm nhiều</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="users-list clearfix">
+                    @foreach($artists as $artist)
+                        <li class="text-center">
+                            <div class="img-128">
+                                <img src="{{url($artist->cover_image)}}" alt="{{$artist->nick_name}}">
+                            </div>
+                            <a class="users-list-name"
+                               href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a>
+                            <span class="users-list-date">{{$artist->follow}} người quan tâm</span>
+                        </li>
+                    @endforeach
+                </ul>
+                <!-- /.users-list -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-center">
+                <a href="{{route('artists.home')}}">Xem tất cả ca sĩ</a>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header border-transparent">
+                <h3 class="card-title font-weight-bold text-uppercase">Bài hát Mới được thêm</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0" style="display: block;">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                        <tr>
+                            <th>Tên bài hát</th>
+                            <th>Ca sĩ</th>
+                            <th class="text-center">Số lượt nghe</th>
+                            <th class="text-center">Số lượt yêu thích</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($songsNewAdd as $song)
+                            <tr>
+                                <td><a href="{{route('singleSong', ['songid' => $song->id])}}">{{$song->name}}</a></td>
+                                <td>
+                                    @foreach($song->artists as $artist)
+                                        <a href="{{route('singleArtist', ['artisId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                            , @endif
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    <p>{{$song->view}}</p>
+                                </td>
+                                <td class="text-center">
+                                    <p>{{$song->like}}</p>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix" style="display: block;">
+                <a href="{{route('songs.add')}}" class="btn btn-sm btn-info float-left">Thêm bài hát mới</a>
+                <a href="{{route('songs.home')}}" class="btn btn-sm btn-secondary float-right">Xem tất cả bài hát</a>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-uppercase">Bình luận mới</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                    @foreach($comment as $c)
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="{{url($c->user->avatar)}}" alt="{{$c->user->username}}" class="img-size-50">
+                            </div>
+                            <div class="product-info">
+                                <span class="product-title">{{$c->user->username}}
+                                    <span class="badge badge-warning float-right"></span>
+                                </span>
+                                <span class="product-description">{{$c->content}}</span>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-center">
+                <a href="{{route('comments.home')}}" class="uppercase">Xem tất cả bình luận</a>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+    </div>
+
+    <style>
+        .img-128 {
+            width: 100px !important;
+            height: 100px !important;
+            margin: 0 auto;
+        }
+
+        .img-128 img {
+            width: 128px !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+    </style>
 @endsection
