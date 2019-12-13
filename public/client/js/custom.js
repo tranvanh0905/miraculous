@@ -455,11 +455,6 @@ $(document).on('click', '.add-user-playlist', function (e) {
 $(document).on('click', '.delete-user-playlist', function (e) {
     let playlistId = parseInt($(this).attr('data-playlist-id'));
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     swal({
         title: "Bạn có chắc chắn muốn xóa danh sách phát này ?",
         text: "Khi bạn xóa, dữ liệu sẽ không lấy lại được!",
@@ -467,7 +462,13 @@ $(document).on('click', '.delete-user-playlist', function (e) {
         buttons: true,
         dangerMode: true,
     })
-        .then((willDelete) => {
+    .then((willDelete) => {
+        if (willDelete) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'POST',
                 url: 'user/library/user-playlist/delete-playlist',
@@ -488,7 +489,8 @@ $(document).on('click', '.delete-user-playlist', function (e) {
                     });
                 }
             });
-        });
+        }
+    });
 });
 
 //Bình luận bài hát
