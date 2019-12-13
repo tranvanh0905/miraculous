@@ -49,7 +49,7 @@ class ClientController extends Controller
 
         $playLists = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
             ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 400)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(4)
+            ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(4)
             ->get();
 
         $playLists->each(function ($q) {
@@ -121,7 +121,7 @@ class ClientController extends Controller
 
         $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
             ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 400)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(30)
+            ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(30)
             ->get();;
 
         $allArtitst = Artist::orderBy('id', 'desc')->limit(30)->get();
@@ -139,7 +139,7 @@ class ClientController extends Controller
     public function chartSong()
     {
 
-        $top50song = User::where('role', '>', 100)->with(['songs' => function ($query) {
+        $top50song = User::where('role', '>', 700)->with(['songs' => function ($query) {
             $query->where('status', '=', 1)->orderBy('view', 'desc')->limit(50);
         }])->get()->pluck('songs')->flatten();
 
@@ -178,7 +178,7 @@ class ClientController extends Controller
         } else if ($type == 'playlists') {
             $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
                 ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-                ->where('users.role', '>', 400)->orderBy('id', 'desc')->where('playlists.status', '=', 1)
+                ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)
                 ->paginate(50);;
 
             return view('client.all', compact('allPlaylist', 'type'));
@@ -271,7 +271,7 @@ class ClientController extends Controller
         }]);
 
         $relatedPlaylist = Playlist::whereHas('user', function ($query) {
-            $query->where('role', '>', 500);
+            $query->where('role', '>', 700);
         })->where('status', '=', 1)->limit(10)->get();
 
         return view('client.detail-page.single-playlist', compact('singlePlaylist', 'relatedPlaylist'));
