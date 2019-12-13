@@ -21,7 +21,6 @@ class AlbumsController extends Controller
     public function getData(Request $request)
     {
         $columns = ['albums.id', 'albums.title'];
-
         $limit = $request->input('length');
         $start = $request->input('start');
         $orders = $columns[$request->input('order.0.column')];

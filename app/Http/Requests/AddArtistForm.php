@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Artist;
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddArtistForm extends FormRequest
@@ -23,13 +25,15 @@ class AddArtistForm extends FormRequest
      */
     public function rules()
     {
+        $reqDate = new DateTime('now');
         return [
             'nick_name' => 'required',
             'full_name' => 'required',
             'avatar' => 'required|mimes:jpg,jpeg,png|max:2048',
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'about' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|before:' .$reqDate->format('Y-m-d') ,
+            'date_of_death' => 'required|before:' .$reqDate->format('Y-m-d') ,
             'status' => 'required',
         ];
     }
@@ -47,6 +51,9 @@ class AddArtistForm extends FormRequest
             'cover_image.max' => 'Ảnh giới hạn dung lượng không quá 2M',
             'about.required' => "Vui lòng nhập giới thiệu ca sĩ",
             'birthday.required' => "Vui lòng nhập ngày sinh ca sĩ",
+            'birthday.before' => 'Không được lớn hơn ngày hiện tại',
+            'date_of_death.before' => 'Không được lớn hơn ngày hiện tại',
+
             'status.required' => "Vui lòng chọn trạng thái",
         ];
     }

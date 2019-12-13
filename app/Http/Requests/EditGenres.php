@@ -26,7 +26,7 @@ class EditGenres extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:genres,name,' . $this->route('id'),
             'description' => 'required',
             'status' => 'required',
             'image' => 'mimes:jpg,jpeg,png|max:2048',
@@ -38,6 +38,7 @@ class EditGenres extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập thể loại',
+            'name.unique' => 'Tên thể loại đã tồn tại',
             'description.required' => 'Vui lòng nhập mô tả',
             'status.required' => 'Vui lòng chọn trạng thái',
             'image.mimes' => "Chỉ chấp nhận ảnh với đuôi .jpg .jpeg .png",

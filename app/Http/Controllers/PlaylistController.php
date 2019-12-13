@@ -43,6 +43,7 @@ class PlaylistController extends Controller
         $total = Playlist::count();
 
         $data = Playlist::where($args)->select('playlists.*')
+            ->where('upload_by_user_id', 1)
             ->offset($start)
             ->limit($limit)
             ->orderBy($orders, $dir)

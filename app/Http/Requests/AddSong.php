@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddSong extends FormRequest
@@ -23,13 +24,16 @@ class AddSong extends FormRequest
      */
     public function rules()
     {
+        $reqDate = new DateTime('now');
+
         return [
             //
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'genres_id' => 'required',
             'mp3_url' => 'required|mimes:mpga,wav',
             'name' => 'required|unique:songs',
-            'release_date' => 'required',
+            'release_date' => 'required|before:' . $reqDate->format('Y-m-d'),
+
             'person_song' => 'required',
             'lyric' => 'required',
             'description' => 'required',
@@ -43,6 +47,8 @@ class AddSong extends FormRequest
             'cover_image.mimes' => "Chỉ chấp nhận ảnh với đuôi .jpg .jpeg .png",
             'cover_image.max' => 'Ảnh giới hạn dung lượng không quá 2M',
             'genres_id.required' => 'Vui lòng chọn thể loại bài hát',
+            'release_date.before' => 'Không được lớn hơn ngày hiện tại',
+
             'person_song.required' => 'Vui lòng chọn ca sĩ',
             'release_date.required' => 'Vui lòng chọn ngày phát hành',
             'mp3_url.required' => 'Vui lòng chọn bài hát',

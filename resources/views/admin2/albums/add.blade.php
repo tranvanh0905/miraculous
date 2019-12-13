@@ -1,4 +1,4 @@
-@extends('layouts.admin2.main')
+ @extends('layouts.admin2.main')
 
 @section('title')
     Thêm album mới
@@ -129,7 +129,7 @@
                 var selected = $(this).children("option:selected").val();
                 $.ajax({
                     type: "GET",
-                    url: '{{$url}}' + "/ajax/artist_song/" + selected,
+                    url: '{{$url}}' + "/ajax/artist_song2/" + selected,
                     cache: false,
                     success: function (e) {
                         $("#ajax_artist").html(e);

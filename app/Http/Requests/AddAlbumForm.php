@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddAlbumForm extends FormRequest
@@ -23,12 +24,14 @@ class AddAlbumForm extends FormRequest
      */
     public function rules()
     {
+        $reqDate = new DateTime('now');
+
         return [
             'title' => 'required|unique:albums',
             'description' => 'required',
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'artist_id' => 'required',
-            'release_date' => 'required',
+            'release_date' => 'required|before:' . $reqDate->format('Y-m-d'),
             'person_song' => 'required',
         ];
     }
@@ -44,6 +47,7 @@ class AddAlbumForm extends FormRequest
             'cover_image.max' => 'Ảnh giới hạn dung lượng không quá 2M',
             'artist_id.required' => 'Vui lòng chọn ca sĩ',
             'release_date.required' => 'Vui lòng chọn ngày phát hành',
+            'release_date.before' => 'Không được lớn hơn ngày hiện tại',
             'person_song.required' => 'Vui lòng chọn bài hát',
         ];
     }

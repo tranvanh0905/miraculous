@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Genres;
 use App\Http\Requests\AddUserForm;
 use App\Http\Requests\UpdateUserForm;
 use App\Model_client\History;
+use App\Model_client\UserLikedAlbum;
+use App\Model_client\UserLikedPlaylist;
+use App\Model_client\UserLikedSong;
 use App\Playlist;
 use App\PlaylistDetail;
 use App\User;
@@ -135,6 +139,9 @@ class UsersController extends Controller
         $playlist = Playlist::where("upload_by_user_id", $user_id)->get();
         $history = History::where('user_id', $user_id)->get();
         $comment = Comment::where('user_id', $user_id)->get();
+        $user_liked_albums = UserLikedAlbum::where('user_id', $user_id)->get();
+        $user_liked_playlist = UserLikedPlaylist::where('user_id', $user_id)->get();
+        $user_liked_song = UserLikedSong::where('user_id', $user_id)->get();
         foreach ($playlist as $item4) {
             $playlist_detail = PlaylistDetail::where('playlist_id', $item4->id);
             $playlist_detail->delete();
@@ -147,6 +154,15 @@ class UsersController extends Controller
         }
         foreach ($comment as $item3) {
             $item3->delete();
+        }
+        foreach ($user_liked_albums as $item4) {
+            $item4->delete();
+        }
+        foreach ($user_liked_playlist as $item5) {
+            $item5->delete();
+        }
+        foreach ($user_liked_song as $item6) {
+            $item6->delete();
         }
         $model->delete();
         return redirect()->route('users.home')->with('status', 'Xóa tài khoản thành công');

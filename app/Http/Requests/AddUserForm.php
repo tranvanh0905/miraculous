@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddUserForm extends FormRequest
@@ -23,12 +24,14 @@ class AddUserForm extends FormRequest
      */
     public function rules()
     {
+        $reqDate = new DateTime('now');
+
         return [
             'username' => 'required|max:20|unique:users',
             'password' =>  'required|min:6',
             'email' => 'required|unique:users,email',
             'role' => 'required',
-            'birthday' => 'required',
+            'birthday' => 'required|before:' . $reqDate->format('Y-m-d'),
             'status' => 'required',
             'full_name' => 'required',
             'gender' => 'required',
@@ -43,6 +46,7 @@ class AddUserForm extends FormRequest
             'username.max' => "Tên tài khoản không được vượt quá 20 ký tự",
             'username.unique' => "Tên tài khoản bị trùng",
             'birthday.required' => 'Hãy nhập ngày sinh nhật',
+            'birthday.before' => 'Không được lớn hơn ngày hiện tại',
             'email.required' => 'Hãy nhập email',
             'email.unique' => "Email đã tồn tại",
             'password.required' => "Vui lòng nhập mật khẩu",

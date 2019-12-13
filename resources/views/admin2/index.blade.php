@@ -105,7 +105,6 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix" style="display: block;">
-                <a href="{{route('songs.add')}}" class="btn btn-sm btn-info float-left">Thêm bài hát mới</a>
                 <a href="{{route('songs.home')}}" class="btn btn-sm btn-secondary float-right">Xem tất cả bài hát</a>
             </div>
             <!-- /.card-footer -->
@@ -140,14 +139,14 @@
                 <!-- /.users-list -->
             </div>
             <!-- /.card-body -->
-            <div class="card-footer text-center">
-                <a href="{{route('artists.home')}}">Xem tất cả ca sĩ</a>
+            <div class="card-footer clearfix" style="display: block;">
+                <a href="{{route('artists.home')}}" class="btn btn-sm btn-secondary float-right">Xem tất cả ca sĩ</a>
             </div>
             <!-- /.card-footer -->
         </div>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-header border-transparent">
                 <h3 class="card-title font-weight-bold text-uppercase">Bài hát Mới được thêm</h3>
@@ -195,14 +194,13 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix" style="display: block;">
-                <a href="{{route('songs.add')}}" class="btn btn-sm btn-info float-left">Thêm bài hát mới</a>
                 <a href="{{route('songs.home')}}" class="btn btn-sm btn-secondary float-right">Xem tất cả bài hát</a>
             </div>
             <!-- /.card-footer -->
         </div>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title font-weight-bold text-uppercase">Bình luận mới</h3>

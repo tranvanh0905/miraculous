@@ -76,6 +76,7 @@ Route::post('users/update/{id}', 'UsersController@actionUpdate')->middleware('st
 Route::get('users/delete/{id}', 'UsersController@actionDelete')->middleware('staffCheck')->middleware('checkAdminLogin')->name('users.delete');
 //Ajax route
 Route::get('ajax/artist_song/{artist_id}/{album_id}', 'AjaxController@actionGetSongArtist')->middleware('staffCheck')->middleware('checkAdminLogin')->name('albums.song_artist');
+Route::get('ajax/artist_song2/{artist_id}', 'AjaxController@actionGetSongArtistAdd')->middleware('staffCheck')->middleware('checkAdminLogin')->name('albums.song_artist2');
 //Websetting route
 Route::get('web-setting', 'WebSettingController@actionIndex')->middleware('staffCheck')->middleware('checkAdminLogin')->name('websetting.home');
 Route::post('web-setting', 'WebSettingController@actionUpdate')->middleware('staffCheck')->middleware('checkAdminLogin')->name('websetting.update');
