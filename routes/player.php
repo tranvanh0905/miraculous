@@ -41,4 +41,7 @@ Route::group(['middleware' => 'request.check'], function () {
     Route::post('/song/suggest', 'ClientPlayerController@getSongSuggest');
 });
 
+//Lấy bài hát ngẫu nhiên cho guest or user
+Route::get('/random-song', 'ClientPlayerController@getSongGuest');
+
 

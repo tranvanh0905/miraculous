@@ -27,11 +27,11 @@
                                 <span class="adonis-icon pr-2 icon-2x">
                                     <i class="fas fa-heart fs-19"></i>
                                 </span>
-                                <span class="pr-2">{{$singleSong->like}}</span>
+                                <span class="pr-2">{{number_format_short($singleSong->like)}}</span>
                                 <span class="adonis-icon pr-2 icon-1x">
                                     <i class="fas fa-play-circle fs-19"></i>
                                 </span>
-                                <span>{{$singleSong->view}}</span>
+                                <span>{{number_format_short($singleSong->view)}}</span>
                             </div>
                             <div class="button-save-share pb-4 text-center">
                                 <div class="btn btn-primary mx-auto adonis-album-button" data-type="song"
@@ -341,7 +341,7 @@
                                                 {{$artist->nick_name}}
                                             </a>
                                         </h5>
-                                        <span class="adonis-icon icon-1x"><i class="fas fa-user-tag"></i> {{$artist->follow}}</span>
+                                        <span class="adonis-icon icon-1x"><i class="fas fa-user-tag"></i> {{number_format_short($artist->follow)}}</span>
                                         <span class="adonis-icon ml-3 icon-1x"><i class="fas fa-music"></i> {{count($artist->songs)}}</span>
                                     </div>
                                     <div class="float-right">

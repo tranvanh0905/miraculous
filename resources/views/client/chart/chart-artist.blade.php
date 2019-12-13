@@ -46,7 +46,7 @@
                                         h-underline">{{$artist->nick_name}}</a>
                                         </h5>
                                         <p class="sub-title"><span class="count-follow"
-                                                                   data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
+                                                                   data-artist-id="{{$artist->id}}">{{number_format_short($artist->follow)}}</span>
                                             người quan tâm</p>
                                     </div>
                                     @if(\Illuminate\Support\Facades\Auth::check())

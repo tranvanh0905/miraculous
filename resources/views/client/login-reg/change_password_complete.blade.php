@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-5 mx-auto">
+            <div class="col-md-9 mx-auto">
                 <div id="second">
                     <div class="myform form ">
                         <div class="logo mb-3 pt-5">

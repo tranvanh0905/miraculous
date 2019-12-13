@@ -24,7 +24,7 @@
 
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-12">
                             <div class="title-box ">
                                 <h4 class="title h3 text-uppercase d-inline-block"><i class="fas fa-table"></i> Bảng xếp hạng Top 50 bài hát</h4>
                             </div>
@@ -51,7 +51,7 @@
                                                 @endforeach
                                             </p>
                                         </div>
-                                        <span style="line-height: 50px;">{{$song->view}} <i class="fas fa-headphones fs-19"></i> </span>
+                                        <span style="line-height: 50px;">{{number_format_short($song->view)}} <i class="fas fa-headphones fs-19"></i> </span>
                                         <div
                                             class="hover-state d-flex justify-content-between align-items-center">
                                                     <span

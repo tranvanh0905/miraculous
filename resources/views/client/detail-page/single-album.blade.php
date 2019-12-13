@@ -99,7 +99,7 @@
                                                         class="hover-hide hover-lg-show font-weight-bold">{{$song->genres->name}}</a>
                                                 </div>
                                                 <div class="item-tools">
-                                                    <span class="hover-hide" id="likeSong{{$song->id}}">{{$song->like}}
+                                                    <span class="hover-hide" id="likeSong{{$song->id}}">{{number_format_short($song->like)}}
                                                         <i class="fas fa-heart fa-1x"></i></span>
                                                     <div class="hover-show d-flex flex-nowrap hover-tools">
                                                         @if(\Illuminate\Support\Facades\Auth::check())

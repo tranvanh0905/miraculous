@@ -460,27 +460,35 @@ $(document).on('click', '.delete-user-playlist', function (e) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-    $.ajax({
-        type: 'POST',
-        url: 'user/library/user-playlist/delete-playlist',
-        data: {
-            id: playlistId
-        },
-        success: function (data) {
-            $("#userPlaylist" + playlistId).fadeOut(1000, function () {
-                $(this).remove();
+    swal({
+        title: "Bạn có chắc chắn muốn xóa danh sách phát này ?",
+        text: "Khi bạn xóa, dữ liệu sẽ không lấy lại được!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            $.ajax({
+                type: 'POST',
+                url: 'user/library/user-playlist/delete-playlist',
+                data: {
+                    id: playlistId
+                },
+                success: function (data) {
+                    $("#userPlaylist" + playlistId).fadeOut(1000, function () {
+                        $(this).remove();
+                    });
+                    $.notify({
+                        icon: 'fas fa-check-circle',
+                        message: data.msg
+                    }, {
+                        delay: 100,
+                        timer: 1000,
+                        z_index: 1300
+                    });
+                }
             });
-            $.notify({
-                icon: 'fas fa-check-circle',
-                message: data.msg
-            }, {
-                delay: 100,
-                timer: 1000,
-                z_index: 1300
-            });
-        }
-    });
+        });
 });
 
 //Bình luận bài hát

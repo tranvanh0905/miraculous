@@ -5814,7 +5814,7 @@ select.form-control:focus::-ms-value {
     position: absolute;
     width: 100% !important;
     height: 100%;
-    background-color: #ddd;
+    background-color: #c5c5c5;
 }
 
 .adonis-player-wrap .jp-play-bar, .adonis-playlist-player .jp-play-bar {

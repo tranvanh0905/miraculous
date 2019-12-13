@@ -135,7 +135,7 @@
                                           <i class="fas fa-random fs-19"></i>
                                     </span>
                                 </a>
-                                <a class="jp-repeat inactive-color ml-1" role="button" tabindex="0">
+                                <a class="jp-repeat inactive-color ml-1" role="button" tabindex="0" id="repeat-button">
                                     <span class="adonis-icon icon-3x">
                                         <i class="fas fa-sync-alt fs-19"></i>
                                     </span>

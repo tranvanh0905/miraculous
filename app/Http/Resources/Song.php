@@ -33,7 +33,7 @@ class Song extends JsonResource
             'poster' => $this->cover_image,
             'id' => $this->id,
             'like' => $this->like,
-            'view' => $this->view
+            'view' => $this->view,
         ];
     }
 }

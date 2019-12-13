@@ -389,6 +389,12 @@
 
 
             listItem += "<a href='javascript:;' class='fix-a " + this.options.playlistOptions.itemClass + "'>" + media.title + "</a>";
+            if (media.typeInPlayer === 'suggest') {
+                listItem += " <span class='badge badge-success'>Gợi ý</span>";
+            }
+            if (media.typeInPlayer === 'addNew') {
+                listItem += " <span class='badge badge-secondary'>Mới thêm</span>";
+            }
             listItem += media.artist ? "<p class='jp-artist'>" + artistHtml + "</p>" : "";
             //listItem += "</div>";
 

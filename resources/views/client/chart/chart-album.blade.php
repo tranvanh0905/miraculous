@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-12">
                    <div class="row">
                        <div class="col-lg-6">
                            <div class="title-box ">
@@ -48,7 +48,7 @@
                                                             }}">{{$album->artist->nick_name}}</a>
                                     </p>
                                 </div>
-                                <span style="line-height: 50px;">{{$album->like}} <i class="fas fa-grin-hearts fs-19"></i></span>
+                                <span style="line-height: 50px;">{{number_format_short($album->like)}} <i class="fas fa-grin-hearts fs-19"></i></span>
                                 <div
                                     class="hover-state d-flex justify-content-between align-items-center">
                                                     <span

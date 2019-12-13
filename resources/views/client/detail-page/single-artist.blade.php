@@ -21,7 +21,7 @@
                                                            data-2x="{{url($singleArtist->avatar)}}"
                                                            alt="{{url($singleArtist->nick_name)}}"></div>
                             <span class="adonis-icon"><i
-                                    class="fas fa-users fa-1x"></i> {{$singleArtist->follow}}</span>
+                                    class="fas fa-users fa-1x"></i> {{number_format_short($singleArtist->follow)}}</span>
                             <span class="adonis-icon ml-3"><i class="fas fa-music fa-1x"></i> {{count($singleArtist->songs)}}</span>
                             <h4 class="font-weight- mt-3">{{$singleArtist->full_name}}</h4>
                             <h6 class="inactive-color">{{$singleArtist->birthday}}</h6>
@@ -189,7 +189,7 @@
                                         h-underline">{{$artist->nick_name}}</a>
                                 </h5>
                                 <p class="sub-title"><span class="count-follow"
-                                                           data-artist-id="{{$artist->id}}">{{$artist->follow}}</span>
+                                                           data-artist-id="{{$artist->id}}">{{number_format_short($artist->follow)}}</span>
                                     người quan tâm</p>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())
