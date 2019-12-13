@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\ArtistSongDetail;
+use App\Comment;
 use App\Genres;
 use App\Http\Requests\AddSong;
 use App\Http\Requests\EditSong;
+use App\Model_client\DailyViewSong;
 use App\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -95,6 +97,18 @@ class SongsController extends Controller
     public function actionDelete($id)
     {
         $model = Song::find($id);
+        $daily_view = DailyViewSong::where("song_id", $id)->get();
+        $comment = Comment::where("song_id",$id)->get();
+        if ($comment !== null) {
+            foreach ($comment as $item2) {
+                $item2->delete();
+            }
+        }
+        if  ($daily_view !== null) {
+            foreach ($daily_view as $item) {
+                $item->delete();
+            }
+        }
         if ($model !== null) {
             foreach ($model->get() as $key => $value) {
                 $model_details = ArtistSongDetail::where('song_id', $id);

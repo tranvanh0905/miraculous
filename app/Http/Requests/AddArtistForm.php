@@ -34,7 +34,7 @@ class AddArtistForm extends FormRequest
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'about' => 'required',
             'birthday' => 'required|before:' . $reqDate->format('Y-m-d'),
-            'date_of_death' => 'nullable|after:' . Carbon::createFromFormat('Y-m-d', $this->all('birthday')['birthday'])->toDateString(),
+            'date_of_death' => 'nullable|after:birthday',
             'status' => 'required',
         ];
     }

@@ -142,28 +142,47 @@ class UsersController extends Controller
         $user_liked_albums = UserLikedAlbum::where('user_id', $user_id)->get();
         $user_liked_playlist = UserLikedPlaylist::where('user_id', $user_id)->get();
         $user_liked_song = UserLikedSong::where('user_id', $user_id)->get();
-        foreach ($playlist as $item4) {
-            $playlist_detail = PlaylistDetail::where('playlist_id', $item4->id);
-            $playlist_detail->delete();
+        if ($playlist !== null) {
+            foreach ($playlist as $item4) {
+                $playlist_detail = PlaylistDetail::where('playlist_id', $item4->id);
+                if ($playlist_detail !== null) {
+                    $playlist_detail->delete();
+
+                }
+            }
         }
-        foreach ($playlist as $item) {
-            $item->delete();
+        if ($playlist !== null) {
+            foreach ($playlist as $item) {
+                $item->delete();
+            }
         }
-        foreach ($history as $item2) {
-            $item2->delete();
+        if ($history !== null) {
+            foreach ($history as $item2) {
+                $item2->delete();
+            }
         }
-        foreach ($comment as $item3) {
-            $item3->delete();
+
+        if ($comment !== null) {
+            foreach ($comment as $item3) {
+                $item3->delete();
+            }
         }
-        foreach ($user_liked_albums as $item4) {
-            $item4->delete();
+        if ($user_liked_albums !== null) {
+            foreach ($user_liked_albums as $item4) {
+                $item4->delete();
+            }
         }
-        foreach ($user_liked_playlist as $item5) {
-            $item5->delete();
+        if ($user_liked_playlist !== null) {
+            foreach ($user_liked_playlist as $item5) {
+                $item5->delete();
+            }
         }
-        foreach ($user_liked_song as $item6) {
-            $item6->delete();
+        if ($user_liked_song !== null) {
+            foreach ($user_liked_song as $item6) {
+                $item6->delete();
+            }
         }
+
         $model->delete();
         return redirect()->route('users.home')->with('status', 'Xóa tài khoản thành công');
 
