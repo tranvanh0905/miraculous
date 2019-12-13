@@ -42,7 +42,10 @@
                     </div>
                     <div class="form-group">
                         <label class=" col-form-label">Ngày mất ( nếu có ) : </label>
-                        <input type="date" value="@if ($model->date_of_death !== null) {{$model->date_of_death}}@endif" name="date_of_death" class="form-control">
+                        <input type="date" value="{{$model->date_of_death}}" name="date_of_death" class="form-control">
+                        @if($errors->first('date_of_death'))
+                            <span class="text-danger">{{$errors->first('date_of_death')}}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label class=" col-form-label">Giới thiệu : </label>
