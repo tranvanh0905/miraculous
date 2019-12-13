@@ -813,9 +813,6 @@ jQuery(document).ready(function ($) {
                 url: '/player/random-song',
                 success: function (data) {
                     adonisPlaylist.setPlaylist(data["data"]);
-                    setTimeout(function () {
-                        adonisPlaylist.play();
-                    }, 2000);
                 }
             });
         }, 200);
