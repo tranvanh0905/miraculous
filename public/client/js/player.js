@@ -70,6 +70,7 @@ jQuery(document).ready(function ($) {
             setTimeout(function () {
                 currentIdInPlayer = [];
 
+                currentIdInPlayer2.push(songId);
                 $.each(adonisPlaylist.playlist, function (key, value) {
                     currentIdInPlayer.push(value.id);
                 });
@@ -232,12 +233,6 @@ jQuery(document).ready(function ($) {
 
             //Lưu bài hát vào localstore
             let media = $(this).data("jPlayer").status.media;
-
-            if (typeof (Storage) !== "undefined") {
-                localStorage.dataSong = JSON.stringify(media);
-            } else {
-                console.log('sorry');
-            }
         });
 
         $('.adonis-mute-control').click(function () {
@@ -660,7 +655,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on('click', '.add-next', function () {
-        let songId = $(this).attr('data-id');
+        let songId = parseInt($(this).attr('data-id'));
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -695,7 +690,6 @@ jQuery(document).ready(function ($) {
                             timer: 1000
                         });
                     } else {
-                        currentIdInPlayer2.push(songId);
                         $.notify({
                             icon: 'fas fa-check-circle',
                             message: 'Thêm bài hát vào danh sách chờ'
@@ -814,18 +808,16 @@ jQuery(document).ready(function ($) {
         }, 100);
 
         setTimeout(function () {
-            if (localStorage.dataSong) {
-                let oldData = JSON.parse("[" + localStorage.dataSong + "]");
-                adonisPlaylist.setPlaylist(oldData);
-            } else {
-                $.ajax({
-                    type: 'GET',
-                    url: '/player/random-song',
-                    success: function (data) {
-                        adonisPlaylist.setPlaylist(data["data"]);
-                    }
-                });
-            }
+            $.ajax({
+                type: 'GET',
+                url: '/player/random-song',
+                success: function (data) {
+                    adonisPlaylist.setPlaylist(data["data"]);
+                    setTimeout(function () {
+                        adonisPlaylist.play();
+                    }, 2000);
+                }
+            });
         }, 200);
     });
 });

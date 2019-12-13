@@ -196,8 +196,11 @@
             </div>
             <div class="name-playing d-flex justify-content-between pr-3 pt-2">
                <p class="font-weight-bold text-uppercase pl-3">Gợi ý  <span><i class="fas fa-sync-alt ml-3 pointer reload-suggest"></i></span></p>
-                <div class="toggle-button-demo">
+
+                <div class="toggle-button-demo d-flex">
+                    <span class="mr-2">Tự động phát</span>
                     <label class="switch">
+
                         <input type="checkbox" id="auto-play-suggest" checked>
                         <span class="slider round"></span>
                     </label>
