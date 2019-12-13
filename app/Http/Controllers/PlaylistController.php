@@ -95,15 +95,21 @@ class PlaylistController extends Controller
             $playlist->cover_image = "$path";
         }
         if ($playlist->save()) {
-            $playlistDetail_old = PlaylistDetail::where('playlist_id', $playlist->id);
-            $playlistDetail_old->delete();
-            foreach ($request['song_playlist'] as $list) {
-                $playlistDetail = new PlaylistDetail;
-                $playlistDetail->playlist_id = $playlist->id;
-                $playlistDetail->song_id = $list;
-                $playlistDetail->save();
+
+            if ($request['song_playlist'] !== null) {
+                $playlistDetail_old = PlaylistDetail::where('playlist_id', $playlist->id);
+                $playlistDetail_old->delete();
+                foreach ($request['song_playlist'] as $list) {
+                    $playlistDetail = new PlaylistDetail;
+                    $playlistDetail->playlist_id = $playlist->id;
+                    $playlistDetail->song_id = $list;
+                    $playlistDetail->save();
+                }
+                return redirect()->route('playlist.home')->with('status', 'Cập nhật danh sách phát thành công');
+
             }
-            return redirect()->route('playlist.home')->with('status', 'Cập nhật danh sách phát thành công');
+            return redirect()->route('playlist.add')->with('status', 'Vui lòng chọn bài hát');
+
         };
         return redirect()->route('playlist.home')->with('status', 'Cập nhật danh sách phát thành công');
 
@@ -126,13 +132,16 @@ class PlaylistController extends Controller
             $model->cover_image = "$path";
         }
         if ($model->save()) {
-            foreach ($request['song_playlist'] as $list) {
-                $playlistDetail = new PlaylistDetail;
-                $playlistDetail->playlist_id = $model->id;
-                $playlistDetail->song_id = $list;
-                $playlistDetail->save();
+            if ($request['song_playlist'] !== null) {
+                foreach ($request['song_playlist'] as $list) {
+                    $playlistDetail = new PlaylistDetail;
+                    $playlistDetail->playlist_id = $model->id;
+                    $playlistDetail->song_id = $list;
+                    $playlistDetail->save();
+                }
+                return redirect()->route('playlist.home')->with('status', 'Thêm danh sách phát thành công');
             }
-            return redirect()->route('playlist.home')->with('status', 'Thêm danh sách phát thành công');
+            return redirect()->route('playlist.add')->with('status', 'Vui lòng chọn bài hát');
         };
         return redirect()->route('playlist.home')->with('status', 'Thêm danh sách phát thành công');
     }
