@@ -11,6 +11,7 @@ use App\Model_client\Genres;
 use App\Model_client\History;
 use App\Model_client\Playlist;
 use App\Model_client\Song;
+use App\Model_client\UserFollowDetail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,8 +66,25 @@ class ClientController extends Controller
         $allSongId = [];
         $allUser = [];
         $allSuggestSong = [];
-
+        $allArtistFollow = [];
+        $allSongInHistory = [];
         $userId = Auth::id();
+
+        $getArtistFollow = UserFollowDetail::where('user_id', '=', $userId)->get();
+        foreach ($getArtistFollow as $artist) {
+            array_push($allArtistFollow, $artist->artist_id);
+        }
+
+        $getSongInHistory = History::where('user_id', '=', $userId)->get();
+        foreach ($getSongInHistory as $song) {
+            array_push($allSongInHistory, $song->song_id);
+        }
+
+
+        $getSongOfArtistFollow = Song::whereHas('artists', function ($query) use ($allArtistFollow) {
+            $query->whereIn('artist_id', $allArtistFollow)->where('status', '=', 1);
+        })->where('status', '=', 1)->whereNotIn('id', $allSongInHistory)->inRandomOrder()->limit(20)->get();
+
 
         $mostView12 = Song::whereHas('dailyView', function ($query) {
             $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'));
@@ -92,7 +110,7 @@ class ClientController extends Controller
 
         $suggestSong = Song::whereIn('id', $allSuggestSong)->get();
 
-        $genres = Genres::where('status', '=', 1)->limit(5)->get();
+        $genres = Genres::where('status', '=', 1)->limit(10)->get();
 
         $allSong = Song::orderBy('release_date', 'desc')->limit(30)->get();
 
@@ -105,7 +123,7 @@ class ClientController extends Controller
 
         $allArtitst = Artist::orderBy('id', 'desc')->limit(30)->get();
 
-        return view('client.brower', compact('genres', 'mostView12', 'suggestSong', 'allSong', 'allAlbum', 'allPlaylist', 'allArtitst'));
+        return view('client.brower', compact('genres', 'mostView12', 'suggestSong', 'allSong', 'allAlbum', 'allPlaylist', 'allArtitst', 'getSongOfArtistFollow'));
     }
 
     //Tất cả bảng xếp hạng

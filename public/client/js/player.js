@@ -136,7 +136,7 @@ jQuery(document).ready(function ($) {
                             $('.song-suggest-player').fadeOut().html(html).fadeIn();
                         }
                     });
-                }, 100)
+                }, 500)
             }, 100);
 
 
@@ -802,7 +802,7 @@ jQuery(document).ready(function ($) {
         adonisPlaylist.add(suggestSongPlayer.data[index]);
         let getItem = $('.item-suggest-player[data-index="' + index + '"]')
         getItem.remove().fadeOut();
-        console.log($('.item-suggest-player').length);
+
         if ($('.item-suggest-player').length === 0) {
             $('.reload-suggest').trigger('click')
         }
