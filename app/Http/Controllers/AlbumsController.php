@@ -125,6 +125,11 @@ class AlbumsController extends Controller
             $model->cover_image = "$path";
         }
         if ($model->save()) {
+            $songs2 = Song::where("album_id", $album_id)->get();
+            foreach ($songs2 as $item) {
+                $item->album_id = 0;
+                $item->save();
+            }
             if ($request['person_song'] !== null) {
                 foreach ($request['person_song'] as $key => $value) {
                     $songs = Song::find($value);
