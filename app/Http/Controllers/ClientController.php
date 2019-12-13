@@ -32,6 +32,7 @@ class ClientController extends Controller
         $trendSong = DailyViewSong::join('songs', 'daily_views.song_id', '=', 'songs.id')
             ->orderBy('total_view', 'desc')
             ->where('date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 24 HOUR)'))
+            ->where('status', '=', 1)
             ->limit(10)
             ->get();
 
@@ -52,7 +53,9 @@ class ClientController extends Controller
             ->get();
 
         $playLists->each(function ($q) {
-            $q->load('getThreeSongs');
+            $q->load(['getThreeSongs' => function($query){
+                $query->where('status', '=', 1);
+            }]);
         });
 
         $artists = Artist::where('status', '=', 1)->orderBy('follow', 'desc')->with('userFollows')->limit(12)->get();
