@@ -95,6 +95,8 @@ class PlaylistController extends Controller
             $playlist->cover_image = "$path";
         }
         if ($playlist->save()) {
+            $playlistDetail_old = PlaylistDetail::where('playlist_id', $playlist->id);
+            $playlistDetail_old->delete();
             foreach ($request['song_playlist'] as $list) {
                 $playlistDetail = new PlaylistDetail;
                 $playlistDetail->playlist_id = $playlist->id;
