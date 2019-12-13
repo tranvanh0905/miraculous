@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Artist;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -32,8 +33,8 @@ class AddArtistForm extends FormRequest
             'avatar' => 'required|mimes:jpg,jpeg,png|max:2048',
             'cover_image' => 'required|mimes:jpg,jpeg,png|max:2048',
             'about' => 'required',
-            'birthday' => 'required|before:' .$reqDate->format('Y-m-d') ,
-            'date_of_death' => 'required|before:' .$reqDate->format('Y-m-d') ,
+            'birthday' => 'required|before:' . $reqDate->format('Y-m-d'),
+            'date_of_death' => 'after:' . Carbon::createFromFormat('Y-m-d', $this->all('birthday')['birthday'])->toDateString(),
             'status' => 'required',
         ];
     }
@@ -52,7 +53,7 @@ class AddArtistForm extends FormRequest
             'about.required' => "Vui lòng nhập giới thiệu ca sĩ",
             'birthday.required' => "Vui lòng nhập ngày sinh ca sĩ",
             'birthday.before' => 'Không được lớn hơn ngày hiện tại',
-            'date_of_death.before' => 'Không được lớn hơn ngày hiện tại',
+            'date_of_death.after' => 'Phải lớn hơn ngày sinh',
 
             'status.required' => "Vui lòng chọn trạng thái",
         ];

@@ -41,6 +41,9 @@
                     <div class="form-group">
                         <label class=" col-form-label">Ngày mất ( nếu có ) : </label>
                         <input type="date" name="date_of_death" class="form-control">
+                        @if($errors->first('date_of_death'))
+                            <span class="text-danger">{{$errors->first('date_of_death')}}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label class=" col-form-label">Giới thiệu : </label>
