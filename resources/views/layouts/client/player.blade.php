@@ -198,7 +198,7 @@
                <p class="font-weight-bold text-uppercase pl-3">Gợi ý  <span><i class="fas fa-sync-alt ml-3 pointer reload-suggest"></i></span></p>
 
                 <div class="toggle-button-demo d-flex">
-                    <span class="mr-2">Tự động phát 2</span>
+                    <span class="mr-2">Tự động phát</span>
                     <label class="switch">
 
                         <input type="checkbox" id="auto-play-suggest" checked>
