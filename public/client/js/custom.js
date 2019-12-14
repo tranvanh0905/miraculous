@@ -527,7 +527,7 @@ $(document).on('click', '.btn-submit', function () {
                 '</div>' +
                 '</div>' +
                 '</li>';
-            $(html).insertBefore('.all-comment');
+            $('.all-comment').prepend(html);
             $('.no-comment').remove();
         },
         error: function (request, status, error) {

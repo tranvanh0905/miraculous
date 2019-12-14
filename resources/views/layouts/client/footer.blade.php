@@ -24,7 +24,7 @@
                             <ul class="list-inline vertical-list">
                                 <li><a href="{{route('client.home')}}">Trang chủ</a></li>
                                 <li><a href="{{route('user-profile')}}">Tài khoản</a></li>
-                                <li><a href="#">Lấy lại mật khẩu</a></li>
+                                <li><a href="{{route('forgotPassword')}}">Lấy lại mật khẩu</a></li>
                             </ul>
                         </div>
                     </div>

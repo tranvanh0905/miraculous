@@ -107,7 +107,7 @@
                                                 <h4 class="panel-title font-weight-bold"><i
                                                         class="fas fa-comments mb-3"></i> Bình luận của người cùng nghe
                                                 </h4>
-                                                <span class="label label-info">{{count($comment)}} bình luận</span>
+                                                <span class="label label-info">{{$comment->total()}} bình luận</span>
                                             </div>
                                             <div class="panel-body">
                                                 <ul class="list-group all-comment">
@@ -130,10 +130,10 @@
                                                 <h5 class="panel-title font-weight-bold"><i
                                                         class="fas fa-comments mb-3"></i> Bình luận của người cùng nghe
                                                 </h5>
-                                                <span class="label label-info">{{count($comment)}} bình luận</span>
+                                                <span class="label label-info">{{$comment->total()}} bình luận</span>
                                             </div>
                                             <div class="panel-body">
-                                                <ul class="list-group all-comment">
+                                                <ul class="list-group all-comment wrap-comment scroll-y ps">
                                                     @foreach($comment as $cm)
                                                         <li class="list-group-item">
                                                             <div class="row">
