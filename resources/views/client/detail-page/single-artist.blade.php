@@ -59,7 +59,7 @@
         <section>
             <div class="pt-4"></div>
             <div class="title-box">
-                <h2 class="title h3-md">Bài hát</h2>
+                <h3 class="title h3-md"><i class="fas fa-music"></i> Bài hát</h3>
             </div>
             @if(count($singleArtist->songs) == 0)
                 <div class="alert alert-secondary font-weight-bold"><i class="fas fa-exclamation fa-1x"></i> Các bài hát
@@ -141,7 +141,7 @@
         </section>
         <section>
             <div class="title-box">
-                <h2 class="title h3-md">Albums</h2>
+                <h3 class="title h3-md"><i class="fas fa-compact-disc"></i> Albums</h3>
             </div>
             @if(count($singleArtist->albums) == 0)
                 <div class="alert alert-secondary font-weight-bold"><i class="fas fa-exclamation fa-1x"></i> Các album
@@ -179,7 +179,7 @@
         </section>
         <section>
             <div class="title-box">
-                <h2 class="title h3-md">Các ca sĩ khác</h2>
+                <h3 class="title h3-md"><i class="fas fa-users"></i> Các ca sĩ khác</h3>
             </div>
             <div class="row auto-columns adonis-animate" data-animation="slideRightSkew"
                  data-animation-item=".music-img-box"
