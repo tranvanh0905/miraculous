@@ -11,6 +11,7 @@ use App\Model_client\UserLikedPlaylist;
 use App\Playlist;
 use App\PlaylistDetail;
 use App\Song;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +44,7 @@ class PlaylistController extends Controller
         $total = Playlist::count();
 
         $data = Playlist::where($args)->select('playlists.*')
-            ->where('upload_by_user_id', 1)
+            ->where('upload_by_user_id', User::where('role', 900)->first()->id)
             ->offset($start)
             ->limit($limit)
             ->orderBy($orders, $dir)
