@@ -16,6 +16,7 @@
         <div class="box-add-playlist">
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="errorHtml-form"></div>
                     <form action="{{route('user-library-personal-playlist-edit', ['playlistId' => $userPlaylist->id])}}" method="post" enctype="multipart/form-data" id="add-user-playlist">
                         @csrf
                         <div class="form-group">

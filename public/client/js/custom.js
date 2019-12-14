@@ -462,35 +462,35 @@ $(document).on('click', '.delete-user-playlist', function (e) {
         buttons: true,
         dangerMode: true,
     })
-    .then((willDelete) => {
-        if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'POST',
-                url: 'user/library/user-playlist/delete-playlist',
-                data: {
-                    id: playlistId
-                },
-                success: function (data) {
-                    $("#userPlaylist" + playlistId).fadeOut(1000, function () {
-                        $(this).remove();
-                    });
-                    $.notify({
-                        icon: 'fas fa-check-circle',
-                        message: data.msg
-                    }, {
-                        delay: 100,
-                        timer: 1000,
-                        z_index: 1300
-                    });
-                }
-            });
-        }
-    });
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: 'user/library/user-playlist/delete-playlist',
+                    data: {
+                        id: playlistId
+                    },
+                    success: function (data) {
+                        $("#userPlaylist" + playlistId).fadeOut(1000, function () {
+                            $(this).remove();
+                        });
+                        $.notify({
+                            icon: 'fas fa-check-circle',
+                            message: data.msg
+                        }, {
+                            delay: 100,
+                            timer: 1000,
+                            z_index: 1300
+                        });
+                    }
+                });
+            }
+        });
 });
 
 //Bình luận bài hát
@@ -604,7 +604,12 @@ $(document).on('click', '#addUserPlaylist', function () {
                 errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
 
                 $.each(errors.errors, function (key, value) {
-                    errorHtml += '<li>' + value + '</li>'; //showing only the first error.
+                    $.each(value, function (key, value) {
+                        errorHtml += '<li>';
+                        errorHtml += value;
+                        errorHtml += '</li>';
+
+                    });//showing only the first error.
                 });
                 errorHtml += '</ul></div>';
 
@@ -620,7 +625,6 @@ $(document).on('click', '#addUserPlaylist', function () {
             cache: false,
             processData: false,
             success: function () {
-
                 $.notify({
                     icon: 'fas fa-check-circle',
                     message: 'Thêm danh sách phát cá nhân thành công !'
@@ -639,7 +643,11 @@ $(document).on('click', '#addUserPlaylist', function () {
                 errorHtml += '<div class="alert alert-danger"><ul class="mb-0">';
 
                 $.each(errors.errors, function (key, value) {
-                    errorHtml += '<li>' + value + '</li>'; //showing only the first error.
+                    $.each(value, function (key, value) {
+                        errorHtml += '<li>';
+                        errorHtml += value;
+                        errorHtml += '</li>';
+                    });//showing only the first error.
                 });
                 errorHtml += '</ul></div>';
 
