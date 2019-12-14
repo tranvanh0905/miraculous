@@ -135,7 +135,7 @@ class ClientPlayerController extends Controller
     public function updateViewDaily(Request $request)
     {
         $dailyView = new DailyViewSong();
-
+dd($request->songId);
         $check = DailyViewSong::where('song_id', '=', $request->songId)->exists();
 
         if ($check) {
@@ -144,12 +144,12 @@ class ClientPlayerController extends Controller
             $yesterday_at_midnight = strtotime("today 1 sec ago");
             if (strtotime($song[0]['date']) < $yesterday_at_midnight) {
 
-                $dailyView->where('song_id', $request->songId)->update(['total_view' => 1, 'date' => now()]);
-
+                $dailyView->where('song_id', '=', $request->songId)->update(['total_view' => 1]);
+                $dailyView->where('song_id', '=', $request->songId)->date = now();
 //                return response()->json(['msg' => 'reset view hằng ngày và tăng 1 view hằng ngày']);
             } else {
-                $dailyView->where('song_id', $request->songId)->increment('total_view', 1);
-                $dailyView->where('song_id', $request->songId)->date = now();
+                $dailyView->where('song_id', '=', $request->songId)->increment('total_view', 1);
+                $dailyView->where('song_id', '=', $request->songId)->date = now();
                 $dailyView->save();
 //                return response()->json(['msg' => 'tăng view hằng ngày như bình thường']);
             }
