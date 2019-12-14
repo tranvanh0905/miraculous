@@ -116,6 +116,7 @@ class ArtistsController extends Controller
             $request->file('cover_image')->move('upload/image', $filename);
             $model->cover_image = "$path";
         }
+
         $model->save();
         return redirect()->route('artists.home')->with('status', 'Thêm ca sĩ thành công');
     }
@@ -153,6 +154,16 @@ class ArtistsController extends Controller
             $path = $request->file('cover_image')->storeAs('upload/image', $filename);
             $request->file('cover_image')->move('upload/image', $filename);
             $model->cover_image = "$path";
+        }
+        if ($request->all('status')['status'] !== null && $request->all('status')['status'] == 0) {
+            $artistSongDetail = ArtistSongDetail::where("artist_id", $artist_id)->get();
+            if ($artistSongDetail !== null) {
+                foreach ($artistSongDetail as $item) {
+                    $songs = Song::where("id", $item->song_id)->first();
+                    $songs->status = 0;
+                    $songs->save();
+                }
+            }
         }
         $model->save();
         return redirect()->route('artists.home')->with('status', 'Chỉnh sửa ca sĩ thành công');

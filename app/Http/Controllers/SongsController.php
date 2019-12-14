@@ -10,6 +10,7 @@ use App\Http\Requests\AddSong;
 use App\Http\Requests\EditSong;
 use App\Model_client\DailyViewSong;
 use App\Song;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -179,7 +180,7 @@ class SongsController extends Controller
         $model = new Song();
         $model->fill($request->all());
         $model->view = 0;
-        $model->upload_by_user_id = auth()->id();
+        $model->upload_by_user_id = User::where('role', 900)->first()->id;
         $model->album_id = 0;
         if ($request->hasFile('cover_image')) {
             // lấy tên gốc của ảnh
