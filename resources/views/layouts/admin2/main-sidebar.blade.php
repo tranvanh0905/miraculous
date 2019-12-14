@@ -14,7 +14,7 @@
                 <img src="{{url(\Illuminate\Support\Facades\Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->username}}</a>
+                <p  class="d-block">{{\Illuminate\Support\Facades\Auth::user()->username}}</p>
                 <a href="{{route('admin.logout')}}">Đăng xuất</a>
             </div>
         </div>

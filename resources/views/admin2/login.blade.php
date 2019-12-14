@@ -22,7 +22,7 @@
             <div class="col-sm-12">
 
                 <form class="md-float-material form-material" method="post">
-                @csrf
+                    @csrf
                     <div class="auth-box card">
                         <div class="card-block">
                             <div class="row m-b-20">
@@ -32,7 +32,7 @@
                             </div>
                             <p class="text-muted text-center p-b-5">Đăng nhập với tài khoản quản trị</p>
                             <div class="form-group form-primary">
-                                <input type="text" name="email" class="form-control" >
+                                <input type="text" name="email" class="form-control">
                                 <span class="form-bar"></span>
                                 <label class="float-label">Email</label>
                                 @if($errors->first('email'))
@@ -60,6 +60,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <p class="text-inverse text-left"><a href="{{route('client.home')}}">Trở về trang chủ</a></p>
 
                         </div>
                     </div>
