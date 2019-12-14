@@ -53,6 +53,7 @@ jQuery(document).ready(function ($) {
             songinPlayerID = $(this).data("jPlayer").status.media.id;
             $('#' + adonisPlayerContainer + ' .current-item .song-poster img').attr('src', Poster);
             $("#" + adonisPlayerID).find('img').attr('alt', '');
+
         });
 
         $(document).on('click', '#adonis-playlist .playlist-item .song-poster', function () {
@@ -66,6 +67,7 @@ jQuery(document).ready(function ($) {
         $("#" + adonisPlayerID).bind($.jPlayer.event.play + ".jp-repeat", function (event) {
             countSeek = 0;
             songId = $("#" + adonisPlayerID).data("jPlayer").status.media.id;
+            currentSongId = songId;
 
             setTimeout(function () {
                 currentIdInPlayer = [];
@@ -139,7 +141,6 @@ jQuery(document).ready(function ($) {
                     });
                 }, 500)
             }, 100);
-
 
             $('.drop-player').attr('data-songid', songId);
 
@@ -230,9 +231,6 @@ jQuery(document).ready(function ($) {
             if (typeof currentPlaylistId !== 'undefined') {
                 $("[data-album-id='" + currentPlaylistId + "']").addClass('jp-playing');
             }
-
-            //Lưu bài hát vào localstore
-            let media = $(this).data("jPlayer").status.media;
         });
 
         $('.adonis-mute-control').click(function () {
@@ -418,6 +416,7 @@ jQuery(document).ready(function ($) {
         $(document).on('click', '.adonis-album-button', function (e) {
             let type = $(this).attr('data-type');
             let albumId = parseInt($(this).attr('data-album-id'));
+
             //Nếu là bài hát
             if (type === "song") {
                 $.ajaxSetup({
@@ -448,6 +447,7 @@ jQuery(document).ready(function ($) {
                         if (albumId && typeof adonisAllPlaylists[albumId] !== 'undefined' && currentSongId !== albumId) {
                             adonisPlaylist.setPlaylist(adonisAllPlaylists[albumId]);
                             currentSongId = albumId;
+
 
                             // play or pause
                             if ($('#' + adonisPlayerID).data().jPlayer.status.paused) {
