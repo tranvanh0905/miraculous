@@ -87,6 +87,4 @@ input:checked + .slider:before {
 .song-suggest-player{
     padding: 0 40px;
 }
-.jp-playlist{
-    height: 200px!important;
-}
+

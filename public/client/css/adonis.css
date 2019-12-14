@@ -6621,7 +6621,7 @@ select.form-control:focus::-ms-value {
     }
 
     .adonis-playlist .jp-playlist {
-        overflow: initial !important
+        overflow: hidden!important
     }
 
     .adonis-playlist .player-details .jp-title {
