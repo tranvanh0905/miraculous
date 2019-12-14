@@ -146,12 +146,11 @@ class ClientPlayerController extends Controller
 
                 $dailyView->where('song_id', $request->songId)->update(['total_view' => 1, 'date' => now()]);
 
-
 //                return response()->json(['msg' => 'reset view hằng ngày và tăng 1 view hằng ngày']);
             } else {
                 $dailyView->where('song_id', $request->songId)->increment('total_view', 1);
-                $dailyView->date = now();
-
+                $dailyView->where('song_id', $request->songId)->date = now();
+                $dailyView->save();
 //                return response()->json(['msg' => 'tăng view hằng ngày như bình thường']);
             }
         } else {
