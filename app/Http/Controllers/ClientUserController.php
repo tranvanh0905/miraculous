@@ -33,21 +33,21 @@ class ClientUserController extends Controller
 
         $likedSong = Song::whereHas('userLikedSongs', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->get();
+        })->where('status', '=', 1)->limit(20)->get();
 
         $likedPlaylist = Playlist::whereHas('userLikedPlaylists', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->with('songs')->get();
+        })->where('status', '=', 1)->limit(20)->with('songs')->get();
 
 
         $likedAlbum = Album::whereHas('userLikedAlbums', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->with('artist')->get();
+        })->where('status', '=', 1)->limit(20)->with('artist')->get();
 
 
         $followArtist = Artist::whereHas('userFollows', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->get();
+        })->where('status', '=', 1)->limit(20)->get();
 
 
         return view('client.library.index', compact('likedSong', 'likedPlaylist', 'likedAlbum', 'followArtist'));
@@ -57,7 +57,7 @@ class ClientUserController extends Controller
     {
         $songLiked = Song::whereHas('userLikedSongs', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->paginate(30);
+        })->where('status', '=', 1)->paginate(30);
 
         return view('client.library.library-song', compact('songLiked'));
     }
@@ -66,7 +66,7 @@ class ClientUserController extends Controller
     {
         $likedAlbum = Album::whereHas('userLikedAlbums', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->with('artist')->paginate(30);
+        })->where('status', '=', 1)->with('artist')->paginate(30);
 
         return view('client.library.library-album', compact('likedAlbum'));
     }
@@ -75,7 +75,7 @@ class ClientUserController extends Controller
     {
         $likedPlaylist = Playlist::whereHas('userLikedPlaylists', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->with('songs')->paginate(30);
+        })->where('status', '=', 1)->with('songs')->paginate(30);
 
         return view('client.library.library-playlist', compact('likedPlaylist'));
     }
@@ -84,7 +84,7 @@ class ClientUserController extends Controller
     {
         $artistFollow = Artist::whereHas('userFollows', function ($query) {
             $query->where('users.id', '=', Auth::user()->id);
-        })->paginate(30);
+        })->where('status', '=', 1)->paginate(30);
 
         return view('client.library.library-artist', compact('artistFollow'));
     }
@@ -93,7 +93,7 @@ class ClientUserController extends Controller
     {
         $historySong = Song::whereHas('userHistorys', function ($query){
             $query->where('history.user_id', '=', Auth::user()->id);
-        })->paginate(20);
+        })->where('status', '=', 1)->paginate(20);
 
         return view('client.library.library-history', compact('historySong'));
     }

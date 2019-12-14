@@ -90,7 +90,7 @@ class ClientController extends Controller
 
 
         $mostView12 = Song::whereHas('dailyView', function ($query) {
-            $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'));
+            $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'))->orderBy('total_view');
         })->limit(10)->get();
 
         $historySelf = History::where('user_id', '=', $userId)->get();
