@@ -10,7 +10,7 @@
 |
 */
 
-Route::get('/', 'AdminController@index')->middleware('checkAdminLogin')->name('admin.home');
+Route::get('/', 'AdminController@index')->middleware('staffCheck')->middleware('checkAdminLogin')->name('admin.home');
 Route::get('/403', function () {
     return view('admin2.403');
 })->name('admin.403');
