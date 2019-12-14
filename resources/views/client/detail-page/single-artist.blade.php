@@ -24,13 +24,16 @@
                                     class="fas fa-users fa-1x"></i> {{number_format_short($singleArtist->follow)}}</span>
                             <span class="adonis-icon ml-3"><i class="fas fa-music fa-1x"></i> {{count($singleArtist->songs)}}</span>
                             <h4 class="font-weight- mt-3">{{$singleArtist->full_name}}</h4>
-                            <h6 class="inactive-color">{{$singleArtist->birthday}}</h6>
                         </div>
                     </div>
                     <div class="col-md-7 pt-3 pt-md-0">
                         <h3 class="mb-4">Giới thiệu</h3>
                         <div>
                             {!! $singleArtist->about !!}
+                            <h6 class="inactive-color">Ngày sinh: {{convertDate($singleArtist->birthday)}}</h6>
+                            @if($singleArtist->date_of_death != null)
+                                <h6 class="inactive-color">Ngày mất: {{convertDate($singleArtist->date_of_death)}}</h6>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -74,30 +77,31 @@
                                 ?>
                                 @foreach($singleArtist->songs  as $song)
                                     <?php $count_loop++ ?>
-                                        <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
-                                            <div class="img-box img-box-sm box-rounded-sm">
-                                                <img src="{{$song->cover_image}}" alt="{{$song->name}}">
-                                            </div>
-                                            <div class="des">
-                                                <h6 class="title fs-2"><a
-                                                        href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
-                                                </h6>
-                                                <p class="sub-title">
-                                                    @foreach($song->artists as $artist)
-                                                        <a href="{{route('singleArtist', ['artistId' => $artist->id])
-                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
-                                                    @endforeach
-                                                </p>
-                                            </div>
-                                            <div
-                                                class="hover-state d-flex justify-content-between align-items-center">
+                                    <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
+                                        <div class="img-box img-box-sm box-rounded-sm">
+                                            <img src="{{$song->cover_image}}" alt="{{$song->name}}">
+                                        </div>
+                                        <div class="des">
+                                            <h6 class="title fs-2"><a
+                                                    href="{{route('singleSong', ['songId' => $song->id])}}">{{$song->name}}</a>
+                                            </h6>
+                                            <p class="sub-title">
+                                                @foreach($song->artists as $artist)
+                                                    <a href="{{route('singleArtist', ['artistId' => $artist->id])
+                                                            }}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                                        , @endif
+                                                @endforeach
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="hover-state d-flex justify-content-between align-items-center">
                                                     <span
                                                         class="pointer play-btn-dark box-rounded-sm adonis-album-button"
                                                         data-type="song"
                                                         data-album-id="{{$song->id}}">
                                                          <i class="fas fa-play fs-19 text-light"></i>
                                                     </span>
-                                                <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
                                                         <span class="adonis-icon text-light pointer mr-2 icon-2x">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
                                                                 @if(!\App\Model_client\UserLikedSong::where('user_id', '=',\Illuminate\Support\Facades\Auth::user()->id)->where('song_id', '=', $song->id)->exists())
@@ -115,14 +119,16 @@
                                                                    data-id="{{$song->id}}"></i>
                                                                 </span>
                                                                 @endif
-                                                                <span class="pointer dropdown-menu-toggle" data-songid="{{$song->id}}">
-                                                                    <span class="icon-dot-nav-horizontal text-light"></span>
+                                                                <span class="pointer dropdown-menu-toggle"
+                                                                      data-songid="{{$song->id}}">
+                                                                    <span
+                                                                        class="icon-dot-nav-horizontal text-light"></span>
                                                                 </span>
                                                             @endif
                                                         </span>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
                                     @if($count_loop % 2==0)
                                         {!!$html!!}
                                     @endif
@@ -155,11 +161,14 @@
                                             <div class="hover-state">
                                                 <div class="absolute-bottom-left pl-e-20 pb-e-20">
                                                     <span class="pointer play-btn-dark round-btn adonis-album-button"
-                                                          data-type="album" data-album-id="{{$album->id}}"><i class="fas fa-play fs-21 text-light play-index"></i></span>
+                                                          data-type="album" data-album-id="{{$album->id}}"><i
+                                                            class="fas fa-play fs-21 text-light play-index"></i></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h5 class="title"><a href="{{route('singleAlbum', ['album_id' => $album->id])}}">{{$album->title}}</a></h5>
+                                        <h5 class="title"><a
+                                                href="{{route('singleAlbum', ['album_id' => $album->id])}}">{{$album->title}}</a>
+                                        </h5>
                                     </div>
                                 </div>
                             @endforeach

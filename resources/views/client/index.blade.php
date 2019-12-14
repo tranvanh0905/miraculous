@@ -10,8 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="yes" data-dots="yes">
+                    <div class="adonis-carousel" data-items="1" data-stagePadding="0" data-loop="yes" data-dots="yes" data-autoplay="yes">
                         <div class="owl-carousel owl-theme-adonis">
                             @foreach(getSlider() as $slider)
                                 <a href="{{url($slider->url)}}" class="box-img-slider">

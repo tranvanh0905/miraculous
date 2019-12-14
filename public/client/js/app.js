@@ -191,7 +191,8 @@ jQuery(document).ready(function ($) {
             $autoheight = typeof _el.attr('data-auto-height') !== 'undefined' && _el.attr('data-auto-height') == 'yes' ? true : false,
             $center = typeof _el.attr('data-center') !== 'undefined' && _el.attr('data-center') == 'yes' ? true : false,
             $lazyLoad = typeof _el.attr('data-lazy') !== 'undefined' && _el.attr('data-lazy') == 'no' ? false : true,
-            $stagePadding = typeof _el.attr('data-stagePadding') !== 'undefined' ? parseInt(_el.attr('data-stagePadding')) : 0;
+            $stagePadding = typeof _el.attr('data-stagePadding') !== 'undefined' ? parseInt(_el.attr('data-stagePadding')) : 0,
+            $autoPlay = typeof _el.attr('data-autoplay') !== 'undefined' && _el.attr('data-autoplay') == 'yes' ? true : false;
 
         var responsiveItemArr = adonisObj.parse_attributes(_responsiveItems), responsiveObj = {};
 
@@ -252,6 +253,7 @@ jQuery(document).ready(function ($) {
                 navText: [$navTextPrev, $navTextNext],
                 center: $center,
                 lazyLoad: $lazyLoad,
+                autoplay: $autoPlay,
                 onInitialized: owlonInitialized // initiated,
             });
 

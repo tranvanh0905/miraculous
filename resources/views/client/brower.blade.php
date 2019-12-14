@@ -48,12 +48,13 @@
                                                         </h6>
                                                         <p class="sub-title">
                                                             @foreach($song->artists as $artist)
-                                                                <a href="{{route('singleArtist', ['artistId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else , @endif
-                                                                @endforeach
-                                                                    </p>
-                                                                </div>
-                                                                <div
-                                                                    class=" hover-state d-flex justify-content-between
+                                                                <a href="{{route('singleArtist', ['artistId' => $artist->id])}}">{{$artist->nick_name}}</a> @if ($loop->last) @else
+                                                                    , @endif
+                                                            @endforeach
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class=" hover-state d-flex justify-content-between
                                                                    align-items-center">
                                                                 <span
                                                                     class="pointer play-btn-dark box-rounded-sm adonis-album-button"
@@ -118,12 +119,10 @@
                                         $html = '</div><div class="item">';
                                         ?>
                                         @if(count($suggestSong) == 0)
-                                            <div class="row">
-                                                <div class="col-12 text-center pt-3 mb-3 rounded update">
-                                                    <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
-                                                    <img src="{{url('client/images/loading.gif')}}" alt="loading"
-                                                         width="100px" height="auto">
-                                                </div>
+                                            <div class=" text-center pt-3 mb-3 rounded update">
+                                                <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                                                <img src="{{url('client/images/loading.gif')}}" alt="loading"
+                                                     width="100px" height="auto">
                                             </div>
                                         @else
                                             @foreach($suggestSong as $song)
@@ -194,7 +193,8 @@
                     <section>
                         <div class="d-flex flex-row">
                             <div class="title-box">
-                                <h3 class="title h3-md text-uppercase"><i class="fas fa-music"></i> Dựa trên ca sĩ bạn đã quan tâm</h3>
+                                <h3 class="title h3-md text-uppercase"><i class="fas fa-music"></i> Dựa trên ca sĩ bạn
+                                    đã quan tâm</h3>
                             </div>
                         </div>
                         <div class="adonis-carousel adonis-animate" data-animation="slideUp" data-animation-item=".item"
@@ -208,12 +208,10 @@
                                         $html = '</div><div class="item">';
                                         ?>
                                         @if(count($getSongOfArtistFollow) == 0)
-                                            <div class="row">
-                                                <div class="col-12 text-center pt-3 mb-3 rounded update">
-                                                    <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
-                                                    <img src="{{url('client/images/loading.gif')}}" alt="loading"
-                                                         width="100px" height="auto">
-                                                </div>
+                                            <div class="text-center pt-3 mb-3 rounded update">
+                                                <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                                                <img src="{{url('client/images/loading.gif')}}" alt="loading"
+                                                     width="100px" height="auto">
                                             </div>
                                         @else
                                             @foreach($getSongOfArtistFollow as $song)

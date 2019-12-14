@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="adonis-carousel" data-items="1" data-stagePadding="0"
-                         data-loop="yes" data-dots="yes">
+                         data-loop="yes" data-dots="yes" data-autoplay="yes">
                         <div class="owl-carousel owl-theme-adonis">
                             @foreach(getSlider() as $slider)
                                 <a href="{{url($slider->url)}}" class="box-img-slider">
@@ -21,9 +21,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-8">
                    <div class="row">
-                       <div class="col-lg-6">
+                       <div class="col-lg-12">
                            <div class="title-box ">
                                <h4 class="title h3 text-uppercase d-inline-block"><i class="fas fa-compact-disc"></i> Bảng xếp hạng Top 50 album</h4>
                            </div>
@@ -74,7 +74,7 @@
                                          data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" width="100%">
                                     <div
                                         class="absolute-info d-flex flex-column justify-content-between">
-                                        <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">Thể Loại
+                                        <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light"><i class="fas fa-boxes"></i> Thể Loại
                                         </div>
                                         <div>
                                             <h4 class="fs-7 m-0 text-light text-center"><span
@@ -84,7 +84,7 @@
                                         <div class="pb-3 pb-lg-4 pr-3 pr-lg-4 ml-auto">
                                             <a href="{{route('singleGenres', ['genresId' => $genres->id])}}"
                                                class="color-white">Xem thể loại<span
-                                                    class="adonis-icon pl-1 icon-arrow icon-1x"><i class="fas fa-arrow-right fs-19"></i></span>
+                                                    class="adonis-icon pl-1 icon-arrow icon-1x"> <i class="fas fa-arrow-right"></i></span>
                                             </a>
                                         </div>
                                     </div>

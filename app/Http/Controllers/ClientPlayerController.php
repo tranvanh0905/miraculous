@@ -24,7 +24,7 @@ class ClientPlayerController extends Controller
     public function getSong(Request $request)
     {
         $modelSong = new Song();
-        $song = $modelSong->where('id', '=', $request->songId)->with('artists')->get();
+        $song = $modelSong->where('id', '=', $request->songId)->where('status', '=', 1)->with('artists')->get();
 
         if ($song->isEmpty()) {
             return response()->json(['msgErrors' => 'Bài hát hiện tại bị lỗi, vui lòng thử lại !']);
@@ -90,9 +90,10 @@ class ClientPlayerController extends Controller
     public function getSongOfAlbum(Request $request)
     {
         $modelSong = new Song();
-        $songs = $modelSong->where('album_id', '=', $request->albumId)->get();
+        $songs = $modelSong->where('album_id', '=', $request->albumId)->where('status', '=', 1)->get();
+        $checkAlbum = Album::where('id', '=', $request->albumId)->where('status', '=', 1)->get();
 
-        if ($songs->isEmpty()) {
+        if ($songs->isEmpty() || $checkAlbum->isEmpty()) {
             return response()->json(['msgErrors' => 'Album hiện tại bị lỗi, vui lòng thử lại !']);
         } else {
             $data = $songs;

@@ -172,7 +172,7 @@ class ClientController extends Controller
     public function all($type)
     {
         if ($type == 'albums') {
-            $allAlbum = Album::orderBy('release_date', 'desc')->with('artist')->paginate(50);
+            $allAlbum = Album::where('status', '=', 1)->orderBy('release_date', 'desc')->with('artist')->paginate(50);
 
             return view('client.all', compact('allAlbum', 'type'));
         } else if ($type == 'playlists') {
@@ -206,7 +206,7 @@ class ClientController extends Controller
     public function singleSong($songId)
     {
 
-        $singleSong = Song::findOrFail($songId)->load('artists');
+        $singleSong = Song::where('status', '=', 1)->findOrFail($songId)->load('artists');
 
         $comment = Comment::where('song_id', '=', $songId)->where('status', '=', 1)->with('user')->orderBy('id', 'desc')->paginate(6);
 
@@ -250,7 +250,7 @@ class ClientController extends Controller
     public function singleAlbum($albumId)
     {
 
-        $singleAlbum = Album::findOrFail($albumId);
+        $singleAlbum = Album::where('status', '=', 1)->findOrFail($albumId);
 
         $songOfAlbum = Song::where('album_id', '=', $albumId)->where('status', '=', 1)->get();
 
@@ -266,7 +266,7 @@ class ClientController extends Controller
     public function singlePlaylist($playlistId)
     {
 
-        $singlePlaylist = Playlist::findOrFail($playlistId)->load(['songs' => function ($query) {
+        $singlePlaylist = Playlist::where('status', '=', 1)->findOrFail($playlistId)->load(['songs' => function ($query) {
             $query->where('status', '=', 1);
         }]);
 
@@ -281,7 +281,7 @@ class ClientController extends Controller
 
     public function singleGenres($genresId)
     {
-        $genres = Genres::findOrFail($genresId);
+        $genres = Genres::where('status', '=', 1)->findOrFail($genresId);
 
         $songOfGenres = Song::where('genres_id', '=', $genresId)->where('status', '=', 1)->paginate(42);
 

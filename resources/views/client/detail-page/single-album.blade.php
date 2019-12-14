@@ -20,8 +20,8 @@
                     </div>
                     <div class="pb-2 album-likes text-center">
                         <span class="adonis-icon pr-2 icon-2x"><i class="fas fa-heart fs-19"></i></span>
-                        <span class="pr-2 count-like-album"
-                              id="likeAlbum{{$singleAlbum->id}}">{{$singleAlbum->like}}</span>
+                        <span class="pr-2"
+                              id="likeAlbum{{$singleAlbum->id}}">{{number_format_short($singleAlbum->like)}}</span>
                     </div>
                     <div class="button-save-share pb-4 text-center">
                         @if(\Illuminate\Support\Facades\Auth::check())
@@ -41,7 +41,8 @@
                             @endif
                         @endif
 
-                        <button class="btn btn-primary share-album" data-toggle="modal" data-target="#exampleModalCenter2" data-id="{{$singleAlbum->id}}">
+                        <button class="btn btn-primary share-album" data-toggle="modal"
+                                data-target="#exampleModalCenter2" data-id="{{$singleAlbum->id}}">
                             <i class="fas fa-share-alt-square"></i> Chia sẻ
                         </button>
                     </div>
@@ -57,14 +58,14 @@
                     <div class="album-top-box text-center text-md-left">
                         <h6 class="inactive-color">ALBUM</h6>
                         <h1 class="album-title"> {{$singleAlbum->title}}</h1>
-                        <p class="mb-2">Trình bày: <a
+                        <p>Trình bày: <a
                                 href="{{route('singleArtist', ['artistId' => $singleAlbum->artist_id])}}">{{$singleAlbum->artist->nick_name}}</a>
                         </p>
                         <div class="separator mb-4 mt-4">
                             <span class="separator-md"></span>
                         </div>
                         <p class="mb-2">{{count($songOfAlbum)}} bài hát</p>
-                        <p class="mb-2">Ra mắt chính thức {{$singleAlbum->release_date}}</p>
+                        <p class="mb-2">Ra mắt chính thức {{convertDate($singleAlbum->release_date)}}</p>
                     </div>
 
                     <div class="tab-wrapper">
@@ -99,7 +100,7 @@
                                                         class="hover-hide hover-lg-show font-weight-bold">{{$song->genres->name}}</a>
                                                 </div>
                                                 <div class="item-tools">
-                                                    <span class="hover-hide" id="likeSong{{$song->id}}">{{number_format_short($song->like)}}
+                                                    <span class="hover-hide">{{number_format_short($song->like)}}
                                                         <i class="fas fa-heart fa-1x"></i></span>
                                                     <div class="hover-show d-flex flex-nowrap hover-tools">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
@@ -139,47 +140,57 @@
             <div class="more-items">
                 <div class="pt-e-20 pt-e-lg-40"></div>
                 <div class="title-box">
-                    <h3 class="title h3-md">Xem thêm album của {{$singleAlbum->artist->nick_name}}</h3>
+                    <h3 class="title h3-md"><i class="fas fa-compact-disc"></i> Xem thêm album của {{$singleAlbum->artist->nick_name}}</h3>
                 </div>
-                <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
-                     data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
-                     data-item-width="260" data-item-max-width="280">
-                    <div class="gutter-30">
-                        <div class="owl-carousel owl-theme-adonis">
-                            @foreach($relateAlbum as $album)
-                                <div class="item hover-bg-item">
-                                    <div class="music-img-box">
-                                        <div class="img-box box-rounded-sm">
-                                            <img class="retina"
-                                                 src="{{$album->cover_image}}"
-                                                 data-2x="{{$album->cover_image}}"
-                                                 alt="">
-                                            <div class="hover-state">
-                                                <div class="absolute-bottom-left pl-e-20 pb-e-20">
+                @if(count($relateAlbum) == 0)
+                    <div class="row">
+                        <div class="col-12 text-center pt-3 mb-3 rounded update">
+                            <h3 class="mb-0 text-light">Đang cập nhật album...</h3>
+                            <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px"
+                                 height="auto">
+                        </div>
+                    </div>
+                @else
+                    <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
+                         data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
+                         data-item-width="260" data-item-max-width="280">
+                        <div class="gutter-30">
+                            <div class="owl-carousel owl-theme-adonis">
+                                @foreach($relateAlbum as $album)
+                                    <div class="item hover-bg-item">
+                                        <div class="music-img-box">
+                                            <div class="img-box box-rounded-sm">
+                                                <img class="retina"
+                                                     src="{{$album->cover_image}}"
+                                                     data-2x="{{$album->cover_image}}"
+                                                     alt="">
+                                                <div class="hover-state">
+                                                    <div class="absolute-bottom-left pl-e-20 pb-e-20">
                                                         <span
                                                             class="pointer play-btn-dark round-btn adonis-album-button"
                                                             data-type="album"
                                                             data-album-id="{{$album->id}}"><i
                                                                 class="fas fa-play fs-21 text-light play-index"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <h6 class="title"><a
+                                                    href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
+                                            </h6>
+                                            <p class="sub-title category"><a
+                                                    href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
+                                            </p>
                                         </div>
-                                        <h6 class="title"><a
-                                                href="{{route('singleAlbum', ['albumId' => $album->id])}}">{{$album->title}}</a>
-                                        </h6>
-                                        <p class="sub-title category"><a
-                                                href="{{route('singleArtist', ['artistId' => $album->artist_id])}}">{{$album->artist->nick_name}}</a>
-                                        </p>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="more-items">
                 <div class="title-box">
-                    <h3 class="title h3-md">Album khác</h3>
+                    <h3 class="title h3-md"><i class="fas fa-compact-disc"></i> Album khác</h3>
                 </div>
                 <div class="adonis-carousel auto-fit-columns" data-auto-width="yes"
                      data-item-parent=".owl-carousel" data-auto-fit-items=".item" data-dots="yes"
