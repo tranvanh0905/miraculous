@@ -135,7 +135,6 @@ class ClientPlayerController extends Controller
     public function updateViewDaily(Request $request)
     {
         $dailyView = new DailyViewSong();
-dd($request->songId);
         $check = DailyViewSong::where('song_id', '=', $request->songId)->exists();
 
         if ($check) {
