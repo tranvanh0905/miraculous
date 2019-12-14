@@ -49,7 +49,7 @@ class Song extends Model
 
     public function dailyView()
     {
-        return $this->hasMany('App\Model_client\DailyViewSong');
+        return $this->hasOne('App\Model_client\DailyViewSong', 'song_id');
     }
 
 }

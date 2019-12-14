@@ -16,6 +16,6 @@ class DailyViewSong extends Model
 
     public function song()
     {
-        return $this->belongsTo('App\Song', 'song_id');
+        return $this->belongsTo('App\Model_client\Song');
     }
 }

@@ -53,7 +53,7 @@ class ClientController extends Controller
             ->get();
 
         $playLists->each(function ($q) {
-            $q->load(['getThreeSongs' => function($query){
+            $q->load(['getThreeSongs' => function ($query) {
                 $query->where('status', '=', 1);
             }]);
         });
@@ -88,11 +88,6 @@ class ClientController extends Controller
             $query->whereIn('artist_id', $allArtistFollow)->where('status', '=', 1);
         })->where('status', '=', 1)->whereNotIn('id', $allSongInHistory)->inRandomOrder()->limit(20)->get();
 
-
-        $mostView12 = Song::whereHas('dailyView', function ($query) {
-            $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'))->orderBy('total_view');
-        })->limit(10)->get();
-
         $historySelf = History::where('user_id', '=', $userId)->get();
 
         foreach ($historySelf as $song) {
@@ -124,13 +119,13 @@ class ClientController extends Controller
 //            ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(30)
 //            ->get();
 
-        $allPlaylist = Playlist::whereHas('user', function ($query){
-            $query->where('role', '>' , 700);
+        $allPlaylist = Playlist::whereHas('user', function ($query) {
+            $query->where('role', '>', 700);
         })->where('status', '=', 1)->orderBy('id', 'desc')->limit(50)->get();
 
         $allArtitst = Artist::orderBy('id', 'desc')->limit(30)->get();
 
-        return view('client.brower', compact('genres', 'mostView12', 'suggestSong', 'allSong', 'allAlbum', 'allPlaylist', 'allArtitst', 'getSongOfArtistFollow'));
+        return view('client.brower', compact('genres', 'suggestSong', 'allSong', 'allAlbum', 'allPlaylist', 'allArtitst', 'getSongOfArtistFollow'));
     }
 
     //Tất cả bảng xếp hạng
@@ -146,8 +141,8 @@ class ClientController extends Controller
 //            $query->where('status', '=', 1)->orderBy('view', 'desc')->limit(50);
 //        }])->get()->pluck('songs')->flatten();
 
-        $top50song = Song::whereHas('user', function ($query){
-            $query->where('role', '>' , 700);
+        $top50song = Song::whereHas('user', function ($query) {
+            $query->where('role', '>', 700);
         })->where('status', '=', 1)->orderBy('view', 'desc')->limit(50)->get();
 
         $allGenres = Genres::inRandomOrder()->limit(10)->get();
