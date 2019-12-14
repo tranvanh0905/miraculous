@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{url('client/icon/favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('client/icon/favicon-16x16.png')}}">
 
-    <link type="text/css" rel="stylesheet" href="{{url('client/css/adonis.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{url('client/css/adonis.css')}}"/>
 
 </head>
 
@@ -23,7 +23,12 @@
         </div>
         <h2>Dừng lại! Đã có lỗi xảy ra !!!</h2>
         <p>Bạn không đủ quyền truy cập vào phần này</p>
-        <a href="{{route('admin.home')}}">Trang chủ</a>
+        @if (\App\User::where("id", \Illuminate\Support\Facades\Auth::user()->id)->first()->role > 100)
+            <a href="{{route('admin.home')}}">Trang chủ</a>
+        @endif
+        @if (\App\User::where("id", \Illuminate\Support\Facades\Auth::user()->id)->first()->role == 100)
+            <a href="{{route('client.home')}}">Trang chủ</a>
+        @endif
     </div>
 </div>
 

@@ -7,6 +7,7 @@ use App\Genres;
 use App\Http\Requests\AddUserForm;
 use App\Http\Requests\UpdateUserForm;
 use App\Model_client\History;
+use App\Model_client\UserFollowDetail;
 use App\Model_client\UserLikedAlbum;
 use App\Model_client\UserLikedPlaylist;
 use App\Model_client\UserLikedSong;
@@ -142,6 +143,7 @@ class UsersController extends Controller
         $user_liked_albums = UserLikedAlbum::where('user_id', $user_id)->get();
         $user_liked_playlist = UserLikedPlaylist::where('user_id', $user_id)->get();
         $user_liked_song = UserLikedSong::where('user_id', $user_id)->get();
+        $user_follow = UserFollowDetail::where("user_id", $user_id)->get();
         if ($playlist !== null) {
             foreach ($playlist as $item4) {
                 $playlist_detail = PlaylistDetail::where('playlist_id', $item4->id);
@@ -149,6 +151,11 @@ class UsersController extends Controller
                     $playlist_detail->delete();
 
                 }
+            }
+        }
+        if ($user_follow !== null) {
+            foreach ($user_follow as $item12) {
+                $item12->delete();
             }
         }
         if ($playlist !== null) {
