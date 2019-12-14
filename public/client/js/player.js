@@ -654,6 +654,26 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $(document).on('click', '#auto-play-suggest', function () {
+        if ($('#auto-play-suggest:checkbox:checked').length > 0) {
+            if ($("#" + adonisPlayerID).data("jPlayer").options.loop === true) {
+                $('#repeat-button').trigger("click");
+            }
+        } else {
+            if ($("#" + adonisPlayerID).data("jPlayer").options.loop === false) {
+                $('#repeat-button').trigger("click");
+            }
+        }
+    });
+
+    $(document).on('click', '.jp-repeat', function () {
+        if ($("#" + adonisPlayerID).data("jPlayer").options.loop) {
+            $('#auto-play-suggest').prop('checked', false);
+        } else {
+            $('#auto-play-suggest').prop('checked', true);
+        }
+    });
+
     $(document).on('click', '.add-next', function () {
         let songId = parseInt($(this).attr('data-id'));
         $.ajaxSetup({

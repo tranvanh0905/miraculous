@@ -22,7 +22,7 @@
                     <div class="pb-2 album-likes text-center">
                         <span class="adonis-icon pr-2 icon-2x"><i class="fas fa-heart fs-19"></i>
                         </span>
-                        <span class="pr-2 count-like-playlist">{{$singlePlaylist->like}}</span>
+                        <span class="pr-2">{{number_format_short($singlePlaylist->like)}}</span>
                     </div>
                     <div class="button-save-share pb-4 text-center">
                         @if(\Illuminate\Support\Facades\Auth::check())
@@ -88,7 +88,7 @@
                                                         class="hover-hide hover-lg-show">{{$song->genres->name}}</a>
                                                 </div>
                                                 <div class="item-tools">
-                                                    <span class="hover-hide" id="likeSong{{$song->id}}">{{$song->like}} <i class="fas fa-heart fa-1x"></i></span>
+                                                    <span class="hover-hide">{{number_format_short($song->like)}} <i class="fas fa-heart fa-1x"></i></span>
                                                     <div class="hover-show d-flex flex-nowrap hover-tools">
                                                         @if(\Illuminate\Support\Facades\Auth::check())
                                                             @if(count(\App\Model_client\UserLikedSong::where

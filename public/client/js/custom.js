@@ -516,10 +516,10 @@ $(document).on('click', '.btn-submit', function () {
             print_err.find('p').remove();
             let html = '<li class="list-group-item">' +
                 '<div class="row">' +
-                '<div class="col-xs-2 col-md-2">' +
+                '<div class="col-3 col-md-3 col-xl-2">' +
                 '<img src="' + useravatar + '" class="rounded-circle img-responsive" alt="' + username + '"/>' +
                 '</div>' +
-                '<div class="col-xs-10 col-md-10">' +
+                '<div class="col-9 col-md-9 col-xl-10 ">' +
                 '<div>' +
                 '<div class="mic-info font-weight-bold">Đăng bởi: ' + username + ' - vừa xong </div>' +
                 '</div>' +

@@ -234,7 +234,7 @@
                                      class="img-genres">
                                 <div
                                     class="absolute-info d-flex flex-column justify-content-between">
-                                    <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light">Thể Loại
+                                    <div class="pt-3 pt-lg-4 pl-3 pl-lg-4 h5 text-light"><i class="fas fa-boxes"></i> Thể Loại
                                     </div>
                                     <div>
                                         <h4 class="fs-7 m-0 text-light text-center"><span

@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-lg-8">
                    <div class="row">
                        <div class="col-lg-12">
                            <div class="title-box ">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="row">
                         @foreach($allGenres as $genres)
-                            <div class="item col-12 mb-3 pr-0">
+                            <div class="item col-12 mb-3">
                                 <div class="img-box-text-over lg box-rounded-lg">
                                     <img src="{{$genres->image}}"
                                          data-2x="{{$genres->image}}" alt="{{$genres->name}}" height="155" width="100%">

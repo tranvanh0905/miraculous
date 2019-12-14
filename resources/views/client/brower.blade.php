@@ -17,25 +17,24 @@
                                     trong 12h qua</h3>
                             </div>
                         </div>
-                        <div class="adonis-carousel adonis-animate" data-animation="slideUp" data-animation-item=".item"
-                             data-auto-width="no" data-loop="no" data-dots="yes"
-                             data-items-responsive="0:1|600:2|900:2|1200:2|1500:3">
-                            <div class="gutter-30">
-                                <div class="owl-carousel owl-theme-adonis">
-                                    <div class="item">
-                                        <?php
-                                        $count_loop = 0;
-                                        $html = '</div><div class="item">';
-                                        ?>
-                                        @if(count($mostView12) == 0)
-                                            <div class="row">
-                                                <div class="col-12 text-center pt-3 mb-3 rounded update">
-                                                    <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
-                                                    <img src="{{url('client/images/loading.gif')}}" alt="loading"
-                                                         width="100px" height="auto">
-                                                </div>
-                                            </div>
-                                        @else
+                        @if(count($mostView12) == 0)
+                                <div class="text-center pt-3 mb-3 rounded update">
+                                    <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                                    <img src="{{url('client/images/loading.gif')}}" alt="loading"
+                                         width="100px" height="auto">
+                                </div>
+                        @else
+                            <div class="adonis-carousel adonis-animate" data-animation="slideUp"
+                                 data-animation-item=".item"
+                                 data-auto-width="no" data-loop="no" data-dots="yes"
+                                 data-items-responsive="0:1|600:2|900:2|1200:2|1500:3">
+                                <div class="gutter-30">
+                                    <div class="owl-carousel owl-theme-adonis">
+                                        <div class="item">
+                                            <?php
+                                            $count_loop = 0;
+                                            $html = '</div><div class="item">';
+                                            ?>
                                             @foreach($mostView12 as $song)
                                                 <?php $count_loop++;?>
                                                 <div class="img-box-horizontal music-img-box h-g-bg h-d-shadow">
@@ -94,11 +93,12 @@
                                                     {!!$html!!}
                                                 @endif
                                             @endforeach
-                                        @endif
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </section>
 
                     <section>
@@ -595,7 +595,7 @@
                             </div>
                         @else
                             @foreach($genres as $genre)
-                                <div class="item col-12 mb-3">
+                                <div class="item mb-3">
                                     <div class="img-box-text-over lg box-rounded-lg genres-brower">
                                         <img src="{{url($genre->image)}}" data-2x="{{url($genre->image)}}"
                                              alt="{{$genre->name}}" class="img-genres">

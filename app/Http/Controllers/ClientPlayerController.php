@@ -142,12 +142,10 @@ class ClientPlayerController extends Controller
             $song = $dailyView->where('song_id', $request->songId)->get();
 
             $yesterday_at_midnight = strtotime("today 1 sec ago");
-
             if (strtotime($song[0]['date']) < $yesterday_at_midnight) {
 
-                $dailyView->where('song_id', $request->songId)->update(['total_view' => 1]);
+                $dailyView->where('song_id', $request->songId)->update(['total_view' => 1, 'date' => now()]);
 
-                $dailyView->date = now();
 
 //                return response()->json(['msg' => 'reset view hằng ngày và tăng 1 view hằng ngày']);
             } else {

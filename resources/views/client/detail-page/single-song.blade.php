@@ -314,8 +314,7 @@
                     <div class="widget mb-3">
                         <div class="d-flex justify-content-between inactive-colored-links">
                             <h3 class="widget-title h3-md text-uppercase"><i class="fas fa-boxes"></i> Thể loại</h3>
-                            <a href="{{route('all', ['type' => 'genres'])}}" class="inactive-color mt-2">Xem tất cả <i
-                                    class="fas fa-arrow-right"></i> </a>
+                            <a href="{{route('all', ['type' => 'genres'])}}" class="inactive-color mt-2">Xem tất cả <i class="fas fa-arrow-right"></i> </a>
                         </div>
                         <div class="tagcloud">
                             @foreach($genres as $genre)
@@ -327,7 +326,7 @@
                         <div class="d-flex justify-content-between inactive-colored-links">
                             <h3 class="widget-title text-uppercase h3-md"><i class="fas fa-users"></i> Ca sĩ nổi bật
                             </h3>
-                            <a href="{{route('all', ['type' => 'artists'])}}" class="inactive-color mt-2">Xem tất cả</a>
+                            <a href="{{route('all', ['type' => 'artists'])}}" class="inactive-color mt-2">Xem tất cả  <i class="fas fa-arrow-right"></i></a>
                         </div>
                         @foreach($artists as $artist)
                             <div class="media img-box-horizontal follower-box">

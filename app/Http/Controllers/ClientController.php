@@ -91,7 +91,7 @@ class ClientController extends Controller
 
         $mostView12 = Song::whereHas('dailyView', function ($query) {
             $query->where('daily_views.date', '>=', DB::raw('DATE_SUB(NOW(),INTERVAL 12 HOUR)'));
-        })->get();
+        })->limit(10)->get();
 
         $historySelf = History::where('user_id', '=', $userId)->get();
 
@@ -119,10 +119,14 @@ class ClientController extends Controller
 
         $allAlbum = Album::orderBy('release_date', 'desc')->limit(30)->get();
 
-        $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
-            ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
-            ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(30)
-            ->get();;
+//        $allPlaylist = Playlist::select('playlists.*', 'users.id as user_id', 'users.role')
+//            ->join('users', 'playlists.upload_by_user_id', '=', 'users.id')
+//            ->where('users.role', '>', 700)->orderBy('id', 'desc')->where('playlists.status', '=', 1)->limit(30)
+//            ->get();
+
+        $allPlaylist = Playlist::whereHas('user', function ($query){
+            $query->where('role', '>' , 700);
+        })->where('status', '=', 1)->orderBy('id', 'desc')->limit(50)->get();
 
         $allArtitst = Artist::orderBy('id', 'desc')->limit(30)->get();
 
@@ -138,10 +142,13 @@ class ClientController extends Controller
     //Bảng xếp hạng bài hát
     public function chartSong()
     {
+//        $top50song = User::where('role', '>', 700)->with(['songs' => function ($query) {
+//            $query->where('status', '=', 1)->orderBy('view', 'desc')->limit(50);
+//        }])->get()->pluck('songs')->flatten();
 
-        $top50song = User::where('role', '>', 700)->with(['songs' => function ($query) {
-            $query->where('status', '=', 1)->orderBy('view', 'desc')->limit(50);
-        }])->get()->pluck('songs')->flatten();
+        $top50song = Song::whereHas('user', function ($query){
+            $query->where('role', '>' , 700);
+        })->where('status', '=', 1)->orderBy('view', 'desc')->limit(50)->get();
 
         $allGenres = Genres::inRandomOrder()->limit(10)->get();
 

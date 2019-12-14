@@ -16,12 +16,10 @@
                 {!! $genres->description !!}
                 <hr class="w-100 mt-0">
                 @if(count($songOfGenres) == 0)
-                    <div class="row">
-                        <div class="col-12 text-center pt-3 mb-3 rounded update">
-                            <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
-                            <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px"
-                                 height="auto">
-                        </div>
+                    <div class="text-center pt-3 mb-3 rounded update">
+                        <h3 class="mb-0 text-light">Đang cập nhật bài hát...</h3>
+                        <img src="{{url('client/images/loading.gif')}}" alt="loading" width="100px"
+                             height="auto">
                     </div>
                 @else
                     <div class="row auto-fit-columns adonis-animate" data-animation="slideUp"
